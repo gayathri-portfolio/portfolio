@@ -4,7 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>portfolio</title>
+    <meta name="description" content="Gayathri V — Product Designer. Case studies in UltraGym Pro's on-device interface and the UltraGym companion app, plus selected work in ridesharing, ecommerce and smart fitness." />
+    <meta name="theme-color" content="#0c0b09" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#faf6ee" media="(prefers-color-scheme: light)" />
+    <title>Gayathri V — Product Designer</title>
+    <script>
+      (function () {
+        try {
+          var stored = localStorage.getItem('gv-theme');
+          var theme = stored === 'light' || stored === 'dark'
+            ? stored
+            : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
