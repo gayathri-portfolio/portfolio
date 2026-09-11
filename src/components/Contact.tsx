@@ -48,7 +48,7 @@ export function Contact() {
           <button
             type="button"
             onClick={() => copy(EMAIL, 'email')}
-            className="group flex items-center justify-between gap-3 rounded-full border border-border bg-surface px-5 py-3 text-sm text-text transition-colors hover:border-border-strong"
+            className="glass group flex items-center justify-between gap-3 rounded-full px-5 py-3 text-sm text-text transition-transform hover:scale-[1.02]"
           >
             <span className="flex items-center gap-2">
               <Mail className="h-4 w-4 text-text-muted" />
@@ -63,7 +63,7 @@ export function Contact() {
           <button
             type="button"
             onClick={() => copy(PHONE, 'phone')}
-            className="group flex items-center justify-between gap-3 rounded-full border border-border bg-surface px-5 py-3 text-sm text-text transition-colors hover:border-border-strong"
+            className="glass group flex items-center justify-between gap-3 rounded-full px-5 py-3 text-sm text-text transition-transform hover:scale-[1.02]"
           >
             <span className="flex items-center gap-2">
               <Phone className="h-4 w-4 text-text-muted" />

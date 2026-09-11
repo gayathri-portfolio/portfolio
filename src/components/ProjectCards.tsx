@@ -13,7 +13,7 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
     >
       <Link
         to={`/work/${project.slug}`}
-        className="group grid overflow-hidden rounded-3xl border border-border bg-surface transition-colors hover:border-border-strong sm:grid-cols-2"
+        className="group grid overflow-hidden rounded-3xl border border-border transition-colors hover:border-border-strong sm:grid-cols-2"
       >
         <div className="relative aspect-[4/3] overflow-hidden bg-bg-elevated sm:aspect-auto">
           <img
@@ -22,12 +22,12 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
           />
-          <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white backdrop-blur-sm">
+          <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white backdrop-blur-md">
             Case Study
           </div>
         </div>
 
-        <div className="flex flex-col justify-center p-7 sm:p-10">
+        <div className="glass-strong flex flex-col justify-center p-7 sm:p-10">
           <div className="mb-3 flex flex-wrap gap-2">
             {project.tags.map((tag) => (
               <span key={tag} className="rounded-full bg-bg-elevated px-2.5 py-1 text-xs text-text-muted">
@@ -60,7 +60,7 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group flex flex-col justify-between rounded-2xl border border-border bg-surface p-6 transition-colors hover:border-border-strong hover:bg-surface-hover"
+      className="glass group flex flex-col justify-between rounded-2xl p-6 transition-transform hover:-translate-y-1"
     >
       <div className="flex items-start justify-between">
         <div>

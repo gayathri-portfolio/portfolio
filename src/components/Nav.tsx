@@ -41,7 +41,7 @@ export function Nav() {
 
       {/* primary nav, docked bottom-center */}
       <nav className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <div className="flex items-center gap-1 rounded-full border border-border bg-bg-elevated/90 p-1.5 shadow-[0_12px_32px_-12px_rgba(24,20,10,0.25)] backdrop-blur-md">
+        <div className="glass flex items-center gap-1 rounded-full p-1.5">
           {links.map((l) => {
             const linkHash = l.external ? null : l.href.slice(1) // "#top" | "#work" | "#journey"
             const isActive =
@@ -52,7 +52,7 @@ export function Nav() {
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full px-4 py-2 text-sm text-text-muted transition-colors hover:bg-surface-hover hover:text-text"
+                className="rounded-full px-4 py-2 text-sm text-text-muted transition-colors hover:bg-text/8 hover:text-text"
               >
                 {l.label}
               </a>
@@ -60,8 +60,8 @@ export function Nav() {
               <Link
                 key={l.label}
                 to={l.href}
-                className={`rounded-full px-4 py-2 text-sm transition-colors hover:bg-surface-hover hover:text-text ${
-                  isActive ? 'bg-surface text-text' : 'text-text-muted'
+                className={`rounded-full px-4 py-2 text-sm transition-colors hover:bg-text/8 hover:text-text ${
+                  isActive ? 'bg-text/8 text-text' : 'text-text-muted'
                 }`}
               >
                 {l.label}

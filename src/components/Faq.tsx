@@ -6,13 +6,16 @@ import { cn } from '../lib/cn'
 
 export function Faq() {
   return (
-    <section className="mx-auto max-w-3xl px-5 py-24 sm:py-32">
-      <SectionLabel className="justify-center">FAQ</SectionLabel>
-      <h2 className="mt-4 text-center font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-        Questions people actually ask
-      </h2>
+    <section className="relative overflow-hidden px-5 py-24 sm:py-32">
+      <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 translate-x-1/3 rounded-full bg-accent/10 blur-3xl" />
 
-      <AccordionPrimitive.Root type="single" collapsible className="mt-12 divide-y divide-border border-y border-border">
+      <div className="relative mx-auto max-w-3xl">
+        <SectionLabel className="justify-center">FAQ</SectionLabel>
+        <h2 className="mt-4 text-center font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+          Questions people actually ask
+        </h2>
+
+        <AccordionPrimitive.Root type="single" collapsible className="glass-strong mt-12 divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
         {faqs.map((item, i) => (
           <AccordionPrimitive.Item key={i} value={`item-${i}`} className="py-1">
             <AccordionPrimitive.Header>
@@ -30,7 +33,8 @@ export function Faq() {
             </AccordionPrimitive.Content>
           </AccordionPrimitive.Item>
         ))}
-      </AccordionPrimitive.Root>
+        </AccordionPrimitive.Root>
+      </div>
     </section>
   )
 }

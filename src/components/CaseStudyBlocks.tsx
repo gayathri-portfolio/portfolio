@@ -25,7 +25,7 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'callout':
       return (
         <Reveal>
-          <div className="rounded-2xl border border-accent/25 bg-accent-soft/60 p-6">
+          <div className="rounded-2xl border border-accent/25 bg-accent-soft/60 p-6 backdrop-blur-md">
             <p className="mb-2 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-accent">
               <PawIcon className="h-3.5 w-3.5" />
               {block.label}
@@ -49,7 +49,7 @@ export function BlockRenderer({ block }: { block: Block }) {
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
             {block.items.map((item, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-surface p-5">
+              <div key={i} className="glass rounded-2xl p-5">
                 <span className="text-2xl">{item.icon}</span>
                 <h4 className="mt-3 font-display text-base font-semibold text-text">{item.title}</h4>
                 <p className="mt-1.5 text-sm text-text-muted">{item.text}</p>
@@ -77,7 +77,7 @@ export function BlockRenderer({ block }: { block: Block }) {
       return (
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-2xl border border-border bg-surface p-5">
+            <div className="glass rounded-2xl p-5">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-text-faint">Before</p>
               <ul className="space-y-2.5">
                 {block.before.map((item, i) => (
@@ -88,7 +88,7 @@ export function BlockRenderer({ block }: { block: Block }) {
                 ))}
               </ul>
             </div>
-            <div className="rounded-2xl border border-accent/30 bg-accent-soft/40 p-5">
+            <div className="rounded-2xl border border-accent/30 bg-accent-soft/40 p-5 backdrop-blur-md">
               <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-accent">After</p>
               <ul className="space-y-2.5">
                 {block.after.map((item, i) => (
@@ -122,7 +122,7 @@ export function BlockRenderer({ block }: { block: Block }) {
         <Reveal>
           <div className="grid gap-4 sm:grid-cols-3">
             {block.items.map((item, i) => (
-              <div key={i} className="rounded-2xl border border-border bg-surface p-5 text-center">
+              <div key={i} className="glass rounded-2xl p-5 text-center">
                 <p className="font-display text-3xl font-semibold text-accent">{item.value}</p>
                 <p className="mt-1 text-sm text-text-muted">{item.label}</p>
               </div>

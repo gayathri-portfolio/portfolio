@@ -62,7 +62,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-10 grid gap-6 rounded-2xl border border-border bg-surface p-6 sm:grid-cols-3"
+            className="glass-strong mt-10 grid gap-6 rounded-2xl p-6 sm:grid-cols-3"
           >
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">Role</p>
@@ -114,7 +114,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
           </section>
         ))}
 
-        <section className="space-y-6 rounded-3xl border border-border bg-surface p-8 sm:p-10">
+        <section className="glass-strong space-y-6 rounded-3xl p-8 sm:p-10">
           <div className="flex h-11 w-11 items-center justify-center rounded-full bg-accent text-bg-elevated">
             <PawIcon className="h-5 w-5" />
           </div>
