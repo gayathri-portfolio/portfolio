@@ -1,7 +1,8 @@
 import { motion } from 'framer-motion'
-import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { HeroPortrait } from './HeroPortrait'
 import { PawIcon } from './PawIcon'
+import { RotatingWord } from './RotatingWord'
+import { HoverLetters } from './HoverLetters'
 
 export function Hero() {
   return (
@@ -10,77 +11,42 @@ export function Hero() {
       <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
 
-      <div className="mx-auto grid max-w-6xl items-center gap-14 px-5 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="glass mb-6 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-medium text-text-muted"
-          >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent-2" />
-            </span>
-            Available for work
-          </motion.div>
+      <div className="relative mx-auto max-w-6xl px-5">
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="font-serif text-xl italic text-accent"
+        >
+          Hi, I'm Gayathri
+        </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.05 }}
-            className="font-serif text-xl italic text-accent"
-          >
-            Hi, I'm Gayathri
-          </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="mt-2 font-display text-[clamp(1.9rem,calc(8vw-0.2rem),5.2rem)] font-semibold leading-[0.95] tracking-tight text-text"
+        >
+          <HoverLetters text="Product Designer" />
+          <br />
+          <HoverLetters text="who" /> <RotatingWord />
+        </motion.h1>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="mt-2 font-display text-[clamp(2.6rem,8vw,5.2rem)] font-semibold leading-[0.95] tracking-tight text-text"
-          >
-            Product
-            <br />
-            Designer
-          </motion.h1>
-
+        <div className="mt-12 grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
           <motion.p
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="mt-6 max-w-md text-lg text-text-muted"
+            className="max-w-md text-lg text-text-muted"
           >
             Background in architecture, now crafting intuitive interfaces and
             meaningful user experiences — one careful interaction at a time.
           </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mt-9 flex flex-wrap items-center gap-3"
-          >
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2 rounded-full bg-text px-6 py-3 text-sm font-medium text-bg transition-transform hover:scale-[1.03]"
-            >
-              Explore Projects
-              <ArrowDown className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
-            </a>
-            <a
-              href="#contact"
-              className="glass group inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium text-text transition-transform hover:scale-[1.03]"
-            >
-              Let's Connect
-              <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </a>
-          </motion.div>
-        </div>
-
-        <div className="relative flex justify-center lg:justify-end">
-          <HeroPortrait />
-          <FloatingPaws />
+          <div className="relative flex justify-center lg:justify-end">
+            <HeroPortrait />
+            <FloatingPaws />
+          </div>
         </div>
       </div>
     </section>
