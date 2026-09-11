@@ -14,9 +14,9 @@ export function Intro() {
   })
 
   return (
-    <section className="mx-auto max-w-4xl px-5 py-24 sm:py-32">
-      <SectionLabel className="justify-center">INTRO</SectionLabel>
-      <p ref={ref} className="mt-8 text-center font-display text-2xl font-medium leading-snug tracking-tight sm:text-4xl">
+    <section className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
+      <SectionLabel>INTRO</SectionLabel>
+      <p ref={ref} className="mt-8 max-w-3xl font-display text-2xl font-medium leading-snug tracking-tight sm:text-4xl">
         {words.map((word, i) => {
           const start = i / words.length
           const end = start + 1 / words.length

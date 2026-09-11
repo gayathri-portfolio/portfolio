@@ -5,8 +5,8 @@ import { caseStudies, externalProjects } from '../data/projects'
 export function SelectedWork() {
   return (
     <section id="work" className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
-      <div className="mx-auto max-w-2xl text-center">
-        <SectionLabel className="justify-center">SELECTED WORK</SectionLabel>
+      <div className="max-w-2xl">
+        <SectionLabel>SELECTED WORK</SectionLabel>
         <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
           Projects focused on clarity &amp; interaction
         </h2>

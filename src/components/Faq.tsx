@@ -10,8 +10,8 @@ export function Faq() {
       <div className="pointer-events-none absolute right-0 top-10 h-72 w-72 translate-x-1/3 rounded-full bg-accent/10 blur-3xl" />
 
       <div className="relative mx-auto max-w-3xl">
-        <SectionLabel className="justify-center">FAQ</SectionLabel>
-        <h2 className="mt-4 text-center font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+        <SectionLabel>FAQ</SectionLabel>
+        <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
           Questions people actually ask
         </h2>
 

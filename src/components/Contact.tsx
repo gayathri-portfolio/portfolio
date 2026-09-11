@@ -24,15 +24,15 @@ export function Contact() {
     <section id="contact" className="relative overflow-hidden px-5 py-24 sm:py-32">
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[900px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-3xl text-center">
-        <SectionLabel className="justify-center">LET'S CONNECT</SectionLabel>
+      <div className="relative mx-auto max-w-3xl">
+        <SectionLabel>LET'S CONNECT</SectionLabel>
 
         <motion.div
           initial={{ opacity: 0, scale: 0.9, rotate: -6 }}
           whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mx-auto mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-bg-elevated"
+          className="mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-bg-elevated"
         >
           <PawIcon className="h-7 w-7" />
         </motion.div>
@@ -40,11 +40,11 @@ export function Contact() {
         <h2 className="mt-6 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
           The next station is…
         </h2>
-        <p className="mx-auto mt-4 max-w-md text-text-muted">
+        <p className="mt-4 max-w-md text-text-muted">
           Available now for new roles and collaborations. Reach out — I usually reply within a day.
         </p>
 
-        <div className="mx-auto mt-10 flex max-w-md flex-col gap-3 sm:flex-row sm:justify-center">
+        <div className="mt-10 flex max-w-md flex-col gap-3 sm:flex-row">
           <button
             type="button"
             onClick={() => copy(EMAIL, 'email')}
