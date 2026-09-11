@@ -2,7 +2,7 @@ import { PawIcon } from './PawIcon'
 
 export function Footer() {
   return (
-    <footer className="border-t border-border px-5 py-10">
+    <footer className="border-t border-border px-5 pb-28 pt-10">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 text-sm text-text-faint sm:flex-row">
         <div className="flex items-center gap-2">
           <PawIcon className="h-3.5 w-3.5" />
