@@ -4,7 +4,9 @@ import { motion, useSpring } from 'framer-motion'
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor-pointer]'
 
-const REST_ANGLE = 90 // tail hanging straight down, i.e. gravity's resting pose
+// the tail path is authored pointing straight down already, so 0deg IS the
+// vertical, gravity-resting pose — movement adds/removes swing around it
+const REST_ANGLE = 0
 const IDLE_MS = 180 // how long the pointer must sit still before the tail settles back down
 
 // --- yarn ball thread field -------------------------------------------------
@@ -67,7 +69,11 @@ function buildBlob(seed: number, pointCount = 11, jitter = 1.3) {
   const rand = mulberry32(seed)
   const points: [number, number][] = []
   for (let i = 0; i < pointCount; i++) {
-    const angle = (i / pointCount) * Math.PI * 2
+    // phase-shifted so index 0 lands exactly on bottom-middle (90°) — the tail
+    // anchors to points[0], so it hangs from dead center, not wherever a random
+    // vertex happens to land. Every point still only jitters in radius, so the
+    // angular spacing (and therefore the outline's winding order) stays intact.
+    const angle = Math.PI / 2 + (i / pointCount) * Math.PI * 2
     const r = BALL_RADIUS + (rand() - 0.5) * 2 * jitter
     points.push([BALL_CENTER + r * Math.cos(angle), BALL_CENTER + r * Math.sin(angle)])
   }
@@ -91,16 +97,10 @@ const BLOB = buildBlob(7)
 const BLOB_PATH = BLOB.path
 
 // the tail must start exactly ON the blob's rendered outline, not on an idealized
-// circle — otherwise the jitter that makes the ball lumpy leaves a visible gap
-// between the ball and the tail. Pick the blob's own vertex nearest the bottom
-// (an actual point on the path, not an interpolated curve position) and anchor
-// the tail there.
-const TAIL_POINT_INDEX = BLOB.points.reduce((best, p, i) => {
-  const angle = Math.atan2(p[1] - BALL_CENTER, p[0] - BALL_CENTER)
-  const bestAngle = Math.atan2(BLOB.points[best][1] - BALL_CENTER, BLOB.points[best][0] - BALL_CENTER)
-  return Math.abs(angle - Math.PI / 2) < Math.abs(bestAngle - Math.PI / 2) ? i : best
-}, 0)
-const TAIL_ANCHOR = { x: BLOB.points[TAIL_POINT_INDEX][0], y: BLOB.points[TAIL_POINT_INDEX][1] }
+// circle — otherwise the jitter that makes the ball lumpy leaves a visible gap.
+// points[0] is phase-locked to true bottom-middle (see buildBlob), so anchoring
+// there guarantees both: a real point on the outline, and dead-center placement.
+const TAIL_ANCHOR = { x: BLOB.points[0][0], y: BLOB.points[0][1] }
 
 interface Strand {
   d: string
@@ -134,9 +134,9 @@ const STRANDS = buildStrands(99, 42)
 const TAIL_INNER_D = chordBetween(pointOnBall(Math.PI * 1.18), [TAIL_ANCHOR.x, TAIL_ANCHOR.y], 5.5)
 const TAIL_COLOR = '#e0607a'
 const TAIL_WIDTH = 2
-// a longer, S-curved strand that curls at the tip — reads as an actual dangling
-// tail rather than a short stub
-const TAIL_OUTER_D = `M${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y} Q${TAIL_ANCHOR.x + 4} ${TAIL_ANCHOR.y + 5} ${TAIL_ANCHOR.x + 0.5} ${TAIL_ANCHOR.y + 10} Q${TAIL_ANCHOR.x - 2} ${TAIL_ANCHOR.y + 13.5} ${TAIL_ANCHOR.x + 2} ${TAIL_ANCHOR.y + 15.5}`
+// hangs essentially straight down (small lateral wobble, not a wide swoop) with
+// a slight curl right at the very tip — reads as a vertical dangling tail
+const TAIL_OUTER_D = `M${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y} Q${TAIL_ANCHOR.x + 1.2} ${TAIL_ANCHOR.y + 5} ${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y + 10} Q${TAIL_ANCHOR.x - 1.2} ${TAIL_ANCHOR.y + 13.5} ${TAIL_ANCHOR.x + 1.5} ${TAIL_ANCHOR.y + 15.5}`
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)

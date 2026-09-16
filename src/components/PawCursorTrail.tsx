@@ -11,7 +11,7 @@ interface Print {
 
 const MIN_DISTANCE = 46 // px between prints, roughly a walking stride
 const STEP_OFFSET = 7 // lateral offset so prints alternate left/right of the path
-const LIFETIME = 2400 // ms, matches the paw-fade keyframe duration
+const LIFETIME = 4000 // ms, matches the paw-fade keyframe duration
 const MAX_PRINTS = 20
 
 let uid = 0

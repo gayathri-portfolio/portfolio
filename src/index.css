@@ -102,7 +102,7 @@
     }
   }
 
-  --animate-paw-fade: paw-fade 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  --animate-paw-fade: paw-fade 4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   @keyframes paw-fade {
     0% {
