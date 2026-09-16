@@ -16,7 +16,6 @@ const IDLE_MS = 180 // how long the pointer must sit still before the tail settl
 
 const BALL_CENTER = 17
 const BALL_RADIUS = 13
-const TAIL_ANCHOR = { x: 17, y: 30 } // where the ball's edge meets the loose end
 // a genuinely multicolor scrap-yarn mix — the theme's three accents plus a few
 // extra hues so the ball doesn't read as "mostly orange with flecks"
 const THREAD_COLORS = [
@@ -44,9 +43,9 @@ function pointOnBall(angle: number) {
   return [BALL_CENTER + BALL_RADIUS * Math.cos(angle), BALL_CENTER + BALL_RADIUS * Math.sin(angle)] as const
 }
 
-function chord(a1: number, a2: number, bulge: number) {
-  const [x1, y1] = pointOnBall(a1)
-  const [x2, y2] = pointOnBall(a2)
+function chordBetween(p1: readonly [number, number], p2: readonly [number, number], bulge: number) {
+  const [x1, y1] = p1
+  const [x2, y2] = p2
   const mx = (x1 + x2) / 2
   const my = (y1 + y2) / 2
   const dx = x2 - x1
@@ -57,10 +56,14 @@ function chord(a1: number, a2: number, bulge: number) {
   return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`
 }
 
+function chord(a1: number, a2: number, bulge: number) {
+  return chordBetween(pointOnBall(a1), pointOnBall(a2), bulge)
+}
+
 // a slightly lumpy closed outline instead of a perfect circle — yarn balls
 // aren't geometrically round, they bulge a bit wherever a wound thread sits
 // proud of the rest
-function buildBlobPath(seed: number, pointCount = 11, jitter = 1.3): string {
+function buildBlob(seed: number, pointCount = 11, jitter = 1.3) {
   const rand = mulberry32(seed)
   const points: [number, number][] = []
   for (let i = 0; i < pointCount; i++) {
@@ -81,10 +84,23 @@ function buildBlobPath(seed: number, pointCount = 11, jitter = 1.3): string {
     const c2y = p2[1] - (p3[1] - p1[1]) / 6
     d += ` C${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`
   }
-  return d + ' Z'
+  return { path: d + ' Z', points }
 }
 
-const BLOB_PATH = buildBlobPath(7)
+const BLOB = buildBlob(7)
+const BLOB_PATH = BLOB.path
+
+// the tail must start exactly ON the blob's rendered outline, not on an idealized
+// circle — otherwise the jitter that makes the ball lumpy leaves a visible gap
+// between the ball and the tail. Pick the blob's own vertex nearest the bottom
+// (an actual point on the path, not an interpolated curve position) and anchor
+// the tail there.
+const TAIL_POINT_INDEX = BLOB.points.reduce((best, p, i) => {
+  const angle = Math.atan2(p[1] - BALL_CENTER, p[0] - BALL_CENTER)
+  const bestAngle = Math.atan2(BLOB.points[best][1] - BALL_CENTER, BLOB.points[best][0] - BALL_CENTER)
+  return Math.abs(angle - Math.PI / 2) < Math.abs(bestAngle - Math.PI / 2) ? i : best
+}, 0)
+const TAIL_ANCHOR = { x: BLOB.points[TAIL_POINT_INDEX][0], y: BLOB.points[TAIL_POINT_INDEX][1] }
 
 interface Strand {
   d: string
@@ -111,9 +127,11 @@ function buildStrands(count: number, seed: number): Strand[] {
 
 const STRANDS = buildStrands(99, 42)
 
-// the 100th strand — its inner half ends exactly at TAIL_ANCHOR, on the ball's
-// bottom edge, so the animated tail piece can pick up from that same point
-const TAIL_INNER_D = chord(Math.PI * 1.18, Math.PI / 2, 5.5)
+// the 100th strand — its inner half ends exactly at TAIL_ANCHOR, the blob's own
+// bottom vertex, so the animated tail piece picks up from that same real point
+// on the outline (not an idealized circle point, which the lumpy jitter could
+// leave with a visible gap)
+const TAIL_INNER_D = chordBetween(pointOnBall(Math.PI * 1.18), [TAIL_ANCHOR.x, TAIL_ANCHOR.y], 5.5)
 const TAIL_COLOR = '#e0607a'
 const TAIL_WIDTH = 2
 // a longer, S-curved strand that curls at the tip — reads as an actual dangling
