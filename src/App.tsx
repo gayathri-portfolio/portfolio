@@ -3,6 +3,7 @@ import { useEffect } from 'react'
 import { Nav } from './components/Nav'
 import { Footer } from './components/Footer'
 import { PawCursorTrail } from './components/PawCursorTrail'
+import { CustomCursor } from './components/CustomCursor'
 import { Home } from './pages/Home'
 import { CaseStudyUltragymPro } from './pages/CaseStudyUltragymPro'
 import { CaseStudyUltragymUx } from './pages/CaseStudyUltragymUx'
@@ -20,6 +21,7 @@ export default function App() {
   return (
     <div className="grain min-h-screen">
       <ScrollToTopOnNavigate />
+      <CustomCursor />
       <PawCursorTrail />
       <Nav />
       <Routes>

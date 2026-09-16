@@ -6,7 +6,7 @@ import { HoverLetters } from './HoverLetters'
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pb-20 pt-36 sm:pt-44">
+    <section id="top" className="relative overflow-hidden pb-20 pt-36 sm:pt-44 lg:flex lg:min-h-screen lg:flex-col lg:justify-center lg:py-24">
       {/* ambient blobs */}
       <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
       <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
@@ -32,23 +32,24 @@ export function Hero() {
           <HoverLetters text="who" /> <RotatingWord />
         </motion.h1>
 
-        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="max-w-md text-lg text-text-muted"
-          >
-            Background in architecture, now crafting intuitive interfaces and
-            meaningful user experiences — one careful interaction at a time.
-          </motion.p>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="mt-12 max-w-md text-lg text-text-muted lg:max-w-sm"
+        >
+          Background in architecture, now crafting intuitive interfaces and
+          meaningful user experiences — one careful interaction at a time.
+        </motion.p>
+      </div>
 
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[420px] xl:max-w-[460px]">
-              <HeroPortrait />
-              <FloatingPaws />
-            </div>
-          </div>
+      {/* portrait — free from the text grid: normal flow (below the text) until lg,
+          then absolute and sized to the full viewport height so it can sit at
+          whatever size/position looks right without the text having to make room */}
+      <div className="relative mt-12 flex justify-center px-5 lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:flex lg:items-stretch lg:justify-end lg:px-8 xl:px-14">
+        <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:h-full lg:w-fit lg:max-w-none">
+          <HeroPortrait />
+          <FloatingPaws />
         </div>
       </div>
     </section>
