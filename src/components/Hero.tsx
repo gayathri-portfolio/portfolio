@@ -32,20 +32,22 @@ export function Hero() {
           <HoverLetters text="who" /> <RotatingWord />
         </motion.h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-12 max-w-md text-lg text-text-muted"
-        >
-          Background in architecture, now crafting intuitive interfaces and
-          meaningful user experiences — one careful interaction at a time.
-        </motion.p>
+        <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-8">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="max-w-md text-lg text-text-muted"
+          >
+            Background in architecture, now crafting intuitive interfaces and
+            meaningful user experiences — one careful interaction at a time.
+          </motion.p>
 
-        <div className="relative mt-12 flex justify-center">
-          <div className="relative w-full max-w-[560px]">
-            <HeroPortrait />
-            <FloatingPaws />
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[420px] xl:max-w-[460px]">
+              <HeroPortrait />
+              <FloatingPaws />
+            </div>
           </div>
         </div>
       </div>
