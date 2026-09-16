@@ -13,7 +13,7 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
     >
       <Link
         to={`/work/${project.slug}`}
-        className="group grid overflow-hidden rounded-3xl border border-border transition-colors hover:border-border-strong sm:grid-cols-2"
+        className="group grid overflow-hidden rounded-3xl border border-border transition-colors hover:border-border-strong sm:grid-cols-2 sm:h-[75vh]"
       >
         <div className="relative aspect-[4/3] overflow-hidden bg-bg-elevated sm:aspect-auto">
           <img
