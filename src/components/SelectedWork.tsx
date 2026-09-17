@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { SectionLabel } from './SectionLabel'
 import { CaseStudyCard, ExternalProjectCard } from './ProjectCards'
 import { CatMascot } from './CatMascot'
 import { caseStudies, externalProjects } from '../data/projects'
@@ -7,16 +6,10 @@ import { caseStudies, externalProjects } from '../data/projects'
 export function SelectedWork() {
   return (
     <section id="work" className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
-      <div className="max-w-2xl">
-        <SectionLabel>SELECTED WORK</SectionLabel>
-        <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-          Projects focused on clarity &amp; interaction
-        </h2>
-        <p className="mt-4 text-text-muted">
-          Two deep case studies where I owned the process end to end, plus a few more
-          selected projects — from ridesharing to ecommerce.
-        </p>
-      </div>
+      <p className="max-w-2xl text-text-muted">
+        Two deep case studies where I owned the process end to end, plus a few more
+        selected projects — from ridesharing to ecommerce.
+      </p>
 
       <motion.div
         initial={{ opacity: 0, y: 16 }}
