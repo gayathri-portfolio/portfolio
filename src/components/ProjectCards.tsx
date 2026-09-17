@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import type { CaseStudyProject, ExternalProject } from '../data/projects'
+import { PawIcon } from './PawIcon'
 
 export function CaseStudyCard({ project, index }: { project: CaseStudyProject; index: number }) {
   return (
@@ -19,31 +20,41 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
             loading="lazy"
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
-          <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white backdrop-blur-md">
-            Case Study
-          </div>
 
-          {/* reveals on hover only */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/35 group-hover:opacity-100">
-            <span className="glass flex translate-y-2 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-transform duration-300 group-hover:translate-y-0">
-              View Case Study
-              <ArrowRight className="h-4 w-4" />
+          {/* reveals on hover */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/50 group-hover:opacity-100">
+            <span className="glass flex translate-y-2 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-text transition-transform duration-300 group-hover:translate-y-0">
+              Click me
+              <PawIcon className="h-4 w-4" />
             </span>
           </div>
         </div>
-
-        <div className="mt-5">
-          <h3 className="inline font-display text-xl font-semibold tracking-tight text-text underline decoration-2 underline-offset-4 sm:text-2xl">
-            {project.title}
-          </h3>
-          <p className="mt-1.5 text-sm font-medium text-accent">{project.tagline}</p>
-          <p className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-muted">
-            {project.highlights.map((h) => (
-              <span key={h}>• {h}</span>
-            ))}
-          </p>
-        </div>
       </Link>
+
+      <div className="mt-5 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
+        <Link
+          to={`/work/${project.slug}`}
+          className="font-display text-xl font-semibold tracking-tight text-text sm:text-2xl"
+        >
+          {project.title}
+        </Link>
+        {project.appLink && (
+          <a
+            href={project.appLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="shrink-0 text-sm font-medium text-accent underline underline-offset-4"
+          >
+            App Link
+          </a>
+        )}
+      </div>
+      <p className="mt-1.5 text-sm font-medium text-accent">{project.tagline}</p>
+      <p className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-muted">
+        {project.highlights.map((h) => (
+          <span key={h}>• {h}</span>
+        ))}
+      </p>
     </motion.div>
   )
 }

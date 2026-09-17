@@ -7,6 +7,8 @@ export interface CaseStudyProject {
   cover: string
   tags: string[]
   highlights: string[]
+  /** optional external "App Link" shown next to the title on the selected-work card */
+  appLink?: string
 }
 
 export interface ExternalProject {
@@ -41,6 +43,7 @@ export const caseStudies: CaseStudyProject[] = [
     cover: '/case-studies/ultragym-ux/cover.svg',
     tags: ['Product Design', 'System Thinking', 'Mobile'],
     highlights: ['Redesign', 'Customer Experience Design'],
+    appLink: 'https://play.google.com/store/apps/details?id=com.portl.fitness&pcampaignid=web_share',
   },
 ]
 
