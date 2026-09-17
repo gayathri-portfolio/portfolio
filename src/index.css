@@ -7,7 +7,7 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --bg: #faf6ee;
+  --bg: #ffffff;
   --bg-elevated: #ffffff;
   --surface: #f2ebdd;
   --surface-hover: #ece2cd;
