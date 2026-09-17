@@ -6,6 +6,7 @@ export interface CaseStudyProject {
   summary: string
   cover: string
   tags: string[]
+  highlights: string[]
 }
 
 export interface ExternalProject {
@@ -28,6 +29,7 @@ export const caseStudies: CaseStudyProject[] = [
       "Designing a 21.5-inch vertical interface for a user who's standing, moving, pulling and exerting force — not sitting calmly a foot from a laptop.",
     cover: '/case-studies/ultragym-pro/hero-product.webp',
     tags: ['Hardware UI', 'UX Research', '0→1'],
+    highlights: ['End to End', 'Ownership'],
   },
   {
     type: 'case-study',
@@ -38,6 +40,7 @@ export const caseStudies: CaseStudyProject[] = [
       'UltraGym combines smart fitness hardware with a companion app. My goal was to remove the friction that stood between users and their workout.',
     cover: '/case-studies/ultragym-ux/cover.svg',
     tags: ['Product Design', 'System Thinking', 'Mobile'],
+    highlights: ['Redesign', 'Customer Experience Design'],
   },
 ]
 

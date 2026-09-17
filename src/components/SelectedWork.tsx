@@ -1,5 +1,7 @@
+import { motion } from 'framer-motion'
 import { SectionLabel } from './SectionLabel'
 import { CaseStudyCard, ExternalProjectCard } from './ProjectCards'
+import { CatMascot } from './CatMascot'
 import { caseStudies, externalProjects } from '../data/projects'
 
 export function SelectedWork() {
@@ -16,7 +18,20 @@ export function SelectedWork() {
         </p>
       </div>
 
-      <div className="mt-14 grid gap-6">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6 }}
+        className="mt-12 flex items-center gap-4"
+      >
+        <CatMascot className="h-16 w-16 shrink-0 sm:h-20 sm:w-20" />
+        <p className="font-serif text-lg italic text-text-muted sm:text-xl">
+          I strongly recommend you look at these case studies&hellip;
+        </p>
+      </motion.div>
+
+      <div className="mt-8 grid gap-6 sm:grid-cols-2">
         {caseStudies.map((project, i) => (
           <CaseStudyCard key={project.slug} project={project} index={i} />
         ))}

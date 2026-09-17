@@ -11,39 +11,37 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
     >
-      <Link
-        to={`/work/${project.slug}`}
-        className="group grid overflow-hidden rounded-3xl border border-border transition-colors hover:border-border-strong sm:grid-cols-2 sm:h-[75vh]"
-      >
-        <div className="relative aspect-[4/3] overflow-hidden bg-bg-elevated sm:aspect-auto">
+      <Link to={`/work/${project.slug}`} className="group block">
+        <div className="relative aspect-square overflow-hidden rounded-2xl border border-border transition-colors group-hover:border-border-strong">
           <img
             src={project.cover}
             alt={project.title}
             loading="lazy"
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
           <div className="absolute left-4 top-4 rounded-full border border-white/20 bg-black/40 px-3 py-1 text-[11px] font-medium uppercase tracking-wide text-white backdrop-blur-md">
             Case Study
           </div>
+
+          {/* reveals on hover only */}
+          <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/35 group-hover:opacity-100">
+            <span className="glass flex translate-y-2 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-white transition-transform duration-300 group-hover:translate-y-0">
+              View Case Study
+              <ArrowRight className="h-4 w-4" />
+            </span>
+          </div>
         </div>
 
-        <div className="glass-strong flex flex-col justify-center p-7 sm:p-10">
-          <div className="mb-3 flex flex-wrap gap-2">
-            {project.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-bg-elevated px-2.5 py-1 text-xs text-text-muted">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <h3 className="font-display text-2xl font-semibold tracking-tight text-text sm:text-3xl">
+        <div className="mt-5">
+          <h3 className="inline font-display text-xl font-semibold tracking-tight text-text underline decoration-2 underline-offset-4 sm:text-2xl">
             {project.title}
           </h3>
-          <p className="mt-1 text-sm font-medium text-accent">{project.tagline}</p>
-          <p className="mt-4 text-text-muted">{project.summary}</p>
-          <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-text">
-            View case study
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </span>
+          <p className="mt-1.5 text-sm font-medium text-accent">{project.tagline}</p>
+          <p className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-muted">
+            {project.highlights.map((h) => (
+              <span key={h}>• {h}</span>
+            ))}
+          </p>
         </div>
       </Link>
     </motion.div>
