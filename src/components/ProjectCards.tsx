@@ -72,23 +72,23 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="glass group flex flex-col justify-between rounded-2xl p-6 transition-transform hover:-translate-y-1"
+      className="group relative block overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-colors hover:border-border-strong"
+      style={{ aspectRatio: '4 / 3' }}
     >
-      <div className="flex items-start justify-between">
-        <div>
-          <h4 className="font-display text-lg font-semibold text-text">{project.title}</h4>
-          <p className="mt-0.5 text-sm text-text-muted">{project.tagline}</p>
-        </div>
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-border text-text-muted transition-all group-hover:border-accent group-hover:text-accent">
-          <ArrowUpRight className="h-4 w-4" />
-        </span>
-      </div>
-      <div className="mt-6 flex flex-wrap gap-2">
-        {project.tags.map((tag) => (
-          <span key={tag} className="rounded-full bg-bg-elevated px-2.5 py-1 text-xs text-text-muted">
-            {tag}
-          </span>
-        ))}
+      <img
+        src={project.cover}
+        alt={project.title}
+        loading="lazy"
+        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+      />
+
+      <span className="absolute right-4 top-4 flex h-8 w-8 items-center justify-center rounded-full border border-border bg-bg/70 text-text-muted backdrop-blur transition-all group-hover:border-accent group-hover:text-accent">
+        <ArrowUpRight className="h-4 w-4" />
+      </span>
+
+      <div className="glass absolute inset-0 flex flex-col items-center justify-center gap-1 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+        <h4 className="font-display text-lg font-semibold text-text">{project.title}</h4>
+        <p className="text-sm text-text-muted">{project.tagline}</p>
       </div>
     </motion.a>
   )

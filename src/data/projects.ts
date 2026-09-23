@@ -19,6 +19,7 @@ export interface ExternalProject {
   tagline: string
   href: string
   tags: string[]
+  cover: string
 }
 
 export type Project = CaseStudyProject | ExternalProject
@@ -60,6 +61,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Smart Home Gym',
     href: 'https://www.behance.net/gallery/246583121/Smart-Home-Gym-Companion-App',
     tags: ['Fitness', 'Mobile App'],
+    cover: '/other-work/portl-ultragym.webp',
   },
   {
     type: 'external',
@@ -67,6 +69,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Smart Mirror',
     href: 'https://www.behance.net/gallery/246870821/Portl-Studio-Mirror',
     tags: ['Fitness', 'Interface'],
+    cover: '/other-work/portl-studio.webp',
   },
   {
     type: 'external',
@@ -74,6 +77,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Ridesharing Service App',
     href: 'https://www.behance.net/gallery/199655691/Riider-Ridesharing-service-app',
     tags: ['Mobility', 'Mobile App'],
+    cover: '/other-work/rider.webp',
   },
   {
     type: 'external',
@@ -81,6 +85,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Ecommerce Site',
     href: 'https://www.behance.net/gallery/200909607/Craftie-Flower-Craft-website',
     tags: ['Ecommerce', 'Web'],
+    cover: '/other-work/craftie.webp',
   },
 ]
 
