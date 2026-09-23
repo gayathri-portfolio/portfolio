@@ -5,6 +5,7 @@ import { Footer } from './components/Footer'
 import { PawCursorTrail } from './components/PawCursorTrail'
 import { CustomCursor } from './components/CustomCursor'
 import { Home } from './pages/Home'
+import { About } from './pages/About'
 import { CaseStudyUltragymPro } from './pages/CaseStudyUltragymPro'
 import { CaseStudyUltragymUx } from './pages/CaseStudyUltragymUx'
 import { NotFound } from './pages/NotFound'
@@ -26,6 +27,7 @@ export default function App() {
       <Nav />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route path="/work/ultragym-pro" element={<CaseStudyUltragymPro />} />
         <Route path="/work/ultragym-ux-study" element={<CaseStudyUltragymUx />} />
         <Route path="*" element={<NotFound />} />

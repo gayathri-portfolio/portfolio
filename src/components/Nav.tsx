@@ -5,7 +5,7 @@ import { ThemeToggle } from './ThemeToggle'
 const links = [
   { label: 'Home', href: '/#top' },
   { label: 'Work', href: '/#work' },
-  { label: 'Journey', href: '/#journey' },
+  { label: 'About', href: '/about' },
   { label: 'Resume', href: '/resume.pdf', external: true },
 ]
 
@@ -43,9 +43,13 @@ export function Nav() {
       <nav className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <div className="glass flex items-center gap-1 rounded-full p-1.5">
           {links.map((l) => {
-            const linkHash = l.external ? null : l.href.slice(1) // "#top" | "#work" | "#journey"
-            const isActive =
-              !l.external && pathname === '/' && (hash === linkHash || (linkHash === '#top' && hash === ''))
+            const isRoute = !l.external && !l.href.includes('#')
+            const linkHash = l.external || isRoute ? null : l.href.slice(l.href.indexOf('#')) // "#top" | "#work"
+            const isActive = l.external
+              ? false
+              : isRoute
+                ? pathname === l.href
+                : pathname === '/' && (hash === linkHash || (linkHash === '#top' && hash === ''))
             return l.external ? (
               <a
                 key={l.label}

@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom'
 import { Hero } from '../components/Hero'
 import { Intro } from '../components/Intro'
 import { SelectedWork } from '../components/SelectedWork'
-import { DesignJourney } from '../components/DesignJourney'
 import { Contact } from '../components/Contact'
 
 export function Home() {
@@ -26,7 +25,6 @@ export function Home() {
       <Hero />
       <Intro />
       <SelectedWork />
-      <DesignJourney />
       <Contact />
     </>
   )
