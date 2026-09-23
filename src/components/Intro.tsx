@@ -1,5 +1,6 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
+import { FloorPlanCatArt } from './ArchitectureArt'
 
 const paragraphs = [
   {
@@ -26,7 +27,8 @@ export function Intro() {
   let wordIndex = 0
 
   return (
-    <section className="mx-auto flex min-h-screen max-w-6xl items-center px-5 py-24 sm:py-32">
+    <section className="relative mx-auto flex min-h-screen max-w-6xl items-center px-5 py-24 sm:py-32">
+      <FloorPlanCatArt className="pointer-events-none absolute -left-6 top-16 hidden h-44 w-64 text-text-faint opacity-40 lg:block" />
       <div ref={ref} className="mx-auto w-[75%] space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
         {paragraphs.map((paragraph, pi) => (
           <p key={pi} className={`${paragraph.weight} ${paragraph.size}`}>

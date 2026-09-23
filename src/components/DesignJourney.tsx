@@ -1,11 +1,13 @@
 import { motion } from 'framer-motion'
 import { SectionLabel } from './SectionLabel'
+import { DraftingToolsArt } from './ArchitectureArt'
 import { designJourney } from '../data/projects'
 
 export function DesignJourney() {
   return (
     <section id="journey" className="relative overflow-hidden px-5 py-24 sm:py-32">
       <div className="pointer-events-none absolute left-0 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-accent-2/10 blur-3xl" />
+      <DraftingToolsArt className="pointer-events-none absolute right-0 top-8 hidden h-40 w-40 text-text-faint opacity-40 sm:block" />
 
       <div className="relative mx-auto max-w-6xl">
         <SectionLabel>DESIGN JOURNEY</SectionLabel>
