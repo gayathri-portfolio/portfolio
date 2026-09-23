@@ -3,12 +3,12 @@ import { useRef } from 'react'
 
 const paragraphs = [
   {
-    text: "Architecture taught me that people don't read floor plans, they just walk through them. If they have to stop and figure out where to go, the design has already failed. I carried that into product design. Over the last 2.5 years I've designed UltraGym, a fitness app that makes everyday workouts feel simple, and UltraGym Pro, a connected fitness platform built for commercial gyms.",
+    text: "Architecture taught me that people don't read floor plans, they walk through them. If they have to stop and think, the design has failed.",
     weight: 'font-normal',
     size: 'text-[8px] sm:text-[20px]',
   },
   {
-    text: 'The part I enjoy most is the messy middle: talking to people, working through constraints, and untangling the context until the answer feels obvious.',
+    text: "For 2.5 years I've brought that into product design, with UltraGym for everyday workouts and UltraGym Pro for commercial gyms. My favorite part is the messy middle: untangling people, constraints, and context until the answer feels obvious.",
     weight: 'font-bold',
     size: '',
   },
@@ -27,7 +27,7 @@ export function Intro() {
 
   return (
     <section className="mx-auto flex min-h-screen max-w-6xl items-center px-5 py-24 sm:py-32">
-      <div ref={ref} className="w-full space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
+      <div ref={ref} className="mx-auto w-[70%] space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
         {paragraphs.map((paragraph, pi) => (
           <p key={pi} className={`${paragraph.weight} ${paragraph.size}`}>
             {paragraph.text.split(' ').map((word, wi) => {
