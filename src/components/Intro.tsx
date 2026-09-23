@@ -1,14 +1,20 @@
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useRef } from 'react'
-import { SectionLabel } from './SectionLabel'
 
 const paragraphs = [
-  "Architecture taught me that people don't read floor plans, they just walk through them. If they have to stop and figure out where to go, the design has already failed.",
-  "I carried that into product design. Over the last 2.5 years I've designed UltraGym, a fitness app that makes everyday workouts feel simple, and UltraGym Pro, a connected fitness platform built for commercial gyms.",
-  'The part I enjoy most is the messy middle: talking to people, working through constraints, and untangling the context until the answer feels obvious.',
+  {
+    text: "Architecture taught me that people don't read floor plans, they just walk through them. If they have to stop and figure out where to go, the design has already failed. I carried that into product design. Over the last 2.5 years I've designed UltraGym, a fitness app that makes everyday workouts feel simple, and UltraGym Pro, a connected fitness platform built for commercial gyms.",
+    weight: 'font-normal',
+    size: 'text-[8px] sm:text-[20px]',
+  },
+  {
+    text: 'The part I enjoy most is the messy middle: talking to people, working through constraints, and untangling the context until the answer feels obvious.',
+    weight: 'font-bold',
+    size: '',
+  },
 ]
 
-const totalWords = paragraphs.reduce((sum, p) => sum + p.split(' ').length, 0)
+const totalWords = paragraphs.reduce((sum, p) => sum + p.text.split(' ').length, 0)
 
 export function Intro() {
   const ref = useRef<HTMLDivElement>(null)
@@ -20,12 +26,11 @@ export function Intro() {
   let wordIndex = 0
 
   return (
-    <section className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
-      <SectionLabel>INTRO</SectionLabel>
-      <div ref={ref} className="mt-8 max-w-3xl space-y-6 font-display text-2xl font-medium leading-snug tracking-tight sm:text-4xl">
+    <section className="mx-auto flex min-h-screen max-w-6xl items-center px-5 py-24 sm:py-32">
+      <div ref={ref} className="w-full space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
         {paragraphs.map((paragraph, pi) => (
-          <p key={pi}>
-            {paragraph.split(' ').map((word, wi) => {
+          <p key={pi} className={`${paragraph.weight} ${paragraph.size}`}>
+            {paragraph.text.split(' ').map((word, wi) => {
               const start = wordIndex / totalWords
               const end = (wordIndex + 1) / totalWords
               wordIndex++
