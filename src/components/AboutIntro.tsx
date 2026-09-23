@@ -41,7 +41,7 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto aspect-[4/5] w-full max-w-md"
+          className="relative mx-auto aspect-[4/5] w-full max-w-sm"
         >
           {photos.map((photo) => (
             <div
