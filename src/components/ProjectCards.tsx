@@ -63,6 +63,7 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
 }
 
 export function ExternalProjectCard({ project, index }: { project: ExternalProject; index: number }) {
+  const isWide = index === 0 || index === 3
   return (
     <motion.a
       href={project.href}
@@ -72,8 +73,8 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className="group relative block overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-colors hover:border-border-strong"
-      style={{ aspectRatio: '4 / 3' }}
+      className={`group relative block overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-colors hover:border-border-strong ${isWide ? 'sm:col-span-2' : ''}`}
+      style={{ aspectRatio: isWide ? '2 / 1' : '1 / 1' }}
     >
       <img
         src={project.cover}

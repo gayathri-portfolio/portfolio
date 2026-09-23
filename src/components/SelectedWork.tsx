@@ -35,7 +35,7 @@ export function SelectedWork() {
 
       <div className="mt-20">
         <p className="mb-6 text-sm font-medium uppercase tracking-wide text-text-faint">Other selected work</p>
-        <div className="grid gap-6 sm:grid-cols-2">
+        <div className="grid gap-6 sm:grid-cols-3">
           {externalProjects.map((project, i) => (
             <ExternalProjectCard key={project.title} project={project} index={i} />
           ))}
