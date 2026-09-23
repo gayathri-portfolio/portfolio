@@ -35,10 +35,17 @@ export function SelectedWork() {
 
       <div className="mt-20">
         <p className="mb-6 text-sm font-medium uppercase tracking-wide text-text-faint">Other selected work</p>
-        <div className="grid gap-6 sm:grid-cols-3">
-          {externalProjects.map((project, i) => (
-            <ExternalProjectCard key={project.title} project={project} index={i} />
-          ))}
+        <div className="space-y-6">
+          <div className="flex flex-col gap-6 sm:h-[360px] sm:flex-row lg:h-[440px]">
+            {externalProjects.slice(0, 2).map((project, i) => (
+              <ExternalProjectCard key={project.title} project={project} index={i} />
+            ))}
+          </div>
+          <div className="flex flex-col gap-6 sm:h-[360px] sm:flex-row lg:h-[440px]">
+            {externalProjects.slice(2, 4).map((project, i) => (
+              <ExternalProjectCard key={project.title} project={project} index={i + 2} />
+            ))}
+          </div>
         </div>
       </div>
     </section>
