@@ -18,7 +18,7 @@ export function SelectedWork() {
           <p className="font-serif text-[26px] italic text-text-muted sm:text-[28px]">
             I strongly recommend you look at these case studies&hellip;
           </p>
-          <p className="mt-[1.05em] max-w-2xl text-text-muted">
+          <p className="mt-[1.25em] max-w-2xl text-text-muted">
             Two case studies where I owned the design end to end, from research and
             problem framing to flows, UI, testing, and shipping with developers.
           </p>
