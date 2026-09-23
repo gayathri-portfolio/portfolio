@@ -19,10 +19,8 @@ export function SelectedWork() {
             I strongly recommend you look at these case studies&hellip;
           </p>
           <p className="mt-[1.05em] max-w-2xl text-text-muted">
-            Two deep case studies where I owned the product design end to end — from
-            research and defining the problem to shaping the user flows, UX, UI,
-            prototyping, testing, and working with developers to bring the final
-            product to life.
+            Two case studies where I owned the design end to end, from research and
+            problem framing to flows, UI, testing, and shipping with developers.
           </p>
         </div>
       </motion.div>
