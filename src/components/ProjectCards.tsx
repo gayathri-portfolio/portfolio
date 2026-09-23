@@ -24,9 +24,9 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
 
-          {/* reveals on hover */}
-          <div className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/50 group-hover:opacity-100">
-            <span className="glass flex translate-y-2 items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium text-text transition-transform duration-300 group-hover:translate-y-0">
+          {/* frosted-glass reveal on hover — plain text, no pill/border */}
+          <div className="glass absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            <span className="flex translate-y-2 items-center gap-2 text-sm font-medium text-text transition-transform duration-300 group-hover:translate-y-0">
               Click me
               <PawIcon className="h-4 w-4" />
             </span>
