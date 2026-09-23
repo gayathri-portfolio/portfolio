@@ -92,7 +92,7 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
 
       <div className="glass absolute inset-0 flex flex-col items-center justify-center gap-1 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <h4 className="font-display text-[24px] font-bold text-text">{project.title}</h4>
-        <p className="text-[18px] text-text-muted opacity-100">{project.tagline}</p>
+        <p className="text-[18px] opacity-100" style={{ color: '#000000' }}>{project.tagline}</p>
       </div>
     </motion.a>
   )

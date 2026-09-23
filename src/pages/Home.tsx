@@ -4,7 +4,6 @@ import { Hero } from '../components/Hero'
 import { Intro } from '../components/Intro'
 import { SelectedWork } from '../components/SelectedWork'
 import { DesignJourney } from '../components/DesignJourney'
-import { Faq } from '../components/Faq'
 import { Contact } from '../components/Contact'
 
 export function Home() {
@@ -28,7 +27,6 @@ export function Home() {
       <Intro />
       <SelectedWork />
       <DesignJourney />
-      <Faq />
       <Contact />
     </>
   )
