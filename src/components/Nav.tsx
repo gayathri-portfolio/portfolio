@@ -52,7 +52,7 @@ export function Nav() {
                 href={l.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-full px-4 py-2 text-sm text-text-muted transition-colors hover:text-text"
+                className="rounded-full border border-transparent px-4 py-2 text-sm text-text-muted transition-colors hover:border-text/25 hover:text-text"
               >
                 {l.label}
               </a>
@@ -60,8 +60,8 @@ export function Nav() {
               <Link
                 key={l.label}
                 to={l.href}
-                className={`rounded-full px-4 py-2 text-sm transition-colors hover:text-text ${
-                  isActive ? 'text-text' : 'text-text-muted'
+                className={`rounded-full border px-4 py-2 text-sm transition-colors hover:border-text/25 hover:text-text ${
+                  isActive ? 'border-text/40 text-text' : 'border-transparent text-text-muted'
                 }`}
               >
                 {l.label}
