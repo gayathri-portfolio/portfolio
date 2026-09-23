@@ -4,12 +4,12 @@ import { useRef } from 'react'
 const paragraphs = [
   {
     text: "Architecture taught me that people don't read floor plans, they walk through them. If they have to stop and think, the design has failed.",
-    weight: 'font-normal',
-    size: 'text-[8px] sm:text-[20px]',
+    weight: 'font-bold',
+    size: '',
   },
   {
     text: "For 2.5 years I've brought that into product design, with UltraGym for everyday workouts and UltraGym Pro for commercial gyms. My favorite part is the messy middle: untangling people, constraints, and context until the answer feels obvious.",
-    weight: 'font-bold',
+    weight: 'font-normal',
     size: '',
   },
 ]
@@ -27,7 +27,7 @@ export function Intro() {
 
   return (
     <section className="mx-auto flex min-h-screen max-w-6xl items-center px-5 py-24 sm:py-32">
-      <div ref={ref} className="mx-auto w-[70%] space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
+      <div ref={ref} className="mx-auto w-[75%] space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
         {paragraphs.map((paragraph, pi) => (
           <p key={pi} className={`${paragraph.weight} ${paragraph.size}`}>
             {paragraph.text.split(' ').map((word, wi) => {
