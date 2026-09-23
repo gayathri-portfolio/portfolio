@@ -33,7 +33,7 @@ export const caseStudies: CaseStudyProject[] = [
     summary:
       "Designing a 21.5-inch vertical interface for a user who's standing, moving, pulling and exerting force — not sitting calmly a foot from a laptop.",
     cover: '/case-studies/ultragym-pro/cover.webp',
-    coverAspect: '3 / 4',
+    coverAspect: '5 / 4',
     tags: ['Hardware UI', 'UX Research', '0→1'],
     highlights: ['End to End', 'Ownership'],
   },

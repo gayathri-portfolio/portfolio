@@ -14,7 +14,7 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
     >
       <Link to={`/work/${project.slug}`} className="group block">
         <div
-          className="relative overflow-hidden rounded-2xl border border-border transition-colors group-hover:border-border-strong"
+          className="relative overflow-hidden rounded-2xl border border-border bg-bg-elevated transition-colors group-hover:border-border-strong"
           style={{ aspectRatio: project.coverAspect }}
         >
           <img
@@ -52,7 +52,7 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
           </a>
         )}
       </div>
-      <p className="mt-1.5 text-sm font-medium text-accent">{project.tagline}</p>
+      <p className="mt-1.5 text-sm font-medium text-black/70">{project.tagline}</p>
       <p className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-muted">
         {project.highlights.map((h) => (
           <span key={h}>• {h}</span>

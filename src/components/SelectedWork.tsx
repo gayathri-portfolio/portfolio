@@ -14,14 +14,18 @@ export function SelectedWork() {
         className="flex items-center gap-4"
       >
         <CatMascot className="h-32 w-32 shrink-0 sm:h-40 sm:w-40" />
-        <p className="font-serif text-[26px] italic text-text-muted sm:text-[28px]">
-          I strongly recommend you look at these case studies&hellip;
-        </p>
+        <div>
+          <p className="font-serif text-[26px] italic text-text-muted sm:text-[28px]">
+            I strongly recommend you look at these case studies&hellip;
+          </p>
+          <p className="mt-[1.5em] max-w-2xl text-text-muted">
+            Two deep case studies where I owned the product design end to end — from
+            research and defining the problem to shaping the user flows, UX, UI,
+            prototyping, testing, and working with developers to bring the final
+            product to life.
+          </p>
+        </div>
       </motion.div>
-
-      <p className="mt-6 max-w-2xl text-text-muted">
-        Two deep case studies where I owned the process end to end.
-      </p>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">
         {caseStudies.map((project, i) => (
