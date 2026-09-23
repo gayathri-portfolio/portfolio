@@ -69,11 +69,11 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 24, scale: 0.82 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: '-60px' }}
-      transition={{ duration: 0.6, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
-      className={`group relative block w-full overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-colors hover:border-border-strong ${
+      transition={{ duration: 0.7, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
+      className={`group relative block w-full origin-center overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-colors hover:border-border-strong ${
         isWide
           ? 'aspect-[3/2] sm:aspect-auto sm:h-full sm:min-w-0 sm:flex-1'
           : 'aspect-square sm:h-full sm:w-auto sm:shrink-0'
