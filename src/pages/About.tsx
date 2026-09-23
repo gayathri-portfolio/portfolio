@@ -1,8 +1,10 @@
+import { AboutIntro } from '../components/AboutIntro'
 import { DesignJourney } from '../components/DesignJourney'
 
 export function About() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen pt-20">
+      <AboutIntro />
       <DesignJourney />
     </div>
   )
