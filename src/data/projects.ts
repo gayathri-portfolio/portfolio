@@ -5,6 +5,8 @@ export interface CaseStudyProject {
   tagline: string
   summary: string
   cover: string
+  /** CSS aspect-ratio for the cover image, tuned per image so it crops cleanly */
+  coverAspect: string
   tags: string[]
   highlights: string[]
   /** optional external "App Link" shown next to the title on the selected-work card */
@@ -26,10 +28,12 @@ export const caseStudies: CaseStudyProject[] = [
     type: 'case-study',
     slug: 'ultragym-pro',
     title: 'UltraGym Pro',
-    tagline: 'On-device touchscreen for a 120kg commercial strength machine',
+    tagline:
+      'A commercial smart-gym experience designed for gyms, hotels, and workplaces, combining digital resistance training with a connected touchscreen experience.',
     summary:
       "Designing a 21.5-inch vertical interface for a user who's standing, moving, pulling and exerting force — not sitting calmly a foot from a laptop.",
     cover: '/case-studies/ultragym-pro/cover.webp',
+    coverAspect: '3 / 4',
     tags: ['Hardware UI', 'UX Research', '0→1'],
     highlights: ['End to End', 'Ownership'],
   },
@@ -37,10 +41,12 @@ export const caseStudies: CaseStudyProject[] = [
     type: 'case-study',
     slug: 'ultragym-ux-study',
     title: 'Ultragym UX Study',
-    tagline: 'Removing friction from the UltraGym companion app',
+    tagline:
+      'A connected home-gym experience that brings guided workouts, personalised training, and real-time progress tracking into one companion app.',
     summary:
       'UltraGym combines smart fitness hardware with a companion app. My goal was to remove the friction that stood between users and their workout.',
     cover: '/case-studies/ultragym-ux/cover.webp',
+    coverAspect: '5 / 4',
     tags: ['Product Design', 'System Thinking', 'Mobile'],
     highlights: ['Redesign', 'Customer Experience Design'],
     appLink: 'https://play.google.com/store/apps/details?id=com.portl.fitness&pcampaignid=web_share',

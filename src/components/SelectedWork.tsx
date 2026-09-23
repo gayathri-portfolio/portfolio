@@ -20,8 +20,7 @@ export function SelectedWork() {
       </motion.div>
 
       <p className="mt-6 max-w-2xl text-text-muted">
-        Two deep case studies where I owned the process end to end, plus a few more
-        selected projects — from ridesharing to ecommerce.
+        Two deep case studies where I owned the process end to end.
       </p>
 
       <div className="mt-8 grid gap-6 sm:grid-cols-2">

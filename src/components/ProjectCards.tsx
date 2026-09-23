@@ -13,7 +13,10 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
       transition={{ duration: 0.7, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
     >
       <Link to={`/work/${project.slug}`} className="group block">
-        <div className="relative aspect-square overflow-hidden rounded-2xl border border-border transition-colors group-hover:border-border-strong">
+        <div
+          className="relative overflow-hidden rounded-2xl border border-border transition-colors group-hover:border-border-strong"
+          style={{ aspectRatio: project.coverAspect }}
+        >
           <img
             src={project.cover}
             alt={project.title}
