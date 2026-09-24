@@ -109,10 +109,10 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
             <img
               src={content.heroImage}
               alt={content.title}
-              className="max-h-[380px] w-auto shrink-0 rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[460px]"
+              className="max-h-[380px] w-auto shrink-0 rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[460px] lg:order-2"
             />
 
-            <div className="glass-strong flex w-full max-w-sm flex-col gap-5 rounded-3xl p-6 lg:w-[300px]">
+            <div className="glass-strong flex w-full max-w-sm flex-col gap-5 rounded-3xl p-6 lg:order-1 lg:w-[300px]">
               <MetaRow label="Role" value={content.meta.role} />
               <MetaRow label="Team" value={content.meta.team} />
               <MetaRow label="Company" value={content.meta.company} />
