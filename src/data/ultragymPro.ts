@@ -161,9 +161,9 @@ export const ultragymPro: CaseStudyContent = {
         {
           kind: 'image-grid',
           images: [
-            { src: `${IMG}/screens/wf-home.webp`, caption: 'Home' },
             { src: `${IMG}/screens/wf-select-exercises.webp`, caption: 'Select Exercises' },
-            { src: `${IMG}/screens/wf-strength-assessment.webp`, caption: 'Strength Assessment' },
+            { src: `${IMG}/screens/wf-create-workout.webp`, caption: 'Create Workout' },
+            { src: `${IMG}/screens/wf-class1.webp`, caption: 'Class' },
             { src: `${IMG}/screens/wf-summary.webp`, caption: 'Workout Summary' },
           ],
         },

@@ -83,10 +83,15 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'image-grid':
       return (
         <Reveal>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
+          <div className="flex flex-wrap items-end justify-center gap-6 sm:gap-8">
             {block.images.map((img, i) => (
-              <figure key={i}>
-                <img src={img.src} alt={img.caption ?? ''} loading="lazy" className="w-full rounded-xl" />
+              <figure key={i} className="flex flex-col items-center">
+                <img
+                  src={img.src}
+                  alt={img.caption ?? ''}
+                  loading="lazy"
+                  className="h-[280px] w-auto rounded-xl sm:h-[380px]"
+                />
                 {img.caption && (
                   <figcaption className="mt-3 text-center text-xs uppercase tracking-wide text-text-faint">
                     {img.caption}
