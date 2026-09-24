@@ -43,9 +43,9 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'callout':
       return (
         <Reveal>
-          <div className="max-w-2xl">
+          <div className="max-w-2xl rounded-2xl bg-accent-2-soft px-6 py-6 sm:px-8 sm:py-8">
             {block.label && (
-              <p className="text-xs font-semibold uppercase tracking-wide text-accent">{block.label}</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-accent-2">{block.label}</p>
             )}
             <p className={`font-serif text-2xl italic leading-snug text-text sm:text-3xl ${block.label ? 'mt-3' : ''}`}>
               {block.text}
@@ -66,7 +66,7 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'cards':
       return (
         <Reveal>
-          <div className="divide-y divide-border border-t border-border">
+          <div className="glass-strong divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
             {block.items.map((item, i) => (
               <div key={i} className="flex flex-col gap-1.5 py-5 sm:flex-row sm:items-baseline sm:gap-8">
                 <div className="flex items-center gap-2.5 sm:w-64 sm:shrink-0">
@@ -90,7 +90,7 @@ export function BlockRenderer({ block }: { block: Block }) {
                   src={img.src}
                   alt={img.caption ?? ''}
                   loading="lazy"
-                  className="h-[280px] w-auto rounded-xl sm:h-[380px]"
+                  className="h-[280px] w-auto rounded-2xl shadow-[0_24px_48px_-28px_rgb(var(--shadow-color)/0.45)] sm:h-[380px]"
                 />
                 {img.caption && (
                   <figcaption className="mt-3 text-center text-xs uppercase tracking-wide text-text-faint">
@@ -117,7 +117,7 @@ export function BlockRenderer({ block }: { block: Block }) {
             </figure>
           ) : (
             <figure>
-              <div className="overflow-hidden rounded-xl bg-bg-elevated">
+              <div className="overflow-hidden rounded-2xl bg-bg-elevated shadow-[0_24px_48px_-28px_rgb(var(--shadow-color)/0.45)]">
                 <img src={block.src} alt={block.caption ?? ''} loading="lazy" className="w-full" />
               </div>
               {block.caption && (
@@ -177,7 +177,7 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'stat-grid':
       return (
         <Reveal>
-          <div className="divide-y divide-border border-y border-border">
+          <div className="glass-strong divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
             {block.items.map((item, i) => (
               <div key={i} className="flex items-baseline justify-between gap-6 py-4">
                 <span className="font-serif text-3xl font-semibold text-text">{item.value}</span>

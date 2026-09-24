@@ -36,7 +36,10 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   return (
     <article className="overflow-x-clip">
       <header className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
-        <div className="mx-auto max-w-6xl px-5">
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
+
+        <div className="relative mx-auto max-w-6xl px-5">
           <Link
             to="/#work"
             className="inline-flex items-center gap-2 text-sm text-text-muted transition-colors hover:text-text"
@@ -86,7 +89,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
-              className="flex flex-col gap-5 border-t border-border pt-6 lg:border-t-0 lg:pt-1"
+              className="glass-strong flex flex-col gap-5 rounded-3xl p-6"
             >
               <MetaRow label="Role" value={content.meta.role} />
               <MetaRow label="Team" value={content.meta.team} />
@@ -94,9 +97,16 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
               <MetaRow label="Industry" value={content.meta.industry} />
               <div>
                 <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">Responsibilities</p>
-                <p className="mt-2 text-sm leading-relaxed text-text">
-                  {content.meta.responsibilities.join(' · ')}
-                </p>
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {content.meta.responsibilities.map((r) => (
+                    <span
+                      key={r}
+                      className="rounded-full border border-border bg-bg/50 px-2.5 py-1 text-xs font-medium text-text-muted"
+                    >
+                      {r}
+                    </span>
+                  ))}
+                </div>
               </div>
             </motion.div>
           </div>
@@ -112,15 +122,16 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
             <img
               src={content.heroImage}
               alt={content.title}
-              className="max-h-[480px] w-auto rounded-2xl object-contain sm:max-h-[600px]"
+              className="max-h-[480px] w-auto rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[600px]"
             />
           </div>
         </motion.div>
       </header>
 
       <div className="mx-auto max-w-5xl space-y-28 px-5 pb-24 sm:space-y-36">
-        {content.sections.map((section) => {
+        {content.sections.map((section, sIdx) => {
           const runs = groupBlocks(section.blocks)
+          const numeralColor = sIdx % 2 === 0 ? 'text-accent/25' : 'text-accent-2/25'
           let groupIndex = -1
           return (
             <section key={section.number} className="space-y-8">
@@ -132,7 +143,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
                 const isFirstGroup = groupIndex === 0
                 return (
                   <div key={i} className="grid gap-6 sm:grid-cols-[110px_1fr] sm:gap-10">
-                    <span className="font-serif text-5xl font-semibold text-accent/25 sm:text-6xl">
+                    <span className={`font-serif text-5xl font-semibold sm:text-6xl ${numeralColor}`}>
                       {isFirstGroup ? section.number : ''}
                     </span>
                     <div className="space-y-8">
@@ -154,25 +165,28 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
           )
         })}
 
-        <section className="grid gap-6 sm:grid-cols-[110px_1fr] sm:gap-10">
-          <PawIcon className="h-9 w-9 text-accent/40" />
-          <div className="space-y-6">
-            <h2 className="font-serif text-3xl font-semibold tracking-tight text-text sm:text-4xl">Reflection</h2>
-            {content.reflection.paragraphs?.map((p, i) => (
-              <p key={i} className="max-w-2xl text-lg leading-relaxed text-text-muted">
-                {p}
-              </p>
-            ))}
-            {content.reflection.points && (
-              <ul className="max-w-2xl space-y-3.5">
-                {content.reflection.points.map((item, i) => (
-                  <li key={i} className="flex gap-3.5 text-lg leading-relaxed text-text-muted">
-                    <span className="mt-3.5 h-px w-4 shrink-0 bg-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
+        <section className="relative overflow-hidden">
+          <div className="pointer-events-none absolute -left-20 top-0 h-72 w-72 rounded-full bg-accent-2/10 blur-3xl" />
+          <div className="glass-strong relative grid gap-6 rounded-3xl p-6 sm:grid-cols-[110px_1fr] sm:gap-10 sm:p-8">
+            <PawIcon className="h-9 w-9 text-accent/40" />
+            <div className="space-y-6">
+              <h2 className="font-serif text-3xl font-semibold tracking-tight text-text sm:text-4xl">Reflection</h2>
+              {content.reflection.paragraphs?.map((p, i) => (
+                <p key={i} className="max-w-2xl text-lg leading-relaxed text-text-muted">
+                  {p}
+                </p>
+              ))}
+              {content.reflection.points && (
+                <ul className="max-w-2xl space-y-3.5">
+                  {content.reflection.points.map((item, i) => (
+                    <li key={i} className="flex gap-3.5 text-lg leading-relaxed text-text-muted">
+                      <span className="mt-3.5 h-px w-4 shrink-0 bg-accent" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
           </div>
         </section>
       </div>
