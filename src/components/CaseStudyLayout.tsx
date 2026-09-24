@@ -62,77 +62,84 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
             Back to work
           </Link>
 
-          <div className="mt-8 max-w-3xl">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="font-display text-sm font-medium uppercase tracking-wide text-text-faint"
-            >
-              {content.meta.company} · {content.meta.industry}
-            </motion.p>
+          <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_360px] lg:items-center lg:gap-14">
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="font-display text-sm font-medium uppercase tracking-wide text-text-faint"
+              >
+                {content.meta.company} · {content.meta.industry}
+              </motion.p>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 16 }}
+              <motion.h1
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.05 }}
+                className="mt-4 font-serif text-[clamp(2.6rem,7vw,5.2rem)] font-semibold leading-[0.98] tracking-tight text-text"
+              >
+                {content.title}
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="mt-4 max-w-2xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl"
+              >
+                {content.tagline}
+              </motion.p>
+              <motion.p
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15 }}
+                className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted"
+              >
+                {content.intro}
+              </motion.p>
+            </div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.05 }}
-              className="mt-4 font-serif text-[clamp(2.6rem,7vw,5.2rem)] font-semibold leading-[0.98] tracking-tight text-text"
+              transition={{ duration: 0.7, delay: 0.25 }}
+              className="flex justify-center lg:justify-end"
             >
-              {content.title}
-            </motion.h1>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="mt-4 max-w-2xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl"
-            >
-              {content.tagline}
-            </motion.p>
-            <motion.p
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted"
-            >
-              {content.intro}
-            </motion.p>
+              <img
+                src={content.heroImage}
+                alt={content.title}
+                className="max-h-[320px] w-auto rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[400px]"
+              />
+            </motion.div>
           </div>
-        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="relative mx-auto mt-14 max-w-6xl px-5"
-        >
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-center lg:gap-14">
-            <img
-              src={content.heroImage}
-              alt={content.title}
-              className="max-h-[380px] w-auto shrink-0 rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[460px] lg:order-2"
-            />
-
-            <div className="glass-strong flex w-full max-w-sm flex-col gap-5 rounded-3xl p-6 lg:order-1 lg:w-[300px]">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="glass-strong mx-auto mt-14 flex max-w-4xl flex-col gap-8 rounded-3xl p-6 sm:p-8 lg:flex-row lg:items-start lg:gap-12"
+          >
+            <div className="grid flex-1 grid-cols-2 gap-6 sm:grid-cols-4">
               <MetaRow label="Role" value={content.meta.role} />
               <MetaRow label="Team" value={content.meta.team} />
               <MetaRow label="Company" value={content.meta.company} />
               <MetaRow label="Industry" value={content.meta.industry} />
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">Responsibilities</p>
-                <div className="mt-2.5 flex flex-wrap gap-1.5">
-                  {content.meta.responsibilities.map((r) => (
-                    <span
-                      key={r}
-                      className="rounded-full border border-border bg-bg/50 px-2.5 py-1 text-xs font-medium text-text-muted"
-                    >
-                      {r}
-                    </span>
-                  ))}
-                </div>
+            </div>
+            <div className="lg:w-64 lg:shrink-0">
+              <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">Responsibilities</p>
+              <div className="mt-2.5 flex flex-wrap gap-1.5">
+                {content.meta.responsibilities.map((r) => (
+                  <span
+                    key={r}
+                    className="rounded-full border border-border bg-bg/50 px-2.5 py-1 text-xs font-medium text-text-muted"
+                  >
+                    {r}
+                  </span>
+                ))}
               </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </header>
 
       <div className="mx-auto max-w-5xl space-y-28 px-5 pb-24 sm:space-y-36">
