@@ -6,7 +6,7 @@ export const ultragymUxStudy: CaseStudyContent = {
   tagline: 'Removing friction from the UltraGym companion app',
   intro:
     "UltraGym combines smart fitness hardware with a companion app to help users plan workouts, track progress, and stay consistent. While the hardware was powerful, the overall experience still required too much effort. My goal wasn't to add more features — it was to remove the friction that stood between users and their workout.",
-  heroImage: '/case-studies/ultragym-ux/cover.svg',
+  heroImage: '/case-studies/ultragym-ux/cover.webp',
   meta: {
     role: 'Product Designer — UI/UX (End-to-End)',
     team: '2 Product Designers',
