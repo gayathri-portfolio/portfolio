@@ -12,6 +12,23 @@ export function BlockRenderer({ block }: { block: Block }) {
         </Reveal>
       )
 
+    case 'subheading':
+      return (
+        <Reveal>
+          <div>
+            {block.eyebrow && (
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-xs font-medium text-text-muted">
+                <span className="h-1 w-1 rounded-full bg-accent" />
+                {block.eyebrow}
+              </span>
+            )}
+            <p className={`max-w-2xl font-display text-xl font-semibold text-text sm:text-2xl ${block.eyebrow ? 'mt-3' : ''}`}>
+              {block.text}
+            </p>
+          </div>
+        </Reveal>
+      )
+
     case 'highlight':
       return (
         <Reveal>
@@ -27,8 +44,12 @@ export function BlockRenderer({ block }: { block: Block }) {
       return (
         <Reveal>
           <div className="max-w-2xl">
-            <p className="text-xs font-semibold uppercase tracking-wide text-accent">{block.label}</p>
-            <p className="mt-3 font-serif text-2xl italic leading-snug text-text sm:text-3xl">{block.text}</p>
+            {block.label && (
+              <p className="text-xs font-semibold uppercase tracking-wide text-accent">{block.label}</p>
+            )}
+            <p className={`font-serif text-2xl italic leading-snug text-text sm:text-3xl ${block.label ? 'mt-3' : ''}`}>
+              {block.text}
+            </p>
           </div>
         </Reveal>
       )
@@ -49,7 +70,7 @@ export function BlockRenderer({ block }: { block: Block }) {
             {block.items.map((item, i) => (
               <div key={i} className="flex flex-col gap-1.5 py-5 sm:flex-row sm:items-baseline sm:gap-8">
                 <div className="flex items-center gap-2.5 sm:w-64 sm:shrink-0">
-                  <span className="text-xl leading-none">{item.icon}</span>
+                  {item.icon && <span className="text-xl leading-none">{item.icon}</span>}
                   <h4 className="font-display text-base font-semibold text-text">{item.title}</h4>
                 </div>
                 <p className="text-text-muted">{item.text}</p>

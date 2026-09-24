@@ -8,9 +8,10 @@ export interface CaseStudyMeta {
 
 export type Block =
   | { kind: 'p'; text: string }
-  | { kind: 'callout'; label: string; text: string }
+  | { kind: 'subheading'; eyebrow?: string; text: string }
+  | { kind: 'callout'; label?: string; text: string }
   | { kind: 'quote'; text: string }
-  | { kind: 'cards'; items: { icon: string; title: string; text: string }[] }
+  | { kind: 'cards'; items: { icon?: string; title: string; text: string }[] }
   | { kind: 'image'; src: string; caption?: string; wide?: boolean }
   | { kind: 'compare'; before: string[]; after: string[] }
   | { kind: 'list'; items: string[] }
@@ -23,6 +24,11 @@ export interface CaseStudySection {
   blocks: Block[]
 }
 
+export interface CaseStudyReflection {
+  paragraphs?: string[]
+  points?: string[]
+}
+
 export interface CaseStudyContent {
   slug: string
   title: string
@@ -31,6 +37,5 @@ export interface CaseStudyContent {
   heroImage: string
   meta: CaseStudyMeta
   sections: CaseStudySection[]
-  reflection: string
-  learnings: string
+  reflection: CaseStudyReflection
 }

@@ -10,7 +10,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
 
   return (
-    <article>
+    <article className="overflow-x-clip">
       <header className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
         <div className="mx-auto max-w-6xl px-5">
           <Link
@@ -111,10 +111,21 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
           <PawIcon className="h-9 w-9 text-accent/40" />
           <div className="space-y-6">
             <h2 className="font-serif text-3xl font-semibold tracking-tight text-text sm:text-4xl">Reflection</h2>
-            <p className="max-w-2xl text-lg leading-relaxed text-text-muted">{content.reflection}</p>
-            <p className="max-w-2xl border-l-2 border-accent pl-6 font-serif text-2xl italic leading-snug text-text">
-              {content.learnings}
-            </p>
+            {content.reflection.paragraphs?.map((p, i) => (
+              <p key={i} className="max-w-2xl text-lg leading-relaxed text-text-muted">
+                {p}
+              </p>
+            ))}
+            {content.reflection.points && (
+              <ul className="max-w-2xl space-y-3.5">
+                {content.reflection.points.map((item, i) => (
+                  <li key={i} className="flex gap-3.5 text-lg leading-relaxed text-text-muted">
+                    <span className="mt-3.5 h-px w-4 shrink-0 bg-accent" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </section>
       </div>

@@ -5,9 +5,9 @@ const IMG = '/case-studies/ultragym-pro'
 export const ultragymPro: CaseStudyContent = {
   slug: 'ultragym-pro',
   title: 'UltraGym Pro',
-  tagline: 'On-device touchscreen for a 120kg commercial strength machine',
+  tagline: 'On-device touchscreen for a 120 kg commercial strength machine',
   intro:
-    'UltraGym Pro is a commercial strength-training system with up to 120kg of digital resistance, bringing workout guidance, strength assessment, and real-time training feedback directly onto the machine. The challenge wasn\'t simply designing a touchscreen — it was designing for a user who is standing, moving, pulling, exerting force, and looking at the screen from constantly changing positions. I designed the 21.5-inch vertical interface around that physical context, making every interaction glanceable, legible, and easy to act on under exertion.',
+    "UltraGym Pro is a commercial strength-training system with up to 120 kg of digital resistance, bringing workout guidance, strength assessment, and real-time training feedback directly onto the machine. The challenge wasn't simply designing a touchscreen. It was designing for a user who is standing, moving, pulling, exerting force, and looking at the screen from constantly changing positions. I designed the 21.5-inch vertical interface around that physical context — making every interaction glanceable, legible, and easy to act on under exertion.",
   heroImage: `${IMG}/hero-product.webp`,
   meta: {
     role: 'Product Designer — UI/UX (End-to-End)',
@@ -26,76 +26,133 @@ export const ultragymPro: CaseStudyContent = {
   sections: [
     {
       number: '01',
-      title: 'What happens to people who need more than 70kg?',
+      title: 'Why UltraGym needed a Pro version',
       blocks: [
+        { kind: 'stat-grid', items: [
+          { label: 'Resistance range', value: '1.5 - 120 kg' },
+          { label: 'Screen Size', value: '21.5 Inches (1080 x 1920px)' },
+        ] },
+        { kind: 'callout', label: 'The Product Question', text: 'what happens to people who need more than 70 kg?' },
         {
-          kind: 'callout',
-          label: 'The product question',
-          text: 'What happens to people who need more than 70kg?',
+          kind: 'p',
+          text: "The founder's direction was to explore a Pro version with 120 kg resistance and a screen integrated into the machine, opening up more possibilities for how the machine could be used.",
         },
         {
           kind: 'p',
-          text: "The original UltraGym topped out at 70kg — enough for home users, not enough for commercial, semi-commercial and serious home-gym users. The founder's direction was to explore a Pro version with 120kg of resistance and a screen integrated into the machine, opening up more possibilities for how it could be used.",
+          text: 'The product was designed to make better use of the machine through different attachment and positioning possibilities, including column and floor outputs, allowing users to perform different types of exercises and make fuller use of the equipment.',
         },
-        {
-          kind: 'p',
-          text: 'The product was designed to make better use of the machine through different attachment and positioning possibilities — including column and floor outputs — letting users perform more exercise types and make fuller use of the equipment.',
-        },
-        { kind: 'image', src: `${IMG}/page-02.webp`, caption: 'Ultragym (70kg, home) → Ultragym Pro (120kg, commercial / semi-commercial / home)' },
+        { kind: 'image', src: `${IMG}/page-02.webp`, caption: 'Ultragym (70 kg, Home Gym Users) → Ultragym Pro (120 kg, Commercial, Semi-Commercial, Home Gym Users)' },
       ],
     },
     {
       number: '02',
-      title: 'Going outside the product before designing it',
+      title: 'The challenge',
       blocks: [
         {
           kind: 'callout',
-          label: 'The challenge',
-          text: "How do you design a sophisticated fitness experience for someone who is standing and moving in front of a 21-inch touchscreen, viewed from roughly a metre away and touched from about two feet?",
+          text: 'How do you design a sophisticated fitness experience for someone who is standing and moving in front of a 21-inch touchscreen, viewing it from roughly 1 metre away and interacting with it from around 2 feet?',
         },
         {
           kind: 'p',
-          text: "I started with a BRD and listed the features I knew would be necessary. But I didn't want to design the software on assumptions alone, so I went outside the product — into gym context and trainer perspectives, user and product conversations, and a competitor study of connected-fitness products like Speediance and Tonal.",
+          text: "I started with a BRD and listed the features I knew would be necessary for this version. But I didn't want to design the software based only on assumptions. So I went outside the product.",
+        },
+        {
+          kind: 'cards',
+          items: [
+            {
+              title: 'Gym Context & Trainer Perspectives',
+              text: 'I looked at the environments first. I visited other connected fitness gyms, spoke with trainers and tried to understand how this product could fit into real gym scenarios.',
+            },
+            {
+              title: 'User & Product Conversations',
+              text: 'I also interviewed people in the office — both fitness and non-fitness users — by having them stand in front of the product and asking what they would expect from it and which features they would want to see.',
+            },
+            {
+              title: 'Competitor Study & Exploration',
+              text: 'I analyzed connected fitness products such as Speediance and Tonal to understand how similar products approached the experience.',
+            },
+          ],
         },
         {
           kind: 'p',
-          text: 'I brought those observations back into the product discussion with the CEO/founder and Fitness Manager, and kept refining direction before moving into user flows and wireframes. The process was never linear — product, design, fitness expertise and engineering discussions continuously influenced the experience as it evolved.',
+          text: 'I then brought these observations back into the product discussion with the CEO/founder and Fitness Manager and continued refining the product direction before moving into user flows and wireframes.',
         },
-        { kind: 'image', src: `${IMG}/page-03.webp`, caption: 'Research → product discussion → flows → UI → testing → developer handoff — a loop, not a line' },
+        {
+          kind: 'list',
+          items: [
+            'User Flows and Wireframes',
+            'UI + interaction exploration',
+            'Product / Fitness / Engineering discussions',
+            'Testing + iteration',
+            'Refinement',
+            'Developer Handoff',
+          ],
+        },
+        {
+          kind: 'highlight',
+          text: 'The process was not linear. Product, design, fitness expertise and engineering discussions continuously influenced the experience as it evolved.',
+        },
       ],
     },
     {
       number: '03',
-      title: 'Designing for a body in motion',
+      title: 'The environment became part of the UX problem',
       blocks: [
         {
           kind: 'p',
-          text: 'UltraGym Pro uses a 21-inch portrait touchscreen at 1080×1920px. Unlike a phone or laptop, the user stands in front of the machine rather than sitting close to the screen.',
+          text: 'UltraGym Pro uses a 21-inch portrait touchscreen at 1080 × 1920 px. Unlike a phone or laptop, the user would be standing in front of the machine rather than sitting close to the screen.',
         },
         {
           kind: 'quote',
-          text: 'Without any cues, people naturally positioned themselves around the middle of the platform, roughly one metre from the screen.',
+          text: 'When I observed users standing in front of the device, I noticed a consistent pattern: without any cues, people naturally positioned themselves around the middle of the platform, roughly one metre from the screen.',
         },
         {
-          kind: 'p',
-          text: "That observation shaped the interface: it needed to stay legible from about a metre away, while interactions still had to work comfortably when someone moved in to around two feet. It also shaped the physical product — I pushed for markers on the platform to establish the right standing position for different use cases, so users wouldn't have to figure it out themselves.",
+          kind: 'list',
+          items: [
+            'That became an important consideration for the interface. The screen needed to remain visible and legible from roughly one metre away, while interactions needed to work comfortably when the user moved closer, to around 2 feet from the screen.',
+            "The observation also influenced the physical experience beyond the screen. I pushed for markers on the platform to help establish the appropriate standing position for different use cases, so users wouldn't have to figure out where to stand on their own.",
+          ],
         },
-        { kind: 'image', src: `${IMG}/page-04.webp`, caption: 'Scale & distance: 1 metre viewing distance, 2 feet interaction distance' },
+        { kind: 'image', src: `${IMG}/page-04.webp`, caption: 'Scale & distance diagram' },
         {
           kind: 'p',
-          text: "This was a new screen size for me, and at first I struggled to visualize how large elements should actually be — some early attempts made everything too large because I was designing for the canvas, not for the way the user would actually see it. Paper sketches helped me explore layout and spatial relationships before Figma, and I kept revisiting scale, spacing and proportion as a 21-inch portrait screen viewed from a metre away, not as a rectangle on my monitor.",
+          text: 'This was a new screen size for me. Initially, I struggled to visualize how large or small elements should actually be. Some of my first attempts made everything too large because I was designing for the canvas rather than the way the user would see it.',
         },
-        { kind: 'image', src: `${IMG}/page-05.webp`, caption: 'Paper sketches ↔ Figma wireframes, back and forth until the scale felt right' },
       ],
     },
     {
       number: '04',
-      title: 'From wireframes to a visual system',
+      title: 'Initially, the scale of the experience was hard to grasp',
       blocks: [
         {
           kind: 'p',
-          text: "Wireframes gave me structure, but they weren't the final answer. As I worked through screens, discussions with the founder, Fitness Manager and developers continued — a design decision could raise a product question, a product requirement could change an interaction, a technical possibility could open a different solution. I wasn't simply translating wireframes into polished screens; I was continuing to shape the product while designing it.",
+          text: 'At first, I was still struggling to understand the scale of the experience. I started with paper sketches to quickly explore the overall layout and spatial relationships before moving into Figma.',
         },
+        {
+          kind: 'p',
+          text: "Once I translated those ideas into Figma wireframes, the challenge didn't disappear. A layout that looked reasonable on the canvas could still feel very different when considered as a 21-inch portrait screen viewed from roughly one meter away. I had to keep revisiting the scale, spacing and proportions of the interface to understand what could realistically fit without making the experience feel dense.",
+        },
+        { kind: 'image', src: `${IMG}/page-05.webp`, caption: 'Paper sketches → Figma wireframes' },
+        {
+          kind: 'p',
+          text: 'This back-and-forth between physical sketching and digital wireframing helped me gradually establish the structure of the experience.',
+        },
+      ],
+    },
+    {
+      number: '05',
+      title: 'From wireframes to UI',
+      blocks: [
+        { kind: 'p', text: "The wireframes gave me structure, but they weren't the final answer." },
+        {
+          kind: 'p',
+          text: 'As I worked through the screens, discussions with the CEO/founder, Fitness Manager and developers continued. A design decision could raise a product question. A product requirement could change an interaction. A technical possibility could open up a different solution.',
+        },
+        {
+          kind: 'p',
+          text: "This meant I wasn't simply translating wireframes into polished screens. I was continuing to shape the product while designing it.",
+        },
+        { kind: 'p', text: 'I was continuously asking:' },
         {
           kind: 'list',
           items: [
@@ -103,21 +160,54 @@ export const ultragymPro: CaseStudyContent = {
             'Can the product make this feel natural without making the user stop and learn how it works?',
           ],
         },
-        { kind: 'image', src: `${IMG}/page-06.webp`, caption: 'Early wireframes across home, workout creation, exercise detail and strength assessment' },
-        {
-          kind: 'p',
-          text: 'Before scaling the UI across the product, I needed to establish how UltraGym Pro should look and feel — a mood board, several mockup directions, and 3–4 variations of the key screens (Home, Workout Player, Strength Test) before settling on visual style, color direction and reusable components.',
-        },
-        { kind: 'image', src: `${IMG}/page-07.webp`, caption: 'Inspiration → moodboard → UI exploration → final direction → visual language and components' },
+        { kind: 'p', text: 'That became an important principle throughout the design.' },
+        { kind: 'image', src: `${IMG}/page-06.webp`, caption: 'Early wireframes across home, exercises, workouts, classes, and strength assessment' },
       ],
     },
     {
-      number: '05',
-      title: "Home screen: the problem wasn't a lack of features",
+      number: '06',
+      title: 'Finding the visual direction',
       blocks: [
         {
           kind: 'p',
-          text: 'UltraGym Pro had several ways to start a workout — Exercise Library, Create Workout, Generate Workout, Classes, My Library, Strength Test and Quick Train. The easy answer would have been to give all of them equal weight. But a commercial user may arrive with a simple intention and limited attention, and giving every option the same prominence turns capability into decision fatigue.',
+          text: 'I needed to establish how UltraGym Pro should look and feel before scaling the UI across the product.',
+        },
+        {
+          kind: 'p',
+          text: 'I looked for UI inspiration and created a mood board to explore different visual directions. From there, I moved into mockups and tried multiple variations before settling on the visual style, color direction and reusable design components.',
+        },
+        {
+          kind: 'p',
+          text: 'I explored roughly 3–4 variations for the key screens, particularly the Home, Workout Player and Strength Test, before finalizing the direction and applying the system across the rest of the product.',
+        },
+        {
+          kind: 'list',
+          items: ['Inspiration', 'Moodboard', 'UI Exploration', 'Final Direction', 'Visual Language + Components'],
+        },
+      ],
+    },
+    {
+      number: '07',
+      title: 'Designing UltraGym Pro',
+      blocks: [
+        {
+          kind: 'p',
+          text: 'With the structure and visual direction established, I moved into designing the complete software experience for UltraGym Pro — from getting started and discovering exercises to creating workouts, training, testing strength and tracking progress.',
+        },
+        { kind: 'image', src: `${IMG}/page-07.webp`, caption: 'Home, Workout Player, and Strength Test screens' },
+      ],
+    },
+    {
+      number: '08',
+      title: "Home Screen: the problem wasn't a lack of features",
+      blocks: [
+        {
+          kind: 'p',
+          text: 'UltraGym Pro had several ways for someone to start working out — Exercise Library, Create Workout, Generate Workout, Classes, My Library, Strength Test and Quick Train.',
+        },
+        {
+          kind: 'p',
+          text: 'The easy answer would have been to make all of them equally prominent. But a commercial user may arrive with a very simple intention and limited attention. Giving every option the same weight would turn capability into decision fatigue.',
         },
         {
           kind: 'callout',
@@ -125,117 +215,198 @@ export const ultragymPro: CaseStudyContent = {
           text: 'How do I make all the workout options available without making the Home screen overwhelming?',
         },
         {
-          kind: 'quote',
-          text: "Hick's Law: as the number of choices increases, the time required to make a decision also increases.",
+          kind: 'p',
+          text: "I explored how the home screen could stay visually simple while still making the product's breadth discoverable. I also considered how the system could eventually use a user's workout preference to bring a relevant recommendation higher in the hierarchy.",
         },
+        { kind: 'quote', text: "Hick's Law: As the number of choices increases, the time required to make a decision also increases." },
+        { kind: 'image', src: `${IMG}/page-08.webp`, caption: 'Variation 1 → Variation 2 → Final Design' },
+        { kind: 'highlight', text: "The goal wasn't to reduce the number of choices. It was to reduce the effort required to choose." },
         {
           kind: 'p',
-          text: "The goal wasn't to reduce the number of choices — it was to reduce the effort required to choose. I also deliberately varied how different features were represented so the interface didn't become a wall of identical cards, creating enough visual rhythm to scan without feeling busy.",
+          text: 'I also deliberately varied how different features were represented so the interface did not become a wall of identical cards. The goal was to create enough visual rhythm for users to scan without making the interface feel busy.',
         },
-        { kind: 'image', src: `${IMG}/page-08.webp`, caption: 'Variation 1 → Variation 2 → Final design' },
       ],
     },
     {
-      number: '06',
+      number: '09',
       title: 'Designing around the rhythm of a workout',
       blocks: [
         {
           kind: 'p',
-          text: "I initially thought the Pro player should expose more metrics, simply because the hardware could support them. But capability and attention are different problems — a beginner mostly wants to follow the exercise and finish the workout; an experienced user cares more about performance; an athlete training for endurance needs progression, tempo and range of motion.",
+          text: 'I initially thought the Pro player should expose more metrics because the product could support them. But when I looked at the context in which UltraGym Pro would be used, I realized that capability and attention are different problems.',
+        },
+        {
+          kind: 'p',
+          text: "The people using the machine wouldn't all have the same goals. A beginner might primarily want to follow the exercise, understand the reps and sets, and complete the workout. An experienced user might already know the movements and care more about their performance. An athlete could be using the machine for endurance or performance training, where progression, tempo, range of motion and other performance metrics become more important than simply completing the prescribed reps.",
         },
         {
           kind: 'callout',
-          label: 'UX problem',
+          label: 'UX Problem',
           text: 'How do I design a single workout experience that adapts to different user intents without overwhelming everyone with the same level of information?',
         },
         {
           kind: 'p',
-          text: 'I sat with the Fitness Manager to define what information would actually help each type of user, and with developers on what the machine could realistically surface: video, reps, sets, weight, range of motion, power, left/right performance and tempo.',
+          text: 'I sat with the Fitness Manager and discussed what information would actually be useful for these different users. I also discussed with developers what could realistically be pulled from the machine and system.',
         },
-        { kind: 'image', src: `${IMG}/page-09.webp`, caption: 'Three variations of the workout player' },
+        {
+          kind: 'p',
+          text: 'The resulting set could include video, reps, sets, weight, range of motion, power, left/right performance and tempo.',
+        },
+        { kind: 'image', src: `${IMG}/page-09.webp`, caption: 'Variation 1 → Variation 2 → Variation 3' },
+        {
+          kind: 'p',
+          text: 'The player needed to support two very different intentions: someone who simply wants to follow the trainer and someone who actively wants performance metrics.',
+        },
         {
           kind: 'quote',
-          text: 'Progressive disclosure was not a UX pattern I added because it sounded good — it emerged from the physical context of the workout.',
+          text: 'Progressive disclosure was not a UX pattern I added because it sounded good. It emerged from the physical context of the workout.',
         },
         {
           kind: 'p',
-          text: 'The default screen stays calm; a second, richer view carries the graphs and numbers for anyone who wants them — without forcing every user to process that data mid-movement.',
+          text: 'The second view could contain richer information without forcing every user to process graphs and numbers during a movement. This was my way of keeping the system powerful while keeping the default interaction calm.',
         },
-        { kind: 'image', src: `${IMG}/page-10.webp`, caption: 'Final design — default screen vs. detailed metric screen' },
-        {
-          kind: 'p',
-          text: "Initially, changing resistance meant pausing the workout, adjusting the weight and continuing — a natural assumption until we questioned the interruption it created. I raised it with developers, who investigated whether live adjustment was technically possible. It was. Resistance could now change while the workout stayed active, removing an interruption that nobody had actually asked to keep.",
-        },
-        {
-          kind: 'highlight',
-          text: "Engineering feasibility didn't just validate the design. It created a better one.",
-        },
+        { kind: 'image', src: `${IMG}/page-10.webp`, caption: 'Final Design — Default screen vs. Detailed Metric screen' },
       ],
     },
     {
-      number: '07',
-      title: 'Tempo, guided instead of just measured',
+      number: '10',
+      title: 'A design assumption became an engineering question',
       blocks: [
         {
           kind: 'p',
-          text: "The initial idea was to show the user's tempo — how fast they were lifting each rep. But watching natural gym behaviour, I questioned whether a raw number would actually help: someone new to fitness may not know what tempo they should be aiming for at all, the way a trainer would normally guide their pace.",
+          text: 'Initially, changing resistance meant pausing the workout, adjusting the weight and continuing. That was a natural assumption until we questioned the interruption it created.',
+        },
+        {
+          kind: 'p',
+          text: 'I discussed the interaction with developers. They asked for time to investigate whether live adjustment was technically possible. The answer was positive.',
+        },
+        {
+          kind: 'p',
+          text: 'That feasibility result changed the UX: resistance could now be adjusted while the workout remained active, removing an unnecessary interruption.',
+        },
+        { kind: 'highlight', text: "Engineering feasibility didn't just validate the design. It created a better design." },
+      ],
+    },
+    {
+      number: '11',
+      title: 'Tempo',
+      blocks: [
+        {
+          kind: 'p',
+          text: "The initial discussion was to visually show the user's tempo — essentially showing how fast they were lifting during each repetition.",
+        },
+        {
+          kind: 'p',
+          text: 'But when I looked at natural behaviour in a gym, I questioned whether simply showing a tempo value would actually help. Someone who is new to fitness may not know what the right tempo should be, or when they should lift and lower the weight. Even in a gym, a trainer would usually guide the person on the pace to follow depending on the type of training.',
         },
         {
           kind: 'callout',
-          label: 'UX problem',
+          label: 'UX Problem',
           text: 'Instead of only showing users how they are performing, can the product guide them on how they should perform each repetition?',
         },
         {
           kind: 'p',
-          text: 'That question led to a different feature: providing the expected tempo from the system side, using scientifically established tempo guidance, and having the user follow it during every repetition — turning tempo from a number to watch into direction to follow.',
+          text: "So I raised a question in our discussion with the team: instead of only measuring and showing the user's tempo, could we provide the expected tempo from our side and guide the user to follow it during every repetition?",
         },
-        { kind: 'image', src: `${IMG}/page-11.webp`, caption: 'Tempo variations, from a raw value to guided left/right tempo bars' },
+        {
+          kind: 'p',
+          text: 'From those discussions, we found that this was technically possible to provide using scientifically established tempo guidance.',
+        },
+        {
+          kind: 'p',
+          text: 'This changed the role of tempo in the experience — from simply showing a number to helping the user understand how they should perform the movement.',
+        },
+        { kind: 'image', src: `${IMG}/page-11.webp`, caption: 'Variation 1 → Variation 2 → Variation 3 → Final Design' },
       ],
     },
     {
-      number: '08',
-      title: 'A strength assessment that adapts to you',
+      number: '12',
+      title: 'Strength Assessment',
       blocks: [
         {
           kind: 'p',
-          text: 'My first instinct was to extend the existing UltraGym strength-test model — a fixed sequence, user-entered weights, a final 5RM/1RM calculation. But Pro needed to support very different users and very different reasons for testing: some want their maximum strength, others care more about how they perform across repetitions.',
+          text: 'My initial instinct was to build on the existing UltraGym strength-test model: a fixed sequence of exercises, user-entered weights, and a final 5RM/1RM calculation.',
+        },
+        {
+          kind: 'p',
+          text: 'But UltraGym Pro was intended to support users with different strength levels and different reasons for testing. Some users may want to understand their maximum strength, while others may be more interested in how they perform across repetitions.',
+        },
+        {
+          kind: 'p',
+          text: "This made me question whether the same fixed sequence should be used for everyone. How could the assessment account for differences in the user's strength and performance?",
         },
         {
           kind: 'callout',
-          label: 'Problem',
-          text: "How can the strength assessment adapt to the user's performance instead of making everyone follow the same rigid sequence?",
+          label: 'UX Problem',
+          text: "How can the strength assessment adapt to the user's performance instead of making every user follow the same rigid sequence?",
+        },
+      ],
+    },
+    {
+      number: '13',
+      title: 'The assessment logic',
+      blocks: [
+        {
+          kind: 'p',
+          text: 'The assessment was designed around 7 movement patterns, with an overarching rule that the user would not be required to perform more than 7 consecutive reps, irrespective of the weight.',
         },
         {
           kind: 'p',
-          text: 'The assessment is built around 7 movement patterns, with one rule throughout: never more than 7 consecutive reps, regardless of weight. After a warm-up and a starting weight set by the user, the system monitors every rep and automatically progresses resistance based on performance — increasing, holding or reducing the next weight depending on the exercise and how the user is trending.',
+          text: 'The flow starts with a relevant warm-up, followed by the starting weight set by user and a countdown before the resistance begins.',
         },
-        { kind: 'image', src: `${IMG}/page-12.webp`, caption: 'Assessment flow across 7 movement patterns' },
         {
           kind: 'p',
-          text: 'We tested it with real users in two groups — one on a rigid resistance sequence, one on adaptive resistance. The adaptive group reached and identified their 1RM faster and more efficiently, and testing also surfaced points where progression felt too aggressive.',
+          text: "During the assessment, the system monitors each rep and automatically increases the resistance based on the user's performance, progressively moving through resistance levels according to the defined progression.",
+        },
+        {
+          kind: 'p',
+          text: 'During the rest, the user is prepared for the next attempt. The next weight can be increased, kept the same or reduced, depending on the exercise and progression logic.',
+        },
+      ],
+    },
+    {
+      number: '14',
+      title: 'We tested the idea before treating it as solved',
+      blocks: [
+        {
+          kind: 'p',
+          text: 'After developing the concept, we tested it with real users in two groups: one using a rigid resistance sequence and the other using adaptive resistance.',
+        },
+        {
+          kind: 'p',
+          text: 'The goal was to understand how users responded to each progression and how effectively they could reach their 1RM. We found that users in the adaptive-resistance group were able to reach and identify their 1RM faster and more efficiently than those following the rigid sequence.',
+        },
+        {
+          kind: 'p',
+          text: "The testing also exposed where the resistance progression felt too aggressive, helping us identify points where the system needed to adapt more closely to the user's performance.",
         },
         {
           kind: 'quote',
-          text: 'If the resistance kept increasing, what happens when the user simply cannot complete the movement? The interaction needed a graceful response, not a dead end.',
+          text: 'The testing exposed an important edge case: if the resistance kept increasing, what happens when the user cannot complete the movement? The interaction needed a graceful response rather than treating that moment as a dead end. So I came up with a logic:',
         },
+        { kind: 'p', text: 'When a rep fails. A rep can be considered failed when:' },
         {
           kind: 'list',
           items: [
             'The user does not attempt the rep',
-            'The user attempts the lift but does not complete it in time',
+            'The user attempts the lift but does not complete it within the required time',
             'The user disengages the resistance',
           ],
         },
+        { kind: 'p', text: 'When this happens, the motor disengages and the user moves into a 2–3 minute rest period.' },
+        { kind: 'image', src: `${IMG}/page-13.webp`, caption: 'Strength history screen and live rep test screen' },
         {
-          kind: 'p',
-          text: 'Any of those counts as a failed rep: the motor disengages and the user moves into a 2–3 minute rest period. The logic underneath was complex, but the interaction on screen had to stay understandable while someone was physically mid-exercise.',
+          kind: 'highlight',
+          text: 'The assessment logic was complex, but the interaction needed to remain understandable while the user was physically performing the exercise.',
         },
-        { kind: 'image', src: `${IMG}/page-13.webp`, caption: 'Rigid vs. adaptive resistance testing, and the rep-fail rest flow' },
       ],
     },
   ],
-  reflection:
-    'UltraGym Pro taught me to think about the entire product environment, not just the interface — hardware, physical space, user context and every interaction had to work together as one experience. It also pushed me to look closely at human behaviour and psychology during workouts: the small habits, hesitations and decisions that shape how people actually exercise.',
-  learnings:
-    'Designing around people in their real context, rather than designing for a screen in isolation.',
+  reflection: {
+    paragraphs: [
+      'Ultragym Pro taught me to think about the entire product environment, not just the interface. The hardware, physical space, user context, and every interaction had to work together as one experience.',
+      'It also pushed me to look closely at human behavior and psychology during workouts — the small habits, decisions, hesitations, and patterns that shape how people actually exercise.',
+      'The biggest takeaway was learning to design around people in their real context, rather than designing for a screen in isolation.',
+    ],
+  },
 }
