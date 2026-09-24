@@ -49,7 +49,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
 
   return (
     <article className="overflow-x-clip">
-      <header className="relative overflow-hidden pb-16 pt-32 sm:pt-40">
+      <header className="relative overflow-hidden pb-16 pt-24 sm:pt-28">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
 
@@ -62,49 +62,57 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
             Back to work
           </Link>
 
-          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_260px] lg:gap-16">
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="font-display text-sm font-medium uppercase tracking-wide text-text-faint"
-              >
-                {content.meta.company} · {content.meta.industry}
-              </motion.p>
+          <div className="mt-8 max-w-3xl">
+            <motion.p
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="font-display text-sm font-medium uppercase tracking-wide text-text-faint"
+            >
+              {content.meta.company} · {content.meta.industry}
+            </motion.p>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-                className="mt-4 font-serif text-[clamp(2.6rem,7vw,5.2rem)] font-semibold leading-[0.98] tracking-tight text-text"
-              >
-                {content.title}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="mt-4 max-w-2xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl"
-              >
-                {content.tagline}
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-                className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted"
-              >
-                {content.intro}
-              </motion.p>
-            </div>
-
-            <motion.div
+            <motion.h1
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-strong flex flex-col gap-5 rounded-3xl p-6"
+              transition={{ duration: 0.6, delay: 0.05 }}
+              className="mt-4 font-serif text-[clamp(2.6rem,7vw,5.2rem)] font-semibold leading-[0.98] tracking-tight text-text"
             >
+              {content.title}
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mt-4 max-w-2xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl"
+            >
+              {content.tagline}
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mt-6 max-w-xl text-lg leading-relaxed text-text-muted"
+            >
+              {content.intro}
+            </motion.p>
+          </div>
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.25 }}
+          className="relative mx-auto mt-14 max-w-6xl px-5"
+        >
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:items-center lg:justify-center lg:gap-14">
+            <img
+              src={content.heroImage}
+              alt={content.title}
+              className="max-h-[380px] w-auto shrink-0 rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[460px]"
+            />
+
+            <div className="glass-strong flex w-full max-w-sm flex-col gap-5 rounded-3xl p-6 lg:w-[300px]">
               <MetaRow label="Role" value={content.meta.role} />
               <MetaRow label="Team" value={content.meta.team} />
               <MetaRow label="Company" value={content.meta.company} />
@@ -122,22 +130,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
                   ))}
                 </div>
               </div>
-            </motion.div>
-          </div>
-        </div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.25 }}
-          className="relative mx-auto mt-16 max-w-6xl px-5"
-        >
-          <div className="flex justify-center">
-            <img
-              src={content.heroImage}
-              alt={content.title}
-              className="max-h-[480px] w-auto rounded-2xl object-contain shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] sm:max-h-[600px]"
-            />
+            </div>
           </div>
         </motion.div>
       </header>
