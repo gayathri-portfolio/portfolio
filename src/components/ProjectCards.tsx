@@ -64,13 +64,14 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
 
 export function ExternalProjectCard({ project, index }: { project: ExternalProject; index: number }) {
   const isWide = index === 0 || index === 3
+
   return (
     <motion.a
       href={project.href}
       target="_blank"
       rel="noopener noreferrer"
-      initial={{ opacity: 0, y: 24, scale: 0.82 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.7, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
       className={`group relative block w-full origin-center overflow-hidden rounded-3xl border border-border bg-bg-elevated transition-colors hover:border-border-strong ${

@@ -1,7 +1,25 @@
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import { useRef } from 'react'
+import type { ReactNode } from 'react'
 import { CaseStudyCard, ExternalProjectCard } from './ProjectCards'
 import { CatMascot } from './CatMascot'
 import { caseStudies, externalProjects } from '../data/projects'
+
+function ScaleRow({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'start start'] })
+  const scale = useTransform(scrollYProgress, [0, 1], [0.85, 1])
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ scale, transformOrigin: 'center center' }}
+      className="flex flex-col gap-6 sm:h-[360px] sm:flex-row lg:h-[440px]"
+    >
+      {children}
+    </motion.div>
+  )
+}
 
 export function SelectedWork() {
   return (
@@ -34,16 +52,16 @@ export function SelectedWork() {
       <div className="mt-20">
         <p className="mb-6 text-sm font-medium uppercase tracking-wide text-text-faint">Other selected work</p>
         <div className="space-y-6">
-          <div className="flex flex-col gap-6 sm:h-[360px] sm:flex-row lg:h-[440px]">
+          <ScaleRow>
             {externalProjects.slice(0, 2).map((project, i) => (
               <ExternalProjectCard key={project.title} project={project} index={i} />
             ))}
-          </div>
-          <div className="flex flex-col gap-6 sm:h-[360px] sm:flex-row lg:h-[440px]">
+          </ScaleRow>
+          <ScaleRow>
             {externalProjects.slice(2, 4).map((project, i) => (
               <ExternalProjectCard key={project.title} project={project} index={i + 2} />
             ))}
-          </div>
+          </ScaleRow>
         </div>
       </div>
     </section>
