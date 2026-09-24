@@ -66,7 +66,7 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'cards':
       return (
         <Reveal>
-          <div className="glass-strong divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
+          <div className="glass-strong max-w-2xl divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
             {block.items.map((item, i) => (
               <div key={i} className="flex flex-col gap-1.5 py-5 sm:flex-row sm:items-baseline sm:gap-8">
                 <div className="flex items-center gap-2.5 sm:w-64 sm:shrink-0">
@@ -177,7 +177,7 @@ export function BlockRenderer({ block }: { block: Block }) {
     case 'stat-grid':
       return (
         <Reveal>
-          <div className="glass-strong divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
+          <div className="glass-strong max-w-2xl divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
             {block.items.map((item, i) => (
               <div key={i} className="flex items-baseline justify-between gap-6 py-4">
                 <span className="font-serif text-3xl font-semibold text-text">{item.value}</span>

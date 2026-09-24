@@ -14,13 +14,27 @@ function isFullBleed(block: Block) {
   return block.kind === 'highlight' || (block.kind === 'image' && block.wide)
 }
 
-type Run = { kind: 'group'; blocks: Block[] } | { kind: 'full-bleed'; block: Block }
+/** Mobile-screen image rows read as a showcase, not body copy, so they're
+ * centered on the section's full width rather than the (numeral-offset)
+ * text column — otherwise they visibly drift right of true page-center. */
+function isPageCentered(block: Block) {
+  return block.kind === 'image-grid'
+}
+
+type Run =
+  | { kind: 'group'; blocks: Block[] }
+  | { kind: 'full-bleed'; block: Block }
+  | { kind: 'page-centered'; block: Block }
 
 function groupBlocks(blocks: Block[]): Run[] {
   const runs: Run[] = []
   for (const block of blocks) {
     if (isFullBleed(block)) {
       runs.push({ kind: 'full-bleed', block })
+      continue
+    }
+    if (isPageCentered(block)) {
+      runs.push({ kind: 'page-centered', block })
       continue
     }
     const last = runs[runs.length - 1]
@@ -138,6 +152,13 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
               {runs.map((run, i) => {
                 if (run.kind === 'full-bleed') {
                   return <BlockRenderer key={i} block={run.block} />
+                }
+                if (run.kind === 'page-centered') {
+                  return (
+                    <div key={i} className="flex justify-center">
+                      <BlockRenderer block={run.block} />
+                    </div>
+                  )
                 }
                 groupIndex += 1
                 const isFirstGroup = groupIndex === 0
