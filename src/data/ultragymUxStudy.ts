@@ -53,7 +53,6 @@ export const ultragymUxStudy: CaseStudyContent = {
         {
           kind: 'image',
           src: `${IMG}/page-04.webp`,
-          caption: 'Original workout creation flow — every session started from a blank slate',
         },
         {
           kind: 'list',
@@ -147,7 +146,7 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: 'We took the experience beyond the phone with two key extensions: wearable integration and landscape TV mode.',
         },
-        { kind: 'image', src: `${IMG}/page-11.webp`, caption: 'Wearables and mirroring the workout to a TV' },
+        { kind: 'image', src: `${IMG}/page-11.webp` },
         {
           kind: 'list',
           items: [

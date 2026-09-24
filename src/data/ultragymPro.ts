@@ -41,7 +41,7 @@ export const ultragymPro: CaseStudyContent = {
           kind: 'p',
           text: 'The product was designed to make better use of the machine through different attachment and positioning possibilities, including column and floor outputs, allowing users to perform different types of exercises and make fuller use of the equipment.',
         },
-        { kind: 'image', src: `${IMG}/page-02.webp`, caption: 'Ultragym (70 kg, Home Gym Users) → Ultragym Pro (120 kg, Commercial, Semi-Commercial, Home Gym Users)' },
+        { kind: 'image', src: `${IMG}/page-02.webp` },
       ],
     },
     {
@@ -113,7 +113,7 @@ export const ultragymPro: CaseStudyContent = {
             "The observation also influenced the physical experience beyond the screen. I pushed for markers on the platform to help establish the appropriate standing position for different use cases, so users wouldn't have to figure out where to stand on their own.",
           ],
         },
-        { kind: 'image', src: `${IMG}/page-04.webp`, caption: 'Scale & distance diagram' },
+        { kind: 'image', src: `${IMG}/page-04.webp` },
         {
           kind: 'p',
           text: 'This was a new screen size for me. Initially, I struggled to visualize how large or small elements should actually be. Some of my first attempts made everything too large because I was designing for the canvas rather than the way the user would see it.',
@@ -219,7 +219,7 @@ export const ultragymPro: CaseStudyContent = {
           text: "I explored how the home screen could stay visually simple while still making the product's breadth discoverable. I also considered how the system could eventually use a user's workout preference to bring a relevant recommendation higher in the hierarchy.",
         },
         { kind: 'quote', text: "Hick's Law: As the number of choices increases, the time required to make a decision also increases." },
-        { kind: 'image', src: `${IMG}/page-08.webp`, caption: 'Variation 1 → Variation 2 → Final Design' },
+        { kind: 'image', src: `${IMG}/page-08.webp` },
         { kind: 'highlight', text: "The goal wasn't to reduce the number of choices. It was to reduce the effort required to choose." },
         {
           kind: 'p',
@@ -252,7 +252,7 @@ export const ultragymPro: CaseStudyContent = {
           kind: 'p',
           text: 'The resulting set could include video, reps, sets, weight, range of motion, power, left/right performance and tempo.',
         },
-        { kind: 'image', src: `${IMG}/page-09.webp`, caption: 'Variation 1 → Variation 2 → Variation 3' },
+        { kind: 'image', src: `${IMG}/page-09.webp` },
         {
           kind: 'p',
           text: 'The player needed to support two very different intentions: someone who simply wants to follow the trainer and someone who actively wants performance metrics.',
@@ -265,7 +265,7 @@ export const ultragymPro: CaseStudyContent = {
           kind: 'p',
           text: 'The second view could contain richer information without forcing every user to process graphs and numbers during a movement. This was my way of keeping the system powerful while keeping the default interaction calm.',
         },
-        { kind: 'image', src: `${IMG}/page-10.webp`, caption: 'Final Design — Default screen vs. Detailed Metric screen' },
+        { kind: 'image', src: `${IMG}/page-10.webp` },
       ],
     },
     {
@@ -316,7 +316,7 @@ export const ultragymPro: CaseStudyContent = {
           kind: 'p',
           text: 'This changed the role of tempo in the experience — from simply showing a number to helping the user understand how they should perform the movement.',
         },
-        { kind: 'image', src: `${IMG}/page-11.webp`, caption: 'Variation 1 → Variation 2 → Variation 3 → Final Design' },
+        { kind: 'image', src: `${IMG}/page-11.webp` },
       ],
     },
     {

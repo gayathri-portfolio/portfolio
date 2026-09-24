@@ -84,8 +84,12 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
           transition={{ duration: 0.7, delay: 0.25 }}
           className="relative mx-auto mt-16 max-w-6xl px-5"
         >
-          <div className="overflow-hidden rounded-2xl bg-bg-elevated">
-            <img src={content.heroImage} alt={content.title} className="w-full" />
+          <div className="flex justify-center">
+            <img
+              src={content.heroImage}
+              alt={content.title}
+              className="max-h-[480px] w-auto rounded-2xl object-contain sm:max-h-[600px]"
+            />
           </div>
         </motion.div>
       </header>
