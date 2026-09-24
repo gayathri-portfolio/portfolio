@@ -51,8 +51,11 @@ export const ultragymUxStudy: CaseStudyContent = {
           ],
         },
         {
-          kind: 'image',
-          src: `${IMG}/page-04.webp`,
+          kind: 'image-grid',
+          images: [
+            { src: `${IMG}/screens/select-exercises.webp`, caption: 'Select Exercises' },
+            { src: `${IMG}/screens/create-workout.webp`, caption: 'Create Workout' },
+          ],
         },
         {
           kind: 'list',
@@ -96,7 +99,13 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: "The goal wasn't to remove control. It was to give users a strong, trustworthy starting point they could modify if they wanted — but didn't have to.",
         },
-        { kind: 'image', src: `${IMG}/page-07.webp`, caption: 'Before → After: Select Exercises / Generate Workout' },
+        {
+          kind: 'image-grid',
+          images: [
+            { src: `${IMG}/screens/select-exercises.webp`, caption: 'Before' },
+            { src: `${IMG}/screens/generate-workout.webp`, caption: 'After' },
+          ],
+        },
         {
           kind: 'list',
           items: [
@@ -116,7 +125,13 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: 'We redesigned the interaction to allow individual set control — edit one, duplicate it, or build entirely custom progressions. Simple on the surface, transformative in practice.',
         },
-        { kind: 'image', src: `${IMG}/page-08.webp`, caption: 'Before → After: Create Workout set editing' },
+        {
+          kind: 'image-grid',
+          images: [
+            { src: `${IMG}/screens/create-workout.webp`, caption: 'Before' },
+            { src: `${IMG}/screens/edit-set.webp`, caption: 'After' },
+          ],
+        },
 
         { kind: 'subheading', eyebrow: 'Solution 03', text: 'Performance Intelligence — stop guessing, start progressing' },
         {
@@ -127,7 +142,14 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: 'We rebuilt this from the ground up with three layers: performance prefill, rep and weight recommendations, and a redesigned strength assessment.',
         },
-        { kind: 'image', src: `${IMG}/page-09.webp`, caption: 'Strength Assessment Test, starting weight, and live set tracking' },
+        {
+          kind: 'image-grid',
+          images: [
+            { src: `${IMG}/screens/assessment-test.webp`, caption: 'Strength Assessment Test' },
+            { src: `${IMG}/screens/assessment-start-weight.webp`, caption: 'Starting Weight' },
+            { src: `${IMG}/screens/assessment-live.webp`, caption: 'Live Set Tracking' },
+          ],
+        },
         {
           kind: 'list',
           items: [
@@ -146,7 +168,13 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: 'We took the experience beyond the phone with two key extensions: wearable integration and landscape TV mode.',
         },
-        { kind: 'image', src: `${IMG}/page-11.webp` },
+        {
+          kind: 'image-grid',
+          images: [
+            { src: `${IMG}/screens/wearables.webp`, caption: 'Wearables' },
+            { src: `${IMG}/screens/tv-mirror.webp`, caption: 'Mirroring the workout to a TV' },
+          ],
+        },
         {
           kind: 'list',
           items: [
@@ -165,7 +193,13 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: "Buddy Mode turns a two-person workout into a seamless shared session. One person hosts; others join with a simple code. Each participant tracks their own workout independently, but they're together.",
         },
-        { kind: 'image', src: `${IMG}/page-12.webp`, caption: 'Buddy Mode — a seamless shared workout session' },
+        {
+          kind: 'image-grid',
+          images: [
+            { src: `${IMG}/screens/buddy-mode-1.webp`, caption: 'Host view' },
+            { src: `${IMG}/screens/buddy-mode-2.webp`, caption: 'Switching participants' },
+          ],
+        },
         {
           kind: 'list',
           items: [
