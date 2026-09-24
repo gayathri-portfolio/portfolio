@@ -13,6 +13,7 @@ export type Block =
   | { kind: 'quote'; text: string }
   | { kind: 'cards'; items: { icon?: string; title: string; text: string }[] }
   | { kind: 'image'; src: string; caption?: string; wide?: boolean }
+  | { kind: 'image-grid'; images: { src: string; caption?: string }[] }
   | { kind: 'compare'; before: string[]; after: string[] }
   | { kind: 'list'; items: string[] }
   | { kind: 'stat-grid'; items: { label: string; value: string }[] }

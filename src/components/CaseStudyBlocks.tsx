@@ -80,6 +80,24 @@ export function BlockRenderer({ block }: { block: Block }) {
         </Reveal>
       )
 
+    case 'image-grid':
+      return (
+        <Reveal>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6">
+            {block.images.map((img, i) => (
+              <figure key={i}>
+                <img src={img.src} alt={img.caption ?? ''} loading="lazy" className="w-full rounded-xl" />
+                {img.caption && (
+                  <figcaption className="mt-3 text-center text-xs uppercase tracking-wide text-text-faint">
+                    {img.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        </Reveal>
+      )
+
     case 'image':
       return (
         <Reveal>
