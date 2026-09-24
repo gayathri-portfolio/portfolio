@@ -73,7 +73,7 @@ export function BlockRenderer({ block }: { block: Block }) {
                   {item.icon && <span className="text-xl leading-none">{item.icon}</span>}
                   <h4 className="font-display text-base font-semibold text-text">{item.title}</h4>
                 </div>
-                <p className="text-text-muted">{item.text}</p>
+                <p className="max-w-xl text-text-muted">{item.text}</p>
               </div>
             ))}
           </div>

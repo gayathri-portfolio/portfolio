@@ -168,13 +168,8 @@ export const ultragymUxStudy: CaseStudyContent = {
           kind: 'p',
           text: 'We took the experience beyond the phone with two key extensions: wearable integration and landscape TV mode.',
         },
-        {
-          kind: 'image-grid',
-          images: [
-            { src: `${IMG}/screens/wearables.webp`, caption: 'Wearables' },
-            { src: `${IMG}/screens/tv-mirror.webp`, caption: 'Mirroring the workout to a TV' },
-          ],
-        },
+        { kind: 'image', src: `${IMG}/screens/wearables.webp`, caption: 'Wearables' },
+        { kind: 'image', src: `${IMG}/screens/tv-mirror.webp`, caption: 'Mirroring the workout to a TV' },
         {
           kind: 'list',
           items: [

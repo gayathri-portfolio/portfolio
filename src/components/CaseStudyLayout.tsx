@@ -1,10 +1,34 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
-import type { CaseStudyContent } from '../data/caseStudyTypes'
+import type { Block, CaseStudyContent } from '../data/caseStudyTypes'
 import { BlockRenderer } from './CaseStudyBlocks'
 import { PawIcon } from './PawIcon'
 import { caseStudies } from '../data/projects'
+
+/** Blocks that break out full-bleed and therefore need their direct DOM
+ * parent to be a viewport-centered element — not the numeral/content
+ * grid column, which is offset right and would make the breakout drift
+ * off-center. */
+function isFullBleed(block: Block) {
+  return block.kind === 'highlight' || (block.kind === 'image' && block.wide)
+}
+
+type Run = { kind: 'group'; blocks: Block[] } | { kind: 'full-bleed'; block: Block }
+
+function groupBlocks(blocks: Block[]): Run[] {
+  const runs: Run[] = []
+  for (const block of blocks) {
+    if (isFullBleed(block)) {
+      runs.push({ kind: 'full-bleed', block })
+      continue
+    }
+    const last = runs[runs.length - 1]
+    if (last && last.kind === 'group') last.blocks.push(block)
+    else runs.push({ kind: 'group', blocks: [block] })
+  }
+  return runs
+}
 
 export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
@@ -95,21 +119,40 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
       </header>
 
       <div className="mx-auto max-w-5xl space-y-28 px-5 pb-24 sm:space-y-36">
-        {content.sections.map((section) => (
-          <section key={section.number} className="grid gap-6 sm:grid-cols-[110px_1fr] sm:gap-10">
-            <span className="font-serif text-5xl font-semibold text-accent/25 sm:text-6xl">{section.number}</span>
-            <div className="space-y-8">
-              <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-text sm:text-4xl">
-                {section.title}
-              </h2>
-              <div className="space-y-8">
-                {section.blocks.map((block, i) => (
-                  <BlockRenderer key={i} block={block} />
-                ))}
-              </div>
-            </div>
-          </section>
-        ))}
+        {content.sections.map((section) => {
+          const runs = groupBlocks(section.blocks)
+          let groupIndex = -1
+          return (
+            <section key={section.number} className="space-y-8">
+              {runs.map((run, i) => {
+                if (run.kind === 'full-bleed') {
+                  return <BlockRenderer key={i} block={run.block} />
+                }
+                groupIndex += 1
+                const isFirstGroup = groupIndex === 0
+                return (
+                  <div key={i} className="grid gap-6 sm:grid-cols-[110px_1fr] sm:gap-10">
+                    <span className="font-serif text-5xl font-semibold text-accent/25 sm:text-6xl">
+                      {isFirstGroup ? section.number : ''}
+                    </span>
+                    <div className="space-y-8">
+                      {isFirstGroup && (
+                        <h2 className="max-w-2xl font-serif text-3xl font-semibold tracking-tight text-text sm:text-4xl">
+                          {section.title}
+                        </h2>
+                      )}
+                      <div className="space-y-8">
+                        {run.blocks.map((block, j) => (
+                          <BlockRenderer key={j} block={block} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </section>
+          )
+        })}
 
         <section className="grid gap-6 sm:grid-cols-[110px_1fr] sm:gap-10">
           <PawIcon className="h-9 w-9 text-accent/40" />
