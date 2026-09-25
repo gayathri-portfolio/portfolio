@@ -68,7 +68,10 @@ export function BlockRenderer({ block }: { block: Block }) {
         <Reveal>
           <div className="glass-strong max-w-2xl divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
             {block.items.map((item, i) => (
-              <div key={i} className="flex flex-col gap-1.5 py-5 sm:flex-row sm:items-baseline sm:gap-8">
+              <div
+                key={i}
+                className="flex flex-col gap-1.5 rounded-xl px-3 py-5 transition-colors -mx-3 sm:flex-row sm:items-baseline sm:gap-8 hover:bg-surface-hover"
+              >
                 <div className="flex items-center gap-2.5 sm:w-64 sm:shrink-0">
                   {item.icon && <span className="text-xl leading-none">{item.icon}</span>}
                   <h4 className="font-display text-base font-semibold text-text">{item.title}</h4>
@@ -85,12 +88,12 @@ export function BlockRenderer({ block }: { block: Block }) {
         <Reveal>
           <div className="flex flex-wrap items-start justify-center gap-4 lg:flex-nowrap lg:gap-8">
             {block.images.map((img, i) => (
-              <figure key={i} className="flex w-[130px] shrink-0 flex-col items-center lg:w-[165px]">
+              <figure key={i} className="group flex w-[130px] shrink-0 flex-col items-center lg:w-[165px]">
                 <img
                   src={img.src}
                   alt={img.caption ?? ''}
                   loading="lazy"
-                  className="h-auto w-full rounded-2xl shadow-[0_24px_48px_-28px_rgb(var(--shadow-color)/0.45)]"
+                  className="h-auto w-full rounded-2xl shadow-[0_24px_48px_-28px_rgb(var(--shadow-color)/0.45)] transition-transform duration-300 ease-out group-hover:-translate-y-1.5 group-hover:scale-[1.03]"
                 />
                 {img.caption && (
                   <figcaption className="mt-3 text-center text-xs uppercase tracking-wide text-text-faint">
@@ -116,9 +119,14 @@ export function BlockRenderer({ block }: { block: Block }) {
               )}
             </figure>
           ) : (
-            <figure>
+            <figure className="group">
               <div className="overflow-hidden rounded-2xl bg-bg-elevated shadow-[0_24px_48px_-28px_rgb(var(--shadow-color)/0.45)]">
-                <img src={block.src} alt={block.caption ?? ''} loading="lazy" className="w-full" />
+                <img
+                  src={block.src}
+                  alt={block.caption ?? ''}
+                  loading="lazy"
+                  className="w-full transition-transform duration-500 ease-out group-hover:scale-[1.04]"
+                />
               </div>
               {block.caption && (
                 <figcaption className="mt-4 text-center text-sm uppercase tracking-wide text-text-faint">
@@ -179,7 +187,10 @@ export function BlockRenderer({ block }: { block: Block }) {
         <Reveal>
           <div className="glass-strong max-w-2xl divide-y divide-border/60 rounded-3xl px-6 sm:px-8">
             {block.items.map((item, i) => (
-              <div key={i} className="flex items-baseline justify-between gap-6 py-4">
+              <div
+                key={i}
+                className="flex items-baseline justify-between gap-6 rounded-xl px-3 py-4 -mx-3 transition-colors hover:bg-surface-hover"
+              >
                 <span className="font-serif text-3xl font-semibold text-text">{item.value}</span>
                 <span className="text-right text-sm text-text-muted">{item.label}</span>
               </div>
