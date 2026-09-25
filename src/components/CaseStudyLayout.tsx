@@ -96,7 +96,7 @@ function HeroImageSlide({
   alt: string
   entranceProgress: MotionValue<number>
 }) {
-  const scale = useTransform(entranceProgress, [0, 1], [0.82, 1])
+  const scale = useTransform(entranceProgress, [0, 1], [0.2, 1])
   const x = useTransform(entranceProgress, [0, 1], ['-10%', '0%'])
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-bg-elevated">
