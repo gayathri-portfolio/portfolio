@@ -79,7 +79,36 @@ function MetaRow({ label, value }: { label: string; value: string }) {
 
 interface SlideDef {
   key: string
-  render: () => ReactNode
+  render: (entranceProgress: MotionValue<number>) => ReactNode
+}
+
+/** The hero photo gets its own counter-motion layered on top of the
+ * panel's own right-to-left cover slide: as the panel enters, the image
+ * inside it slides left-to-right (from a slight left offset back to its
+ * natural position) while scaling up from smaller to full size, so it
+ * visually "arrives" and settles into place rather than just appearing. */
+function HeroImageSlide({
+  src,
+  alt,
+  entranceProgress,
+}: {
+  src: string
+  alt: string
+  entranceProgress: MotionValue<number>
+}) {
+  const scale = useTransform(entranceProgress, [0, 1], [0.82, 1])
+  const x = useTransform(entranceProgress, [0, 1], ['-10%', '0%'])
+  return (
+    <div className="relative h-dvh w-full overflow-hidden bg-bg-elevated">
+      <motion.img
+        src={src}
+        alt={alt}
+        style={{ scale, x }}
+        className="absolute inset-0 h-full w-full object-cover"
+      />
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
+    </div>
+  )
 }
 
 function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; title: string; tagline: string } | undefined): SlideDef[] {
@@ -138,11 +167,8 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
 
   defs.push({
     key: 'hero-image',
-    render: () => (
-      <div className="relative h-dvh w-full overflow-hidden bg-bg-elevated">
-        <img src={content.heroImage} alt={content.title} className="absolute inset-0 h-full w-full object-cover" />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
-      </div>
+    render: (entranceProgress) => (
+      <HeroImageSlide src={content.heroImage} alt={content.title} entranceProgress={entranceProgress} />
     ),
   })
 
@@ -252,17 +278,22 @@ function Panel({
   endFrac: number
   revealDistance: number
   innerRef: (el: HTMLDivElement | null) => void
-  children: ReactNode
+  children: (entranceProgress: MotionValue<number>) => ReactNode
 }) {
   const xFrom = entranceEndFrac > startFrac ? startFrac : startFrac - 0.001
   const x = useTransform(globalProgress, [xFrom, entranceEndFrac], ['100%', '0%'])
+  // 0..1 across just this panel's own entrance window, for content (like
+  // the hero image) that layers its own counter-motion on top of the
+  // panel's cover slide — clamped, so it reads as a steady 0 before the
+  // panel's turn and a steady 1 once it's settled in.
+  const entranceProgress = useTransform(globalProgress, [xFrom, entranceEndFrac], [0, 1])
   const yFrom = endFrac > entranceEndFrac ? entranceEndFrac : entranceEndFrac - 0.001
   const innerY = useTransform(globalProgress, [yFrom, endFrac], [0, -revealDistance])
 
   return (
     <motion.div style={{ x, zIndex: index + 1 }} className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg">
       <motion.div ref={innerRef} style={{ y: innerY }}>
-        {children}
+        {children(entranceProgress)}
       </motion.div>
     </motion.div>
   )
@@ -389,7 +420,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
                 innerRefs.current[i] = el
               }}
             >
-              {def.render()}
+              {def.render}
             </Panel>
           ))}
         </div>
