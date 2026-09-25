@@ -82,11 +82,10 @@ interface SlideDef {
   render: (entranceProgress: MotionValue<number>) => ReactNode
 }
 
-/** The hero photo gets its own counter-motion layered on top of the
- * panel's own right-to-left cover slide: as the panel enters, the image
- * inside it slides left-to-right (from a slight left offset back to its
- * natural position) while scaling up from smaller to full size, so it
- * visually "arrives" and settles into place rather than just appearing. */
+/** The hero photo additionally slides left-to-right on top of the scale
+ * every slide already gets from Panel — a small extra counter-motion
+ * layered onto the panel's own right-to-left cover slide, unique to this
+ * one full-bleed photo. */
 function HeroImageSlide({
   src,
   alt,
@@ -96,14 +95,13 @@ function HeroImageSlide({
   alt: string
   entranceProgress: MotionValue<number>
 }) {
-  const scale = useTransform(entranceProgress, [0, 1], [0.2, 1])
   const x = useTransform(entranceProgress, [0, 1], ['-10%', '0%'])
   return (
     <div className="relative h-dvh w-full overflow-hidden bg-bg-elevated">
       <motion.img
         src={src}
         alt={alt}
-        style={{ scale, x }}
+        style={{ x }}
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
@@ -287,13 +285,21 @@ function Panel({
   // panel's cover slide — clamped, so it reads as a steady 0 before the
   // panel's turn and a steady 1 once it's settled in.
   const entranceProgress = useTransform(globalProgress, [xFrom, entranceEndFrac], [0, 1])
+  // Every slide scales up from smaller to full size as it enters, in sync
+  // with the same window. This sits on its own viewport-sized wrapper
+  // (not the possibly-taller reveal-scroll content below) so it scales
+  // around the true center of the screen rather than the center of
+  // content that may extend well past the bottom of the viewport.
+  const scale = useTransform(entranceProgress, [0, 1], [0.2, 1])
   const yFrom = endFrac > entranceEndFrac ? entranceEndFrac : entranceEndFrac - 0.001
   const innerY = useTransform(globalProgress, [yFrom, endFrac], [0, -revealDistance])
 
   return (
     <motion.div style={{ x, zIndex: index + 1 }} className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg">
-      <motion.div ref={innerRef} style={{ y: innerY }}>
-        {children(entranceProgress)}
+      <motion.div style={{ scale }} className="h-full w-full">
+        <motion.div ref={innerRef} style={{ y: innerY }}>
+          {children(entranceProgress)}
+        </motion.div>
       </motion.div>
     </motion.div>
   )
