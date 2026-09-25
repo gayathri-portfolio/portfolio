@@ -98,8 +98,34 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
     slideRefs.current[i] = el
   }
 
+  // scroll-snap-type:mandatory snaps back toward the nearest slide on every
+  // scrollTop change, not just the final one, so a programmatic smooth
+  // scroll to a target more than one slide away can get fought the whole
+  // way there (a documented Chromium snap-vs-smooth-scroll interaction).
+  // Suspend snapping for the animation, then restore it once settled.
+  // A timeout fallback force-corrects the final position regardless of
+  // whether the browser ever fires 'scrollend' (missing support, reduced
+  // motion, or a backgrounded tab pausing the compositor animation) so a
+  // dot click always lands on the right slide even in the worst case.
   const scrollToSlide = (i: number) => {
-    slideRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const el = slideRefs.current[i]
+    const root = scrollRef.current
+    if (!el || !root) return
+    const target = el.offsetTop
+
+    root.style.scrollSnapType = 'none'
+    root.scrollTo({ top: target, behavior: 'smooth' })
+
+    let settled = false
+    const finish = () => {
+      if (settled) return
+      settled = true
+      root.removeEventListener('scrollend', finish)
+      root.scrollTop = target
+      root.style.scrollSnapType = ''
+    }
+    root.addEventListener('scrollend', finish, { once: true })
+    setTimeout(finish, 900)
   }
 
   return (
@@ -137,7 +163,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
 
       <div
         ref={scrollRef}
-        className="h-dvh snap-y snap-mandatory overflow-x-clip overflow-y-auto scroll-smooth"
+        className="h-dvh snap-y snap-mandatory overflow-x-clip overflow-y-auto"
       >
         {/* Slide 0 — hero text + meta */}
         <section
