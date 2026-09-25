@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react'
+import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import type { Block, CaseStudyContent } from '../data/caseStudyTypes'
 import { BlockRenderer } from './CaseStudyBlocks'
@@ -68,64 +68,279 @@ function SlideBlocks({ blocks }: { blocks: Block[] }) {
   )
 }
 
+function MetaRow({ label, value }: { label: string; value: string }) {
+  return (
+    <div>
+      <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">{label}</p>
+      <p className="mt-1.5 text-sm text-text">{value}</p>
+    </div>
+  )
+}
+
+interface SlideDef {
+  key: string
+  render: () => ReactNode
+}
+
+function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; title: string; tagline: string } | undefined): SlideDef[] {
+  const defs: SlideDef[] = []
+
+  defs.push({
+    key: 'hero-text',
+    render: () => (
+      <div className="relative flex min-h-dvh w-full flex-col justify-center overflow-hidden px-6 py-28 sm:px-12">
+        <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
+
+        <div className="relative mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-16">
+          <div>
+            <p className="font-display text-sm font-medium uppercase tracking-wide text-text-faint">
+              {content.meta.company} · {content.meta.industry}
+            </p>
+            <h1 className="mt-4 font-serif text-[clamp(2.6rem,6vw,4.8rem)] font-semibold leading-[0.98] tracking-tight text-text">
+              {content.title}
+            </h1>
+            <p className="mt-4 max-w-xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl">
+              {content.tagline}
+            </p>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-text-muted">{content.intro}</p>
+          </div>
+
+          <div className="glass-strong flex flex-col gap-5 rounded-3xl p-6">
+            <div className="grid grid-cols-2 gap-5">
+              <MetaRow label="Role" value={content.meta.role} />
+              <MetaRow label="Team" value={content.meta.team} />
+              <MetaRow label="Company" value={content.meta.company} />
+              <MetaRow label="Industry" value={content.meta.industry} />
+            </div>
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">Responsibilities</p>
+              <div className="mt-2.5 flex flex-wrap gap-1.5">
+                {content.meta.responsibilities.map((r) => (
+                  <span
+                    key={r}
+                    className="rounded-full border border-border bg-bg/50 px-2.5 py-1 text-xs font-medium text-text-muted"
+                  >
+                    {r}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pointer-events-none absolute bottom-10 left-1/2 -translate-x-1/2 text-xs uppercase tracking-wide text-text-faint">
+          Scroll
+        </div>
+      </div>
+    ),
+  })
+
+  defs.push({
+    key: 'hero-image',
+    render: () => (
+      <div className="relative h-dvh w-full overflow-hidden bg-bg-elevated">
+        <img src={content.heroImage} alt={content.title} className="absolute inset-0 h-full w-full object-cover" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
+      </div>
+    ),
+  })
+
+  content.sections.forEach((section, sIdx) => {
+    const numeralColor = sIdx % 2 === 0 ? 'text-accent/30' : 'text-accent-2/30'
+    defs.push({
+      key: `section-${section.number}`,
+      render: () => (
+        <div className="relative flex min-h-dvh w-full flex-col justify-center gap-10 overflow-hidden px-6 py-28 sm:px-12">
+          <div className="mx-auto w-full max-w-2xl">
+            <span className={`font-serif text-6xl font-semibold sm:text-7xl ${numeralColor}`}>{section.number}</span>
+            <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-text sm:text-5xl">
+              {section.title}
+            </h2>
+          </div>
+          <SlideBlocks blocks={section.blocks} />
+        </div>
+      ),
+    })
+  })
+
+  defs.push({
+    key: 'reflection',
+    render: () => (
+      <div className="relative flex min-h-dvh w-full flex-col justify-center gap-8 overflow-hidden px-6 py-28 sm:px-12">
+        <div className="pointer-events-none absolute -left-20 top-1/3 h-72 w-72 rounded-full bg-accent-2/10 blur-3xl" />
+        <div className="relative mx-auto w-full max-w-2xl">
+          <PawIcon className="h-9 w-9 text-accent/40" />
+          <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-text sm:text-5xl">Reflection</h2>
+        </div>
+        <div className="relative mx-auto w-full max-w-2xl space-y-6">
+          {content.reflection.paragraphs?.map((p, i) => (
+            <p key={i} className="text-lg leading-relaxed text-text-muted">
+              {p}
+            </p>
+          ))}
+          {content.reflection.points && (
+            <ul className="space-y-3.5">
+              {content.reflection.points.map((item, i) => (
+                <li key={i} className="flex gap-3.5 text-lg leading-relaxed text-text-muted">
+                  <span className="mt-3.5 h-px w-4 shrink-0 bg-accent" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+    ),
+  })
+
+  defs.push({
+    key: 'closing',
+    render: () => (
+      <div className="relative flex min-h-dvh w-full items-center justify-center overflow-hidden px-6 py-28 sm:px-12">
+        <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 translate-x-1/3 rounded-full bg-accent/10 blur-3xl" />
+        {otherStudy ? (
+          <Link
+            to={`/work/${otherStudy.slug}`}
+            className="group relative mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center"
+          >
+            <p className="text-sm font-medium uppercase tracking-wide text-text-faint">Next case study</p>
+            <p className="font-serif text-4xl font-semibold text-text transition-colors group-hover:text-accent sm:text-6xl">
+              {otherStudy.title}
+            </p>
+            <p className="max-w-lg text-text-muted">{otherStudy.tagline}</p>
+            <span className="mt-4 flex h-14 w-14 items-center justify-center rounded-full border border-border transition-all group-hover:scale-110 group-hover:border-accent group-hover:bg-accent group-hover:text-bg-elevated">
+              <ArrowRight className="h-5 w-5" />
+            </span>
+          </Link>
+        ) : (
+          <Link to="/#work" className="font-serif text-3xl font-semibold text-text hover:text-accent">
+            Back to all work
+          </Link>
+        )}
+      </div>
+    ),
+  })
+
+  return defs
+}
+
+/** One full-viewport panel in the slide deck. All panels sit absolutely
+ * stacked at the same position (inset:0), z-index by DOM order. The panel
+ * for the slide the user is about to enter sits parked off-screen to the
+ * right (x: 100%) and slides to x: 0% as scroll progress passes through
+ * its entrance window — covering whatever panel is underneath, which
+ * never has to move. Scrolling back reverses the same transform, so the
+ * covering panel slides back out and the one beneath is revealed again.
+ * If a panel's own content is taller than one viewport, once it's fully
+ * covering the screen its *inner* wrapper pans upward (translateY) across
+ * the rest of its scroll window, so long sections still just scroll. */
+function Panel({
+  index,
+  globalProgress,
+  startFrac,
+  entranceEndFrac,
+  endFrac,
+  revealDistance,
+  innerRef,
+  children,
+}: {
+  index: number
+  globalProgress: MotionValue<number>
+  startFrac: number
+  entranceEndFrac: number
+  endFrac: number
+  revealDistance: number
+  innerRef: (el: HTMLDivElement | null) => void
+  children: ReactNode
+}) {
+  const xFrom = entranceEndFrac > startFrac ? startFrac : startFrac - 0.001
+  const x = useTransform(globalProgress, [xFrom, entranceEndFrac], ['100%', '0%'])
+  const yFrom = endFrac > entranceEndFrac ? entranceEndFrac : entranceEndFrac - 0.001
+  const innerY = useTransform(globalProgress, [yFrom, endFrac], [0, -revealDistance])
+
+  return (
+    <motion.div style={{ x, zIndex: index + 1 }} className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg">
+      <motion.div ref={innerRef} style={{ y: innerY }}>
+        {children}
+      </motion.div>
+    </motion.div>
+  )
+}
+
+const ENTRANCE_VH_FRACTION = 0.4
+
 export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
+  const slideDefs = useMemo(() => buildSlideDefs(content, otherStudy), [content, otherStudy])
+  const n = slideDefs.length
 
-  const slideCount = content.sections.length + 4 // hero-text, hero-image, ...sections, reflection, closing
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const slideRefs = useRef<(HTMLElement | null)[]>([])
-  const [active, setActive] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const innerRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [viewportH, setViewportH] = useState(() => (typeof window !== 'undefined' ? window.innerHeight : 900))
+  const [contentHeights, setContentHeights] = useState<number[]>(() => new Array(n).fill(0))
 
-  useEffect(() => {
-    const root = scrollRef.current
-    if (!root) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            const idx = slideRefs.current.indexOf(entry.target as HTMLElement)
-            if (idx !== -1) setActive(idx)
-          }
-        }
-      },
-      { root, threshold: 0.55 },
-    )
-    slideRefs.current.forEach((el) => el && observer.observe(el))
-    return () => observer.disconnect()
-  }, [slideCount])
-
-  const registerSlide = (i: number) => (el: HTMLElement | null) => {
-    slideRefs.current[i] = el
-  }
-
-  // scroll-snap-type:mandatory snaps back toward the nearest slide on every
-  // scrollTop change, not just the final one, so a programmatic smooth
-  // scroll to a target more than one slide away can get fought the whole
-  // way there (a documented Chromium snap-vs-smooth-scroll interaction).
-  // Suspend snapping for the animation, then restore it once settled.
-  // A timeout fallback force-corrects the final position regardless of
-  // whether the browser ever fires 'scrollend' (missing support, reduced
-  // motion, or a backgrounded tab pausing the compositor animation) so a
-  // dot click always lands on the right slide even in the worst case.
-  const scrollToSlide = (i: number) => {
-    const el = slideRefs.current[i]
-    const root = scrollRef.current
-    if (!el || !root) return
-    const target = el.offsetTop
-
-    root.style.scrollSnapType = 'none'
-    root.scrollTo({ top: target, behavior: 'smooth' })
-
-    let settled = false
-    const finish = () => {
-      if (settled) return
-      settled = true
-      root.removeEventListener('scrollend', finish)
-      root.scrollTop = target
-      root.style.scrollSnapType = ''
+  useLayoutEffect(() => {
+    function measure() {
+      setViewportH(window.innerHeight)
+      setContentHeights(innerRefs.current.map((el) => el?.scrollHeight ?? 0))
     }
-    root.addEventListener('scrollend', finish, { once: true })
-    setTimeout(finish, 900)
+    measure()
+    window.addEventListener('resize', measure)
+    const ro = new ResizeObserver(() => measure())
+    innerRefs.current.forEach((el) => el && ro.observe(el))
+    return () => {
+      window.removeEventListener('resize', measure)
+      ro.disconnect()
+    }
+  }, [n])
+
+  // The deck has ONE sticky viewport-height window shared by every panel —
+  // that first viewportH is "free" (covered by the sticky trick itself),
+  // so only each panel's entrance + overflow-reveal actually consumes real
+  // extra scroll distance. useScroll's ['start start','end end'] offset
+  // tracks progress over exactly that extra distance (container height
+  // minus one viewportH, since it measures to the container's *bottom*
+  // edge reaching the viewport's bottom, not its top) — so both the
+  // container's CSS height and every fraction below must be built the
+  // same way, or the two fall out of sync and transitions fire at the
+  // wrong scroll position (or never complete for the last slide).
+  const geometry = useMemo(() => {
+    const entranceDistance = viewportH * ENTRANCE_VH_FRACTION
+    let cursor = 0
+    const starts: number[] = []
+    const entranceEnds: number[] = []
+    const ends: number[] = []
+    const reveals: number[] = []
+    for (let i = 0; i < n; i++) {
+      const reveal = Math.max(0, (contentHeights[i] ?? 0) - viewportH)
+      const entrance = i === 0 ? 0 : entranceDistance
+      starts.push(cursor)
+      cursor += entrance
+      entranceEnds.push(cursor)
+      cursor += reveal
+      ends.push(cursor)
+      reveals.push(reveal)
+    }
+    const scrollRange = Math.max(cursor, 1)
+    return { starts, entranceEnds, ends, reveals, scrollRange, total: viewportH + scrollRange }
+  }, [contentHeights, viewportH, n])
+
+  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end end'] })
+
+  const [active, setActive] = useState(0)
+  useMotionValueEvent(scrollYProgress, 'change', (v) => {
+    const y = v * geometry.scrollRange
+    let idx = 0
+    for (let i = 0; i < n; i++) {
+      if (y >= geometry.starts[i] - 1) idx = i
+    }
+    setActive(idx)
+  })
+
+  const scrollToSlide = (i: number) => {
+    const top = (containerRef.current?.offsetTop ?? 0) + geometry.starts[i]
+    window.scrollTo({ top, behavior: 'smooth' })
   }
 
   return (
@@ -142,7 +357,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
         <span className="mb-1 text-[10px] uppercase tracking-wide text-text-faint">
           {String(active + 1).padStart(2, '0')}
         </span>
-        {Array.from({ length: slideCount }).map((_, i) => (
+        {Array.from({ length: n }).map((_, i) => (
           <button
             key={i}
             onClick={() => scrollToSlide(i)}
@@ -156,200 +371,29 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
             />
           </button>
         ))}
-        <span className="mt-1 text-[10px] uppercase tracking-wide text-text-faint">
-          {String(slideCount).padStart(2, '0')}
-        </span>
+        <span className="mt-1 text-[10px] uppercase tracking-wide text-text-faint">{String(n).padStart(2, '0')}</span>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="h-dvh snap-y snap-mandatory overflow-x-clip overflow-y-auto"
-      >
-        {/* Slide 0 — hero text + meta */}
-        <section
-          ref={registerSlide(0)}
-          className="relative flex min-h-dvh w-full snap-start flex-col justify-center overflow-hidden px-6 py-28 sm:px-12"
-        >
-          <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
-          <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
-
-          <div className="relative mx-auto grid w-full max-w-6xl gap-12 lg:grid-cols-[1fr_320px] lg:items-start lg:gap-16">
-            <div>
-              <motion.p
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="font-display text-sm font-medium uppercase tracking-wide text-text-faint"
-              >
-                {content.meta.company} · {content.meta.industry}
-              </motion.p>
-              <motion.h1
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.05 }}
-                className="mt-4 font-serif text-[clamp(2.6rem,6vw,4.8rem)] font-semibold leading-[0.98] tracking-tight text-text"
-              >
-                {content.title}
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="mt-4 max-w-xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl"
-              >
-                {content.tagline}
-              </motion.p>
-              <motion.p
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-                className="mt-6 max-w-lg text-lg leading-relaxed text-text-muted"
-              >
-                {content.intro}
-              </motion.p>
-            </div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="glass-strong flex flex-col gap-5 rounded-3xl p-6"
+      <div ref={containerRef} className="relative" style={{ height: geometry.total }}>
+        <div className="sticky top-0 h-dvh w-full overflow-hidden">
+          {slideDefs.map((def, i) => (
+            <Panel
+              key={def.key}
+              index={i}
+              globalProgress={scrollYProgress}
+              startFrac={geometry.starts[i] / geometry.scrollRange}
+              entranceEndFrac={geometry.entranceEnds[i] / geometry.scrollRange}
+              endFrac={geometry.ends[i] / geometry.scrollRange}
+              revealDistance={geometry.reveals[i]}
+              innerRef={(el) => {
+                innerRefs.current[i] = el
+              }}
             >
-              <div className="grid grid-cols-2 gap-5">
-                <MetaRow label="Role" value={content.meta.role} />
-                <MetaRow label="Team" value={content.meta.team} />
-                <MetaRow label="Company" value={content.meta.company} />
-                <MetaRow label="Industry" value={content.meta.industry} />
-              </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">Responsibilities</p>
-                <div className="mt-2.5 flex flex-wrap gap-1.5">
-                  {content.meta.responsibilities.map((r) => (
-                    <span
-                      key={r}
-                      className="rounded-full border border-border bg-bg/50 px-2.5 py-1 text-xs font-medium text-text-muted"
-                    >
-                      {r}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.5 }}
-            className="pointer-events-none absolute bottom-10 left-1/2 -translate-x-1/2 text-xs uppercase tracking-wide text-text-faint"
-          >
-            Scroll
-          </motion.div>
-        </section>
-
-        {/* Slide 1 — cinematic full-bleed hero image */}
-        <section
-          ref={registerSlide(1)}
-          className="relative h-dvh w-full snap-start overflow-hidden bg-bg-elevated"
-        >
-          <img
-            src={content.heroImage}
-            alt={content.title}
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
-        </section>
-
-        {/* Section slides */}
-        {content.sections.map((section, sIdx) => {
-          const slideIndex = sIdx + 2
-          const numeralColor = sIdx % 2 === 0 ? 'text-accent/30' : 'text-accent-2/30'
-          return (
-            <section
-              key={section.number}
-              ref={registerSlide(slideIndex)}
-              className="relative flex min-h-dvh w-full snap-start flex-col justify-center gap-10 overflow-hidden px-6 py-28 sm:px-12"
-            >
-              <div className="mx-auto w-full max-w-2xl">
-                <span className={`font-serif text-6xl font-semibold sm:text-7xl ${numeralColor}`}>
-                  {section.number}
-                </span>
-                <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-text sm:text-5xl">
-                  {section.title}
-                </h2>
-              </div>
-              <SlideBlocks blocks={section.blocks} />
-            </section>
-          )
-        })}
-
-        {/* Reflection slide */}
-        <section
-          ref={registerSlide(content.sections.length + 2)}
-          className="relative flex min-h-dvh w-full snap-start flex-col justify-center gap-8 overflow-hidden px-6 py-28 sm:px-12"
-        >
-          <div className="pointer-events-none absolute -left-20 top-1/3 h-72 w-72 rounded-full bg-accent-2/10 blur-3xl" />
-          <div className="relative mx-auto w-full max-w-2xl">
-            <PawIcon className="h-9 w-9 text-accent/40" />
-            <h2 className="mt-4 font-serif text-3xl font-semibold tracking-tight text-text sm:text-5xl">
-              Reflection
-            </h2>
-          </div>
-          <div className="relative mx-auto w-full max-w-2xl space-y-6">
-            {content.reflection.paragraphs?.map((p, i) => (
-              <p key={i} className="text-lg leading-relaxed text-text-muted">
-                {p}
-              </p>
-            ))}
-            {content.reflection.points && (
-              <ul className="space-y-3.5">
-                {content.reflection.points.map((item, i) => (
-                  <li key={i} className="flex gap-3.5 text-lg leading-relaxed text-text-muted">
-                    <span className="mt-3.5 h-px w-4 shrink-0 bg-accent" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </section>
-
-        {/* Closing slide — next case study */}
-        <section
-          ref={registerSlide(content.sections.length + 3)}
-          className="relative flex min-h-dvh w-full snap-start items-center justify-center overflow-hidden px-6 py-28 sm:px-12"
-        >
-          <div className="pointer-events-none absolute right-0 top-1/4 h-72 w-72 translate-x-1/3 rounded-full bg-accent/10 blur-3xl" />
-          {otherStudy ? (
-            <Link
-              to={`/work/${otherStudy.slug}`}
-              className="group relative mx-auto flex w-full max-w-3xl flex-col items-center gap-6 text-center"
-            >
-              <p className="text-sm font-medium uppercase tracking-wide text-text-faint">Next case study</p>
-              <p className="font-serif text-4xl font-semibold text-text transition-colors group-hover:text-accent sm:text-6xl">
-                {otherStudy.title}
-              </p>
-              <p className="max-w-lg text-text-muted">{otherStudy.tagline}</p>
-              <span className="mt-4 flex h-14 w-14 items-center justify-center rounded-full border border-border transition-all group-hover:scale-110 group-hover:border-accent group-hover:bg-accent group-hover:text-bg-elevated">
-                <ArrowRight className="h-5 w-5" />
-              </span>
-            </Link>
-          ) : (
-            <Link to="/#work" className="font-serif text-3xl font-semibold text-text hover:text-accent">
-              Back to all work
-            </Link>
-          )}
-        </section>
+              {def.render()}
+            </Panel>
+          ))}
+        </div>
       </div>
     </article>
-  )
-}
-
-function MetaRow({ label, value }: { label: string; value: string }) {
-  return (
-    <div>
-      <p className="text-xs font-semibold uppercase tracking-wide text-text-faint">{label}</p>
-      <p className="mt-1.5 text-sm text-text">{value}</p>
-    </div>
   )
 }
