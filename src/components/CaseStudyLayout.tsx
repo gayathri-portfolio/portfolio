@@ -115,7 +115,7 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
   defs.push({
     key: 'hero-text',
     render: () => (
-      <div className="relative flex min-h-dvh w-full flex-col justify-center overflow-hidden px-6 py-28 sm:px-12">
+      <div className="relative flex min-h-dvh w-full flex-col justify-center overflow-hidden px-6 py-28 sm:px-2">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
 
