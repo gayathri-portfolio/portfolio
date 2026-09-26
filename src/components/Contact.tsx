@@ -33,37 +33,43 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="relative overflow-hidden px-5 py-24 sm:py-32">
-      <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[900px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+    <section
+      id="contact"
+      className="relative flex min-h-dvh flex-col items-center justify-center overflow-hidden px-5 py-28 sm:py-32"
+    >
+      <div className="pointer-events-none absolute left-1/2 top-1/3 h-[560px] w-[960px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 translate-x-1/4 translate-y-1/4 rounded-full bg-accent-2/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-3xl text-center">
+      <div className="relative flex w-full max-w-3xl flex-1 flex-col items-center justify-evenly text-center">
         <SectionLabel className="justify-center">LET'S CONNECT</SectionLabel>
 
-        <h2 className="mt-6 font-display text-[clamp(3rem,11vw,6.5rem)] font-bold leading-[0.92] tracking-tight text-accent">
-          <span className="block">The Next</span>
-          <span className="block">Station is…</span>
-        </h2>
+        <div className="flex flex-col items-center">
+          <h2 className="font-display text-[clamp(3.2rem,12vw,8rem)] font-bold leading-[0.9] tracking-tight text-accent">
+            <span className="block">The Next</span>
+            <span className="block">Station is…</span>
+          </h2>
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative mx-auto mt-4 flex w-fit items-start"
-        >
-          <CatMascot className="h-36 w-36 shrink-0 sm:h-44 sm:w-44" />
-          <div className="glass mt-2 max-w-[190px] -translate-x-3 rounded-2xl rounded-bl-sm px-4 py-2.5 text-left text-xs leading-snug text-text sm:max-w-[210px] sm:text-sm">
-            Yes — available for new Product Design opportunities.
-          </div>
-        </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="relative mx-auto mt-10 flex w-fit items-start sm:mt-12"
+          >
+            <CatMascot className="h-36 w-36 shrink-0 sm:h-44 sm:w-44" />
+            <div className="glass mt-2 max-w-[190px] -translate-x-3 rounded-2xl rounded-bl-sm px-4 py-2.5 text-left text-xs leading-snug text-text sm:max-w-[210px] sm:text-sm">
+              Yes — available for new Product Design opportunities.
+            </div>
+          </motion.div>
 
-        <p className="mx-auto mt-6 max-w-md text-text-muted">
-          Available now for new roles and collaborations. Reach out — I usually reply within a day.
-        </p>
+          <p className="mx-auto mt-8 max-w-md text-text-muted">
+            Available now for new roles and collaborations. Reach out — I usually reply within a day.
+          </p>
+        </div>
 
-        <div className="relative mx-auto mt-12 max-w-xs">
+        <div className="relative mx-auto max-w-xs">
           <CornerBrackets />
-          <div className="glass-strong flex flex-col items-center gap-5 rounded-3xl px-8 py-9">
+          <div className="glass-strong flex flex-col items-center gap-5 rounded-3xl px-8 py-9 sm:px-10 sm:py-10">
             <button
               type="button"
               onClick={() => copy(PHONE, 'phone')}
