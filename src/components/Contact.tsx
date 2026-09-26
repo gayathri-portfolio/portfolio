@@ -41,7 +41,7 @@ export function Contact() {
           className="mt-16 w-full max-w-lg sm:mt-20"
         >
           <div className="glass-strong flex flex-col overflow-hidden rounded-[28px] text-left shadow-[0_24px_48px_-28px_rgb(var(--shadow-color)/0.45)] sm:flex-row">
-            <div className="flex shrink-0 items-center justify-center bg-surface p-6 sm:w-[38%]">
+            <div className="flex shrink-0 items-center justify-center p-6 sm:w-[38%]">
               <CatMascot className="h-28 w-28 sm:h-full sm:w-full sm:max-h-40 sm:max-w-40" />
             </div>
 
