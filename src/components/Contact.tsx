@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Check, Copy } from 'lucide-react'
-import { SectionLabel } from './SectionLabel'
 import { CatMascot } from './CatMascot'
 
 const EMAIL = 'gayathrivellaiyan@gmail.com'
@@ -41,8 +40,6 @@ export function Contact() {
       <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 translate-x-1/4 translate-y-1/4 rounded-full bg-accent-2/10 blur-3xl" />
 
       <div className="relative flex w-full max-w-3xl flex-1 flex-col items-center justify-evenly text-center">
-        <SectionLabel className="justify-center">LET'S CONNECT</SectionLabel>
-
         <div className="flex flex-col items-center">
           <h2 className="font-display text-[clamp(3.2rem,12vw,8rem)] font-bold leading-[0.9] tracking-tight text-accent">
             <span className="block">The Next</span>
@@ -61,10 +58,6 @@ export function Contact() {
               Yes — available for new Product Design opportunities.
             </div>
           </motion.div>
-
-          <p className="mx-auto mt-8 max-w-md text-text-muted">
-            Available now for new roles and collaborations. Reach out — I usually reply within a day.
-          </p>
         </div>
 
         <div className="relative mx-auto max-w-xs">
