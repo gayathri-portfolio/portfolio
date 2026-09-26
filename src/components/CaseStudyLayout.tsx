@@ -1,7 +1,7 @@
 import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { AnimatePresence, motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
+import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
 import type { Block, CaseStudyContent } from '../data/caseStudyTypes'
 import { BlockRenderer } from './CaseStudyBlocks'
 import { PawIcon } from './PawIcon'
@@ -481,6 +481,16 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
     window.scrollTo({ top, behavior: 'smooth' })
   }
 
+  // Only a window of DOT_WINDOW dots is ever shown, sliding to keep the
+  // active slide roughly second-from-top — otherwise a 25+ slide deck
+  // turns the rail into a long, unreadable strip.
+  const DOT_WINDOW = 4
+  const dotWindowSize = Math.min(DOT_WINDOW, n)
+  const windowStart = Math.max(0, Math.min(active - 1, n - dotWindowSize))
+  const visibleDots = Array.from({ length: dotWindowSize }, (_, k) => windowStart + k)
+  const hasMoreAbove = windowStart > 0
+  const hasMoreBelow = windowStart + dotWindowSize < n
+
   return (
     <article className="relative">
       <Link
@@ -491,24 +501,39 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
         Back to work
       </Link>
 
-      <div className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2.5 sm:right-8 sm:flex">
+      <div className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 sm:right-8 sm:flex">
         <span className="mb-1 text-[10px] uppercase tracking-wide text-text-faint">
           {String(active + 1).padStart(2, '0')}
         </span>
-        {Array.from({ length: n }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => scrollToSlide(i)}
-            aria-label={`Go to slide ${i + 1}`}
-            className="group flex w-4 items-center justify-center py-0.5"
-          >
-            <span
-              className={`w-1.5 rounded-full transition-all duration-300 ${
-                i === active ? 'h-7 bg-accent' : 'h-1.5 bg-border-strong group-hover:bg-text-faint'
-              }`}
-            />
-          </button>
-        ))}
+        <ChevronUp
+          className={`h-3 w-3 text-text-faint transition-opacity ${hasMoreAbove ? 'opacity-100' : 'opacity-0'}`}
+        />
+        <div className="flex flex-col items-center gap-2.5">
+          <AnimatePresence initial={false}>
+            {visibleDots.map((i) => (
+              <motion.button
+                key={i}
+                layout
+                initial={{ opacity: 0, scale: 0.4 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.4 }}
+                transition={{ duration: 0.2 }}
+                onClick={() => scrollToSlide(i)}
+                aria-label={`Go to slide ${i + 1}`}
+                className="group flex w-4 items-center justify-center py-0.5"
+              >
+                <span
+                  className={`w-1.5 rounded-full transition-all duration-300 ${
+                    i === active ? 'h-7 bg-accent' : 'h-1.5 bg-border-strong group-hover:bg-text-faint'
+                  }`}
+                />
+              </motion.button>
+            ))}
+          </AnimatePresence>
+        </div>
+        <ChevronDown
+          className={`h-3 w-3 text-text-faint transition-opacity ${hasMoreBelow ? 'opacity-100' : 'opacity-0'}`}
+        />
         <span className="mt-1 text-[10px] uppercase tracking-wide text-text-faint">{String(n).padStart(2, '0')}</span>
       </div>
 
