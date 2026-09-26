@@ -51,7 +51,7 @@ export function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="relative mx-auto mt-10 flex w-fit items-start sm:mt-12"
+            className="relative mx-auto mt-16 flex w-fit items-start sm:mt-20"
           >
             <CatMascot className="h-36 w-36 shrink-0 sm:h-44 sm:w-44" />
             <div className="glass mt-2 max-w-[190px] -translate-x-3 rounded-2xl rounded-bl-sm px-4 py-2.5 text-left text-xs leading-snug text-text sm:max-w-[210px] sm:text-sm">
