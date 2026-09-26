@@ -22,13 +22,16 @@ export function Nav() {
 
   return (
     <>
-      {/* minimal top utility bar */}
+      {/* minimal top utility bar — pointer-events-none on the full-width
+          wrapper so its empty left side doesn't swallow clicks meant for
+          whatever fixed element (e.g. a case study's "Back to work" link)
+          sits underneath it there; only the actual content re-enables them. */}
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
           scrolled ? 'py-3' : 'py-5'
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
+        <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
           <a
             href="mailto:gayathrivellaiyan@gmail.com"
             className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg-elevated transition-transform hover:scale-[1.03] sm:inline-flex"
@@ -39,9 +42,11 @@ export function Nav() {
         </div>
       </header>
 
-      {/* primary nav, docked bottom-center */}
-      <nav className="fixed inset-x-0 bottom-0 z-50 flex justify-center px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
-        <div className="glass flex items-center gap-1 rounded-full p-1.5">
+      {/* primary nav, docked bottom-center — same pointer-events split as
+          the header above, so its empty sides don't block clicks on
+          whatever sits beneath that full-width band. */}
+      <nav className="pointer-events-none fixed inset-x-0 bottom-0 z-50 flex justify-center px-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
+        <div className="glass pointer-events-auto flex items-center gap-1 rounded-full p-1.5">
           {links.map((l) => {
             const isRoute = !l.external && !l.href.includes('#')
             const linkHash = l.external || isRoute ? null : l.href.slice(l.href.indexOf('#')) // "#top" | "#work"
