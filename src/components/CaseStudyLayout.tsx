@@ -109,6 +109,69 @@ function HeroImageSlide({
   )
 }
 
+/** Screen/wireframe grids get their own dedicated slide, full-size and
+ * uncrowded by surrounding paragraph text, instead of a row of small
+ * thumbnails squeezed between blocks — so viewers can actually see them. */
+function ImageGridSlide({
+  images,
+  sectionNumber,
+  sectionTitle,
+  numeralColor,
+}: {
+  images: { src: string; caption?: string }[]
+  sectionNumber: string
+  sectionTitle: string
+  numeralColor: string
+}) {
+  return (
+    <div className="relative flex min-h-dvh w-full flex-col items-center justify-center gap-12 overflow-hidden px-6 py-24 sm:px-12">
+      <div className="pointer-events-none absolute -bottom-24 left-1/2 h-[420px] w-[760px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+      <div className="relative flex items-center gap-3">
+        <span className={`font-serif text-2xl font-semibold ${numeralColor}`}>{sectionNumber}</span>
+        <span className="text-xs font-medium uppercase tracking-wide text-text-faint">{sectionTitle}</span>
+      </div>
+      <div className="relative flex flex-wrap items-start justify-center gap-8 sm:gap-12">
+        {images.map((img, i) => (
+          <figure key={i} className="group flex w-[200px] shrink-0 flex-col items-center sm:w-[260px]">
+            <img
+              src={img.src}
+              alt={img.caption ?? ''}
+              loading="lazy"
+              className="h-auto w-full rounded-2xl shadow-[0_32px_64px_-32px_rgb(var(--shadow-color)/0.5)] transition-transform duration-300 ease-out group-hover:-translate-y-2 group-hover:scale-[1.03]"
+            />
+            {img.caption && (
+              <figcaption className="mt-4 text-center text-xs uppercase tracking-wide text-text-faint">
+                {img.caption}
+              </figcaption>
+            )}
+          </figure>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+type TextSegment = { kind: 'text'; blocks: Block[] }
+type ImageSegment = { kind: 'images'; images: { src: string; caption?: string }[] }
+
+/** Walks a section's blocks and pulls every image-grid out into its own
+ * segment, so it can become its own slide instead of sitting inline. */
+function splitSectionSegments(blocks: Block[]): (TextSegment | ImageSegment)[] {
+  const segments: (TextSegment | ImageSegment)[] = []
+  let buffer: Block[] = []
+  for (const block of blocks) {
+    if (block.kind === 'image-grid') {
+      segments.push({ kind: 'text', blocks: buffer })
+      segments.push({ kind: 'images', images: block.images })
+      buffer = []
+    } else {
+      buffer.push(block)
+    }
+  }
+  segments.push({ kind: 'text', blocks: buffer })
+  return segments
+}
+
 function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; title: string; tagline: string } | undefined): SlideDef[] {
   const defs: SlideDef[] = []
 
@@ -175,26 +238,54 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
     const firstBlock = section.blocks[0]
     const introText = firstBlock?.kind === 'p' ? firstBlock.text : undefined
     const restBlocks = introText ? section.blocks.slice(1) : section.blocks
-    defs.push({
-      key: `section-${section.number}`,
-      render: () => (
-        <div className="relative flex min-h-dvh w-full flex-col justify-center gap-10 overflow-hidden px-6 py-28 sm:px-12">
-          <div className="mx-auto grid w-full max-w-4xl gap-6 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-14">
-            <span className={`font-serif text-6xl font-semibold leading-none sm:text-7xl ${numeralColor}`}>
-              {section.number}
-            </span>
-            <div>
-              <h2 className="font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-text sm:text-5xl">
-                {section.title}
-              </h2>
-              {introText && (
-                <p className="mt-5 max-w-xl text-lg leading-relaxed text-text-muted">{introText}</p>
-              )}
-            </div>
+
+    const segments = splitSectionSegments(restBlocks)
+    let headerRendered = false
+
+    segments.forEach((seg, segIdx) => {
+      if (seg.kind === 'images') {
+        defs.push({
+          key: `section-${section.number}-images-${segIdx}`,
+          render: () => (
+            <ImageGridSlide
+              images={seg.images}
+              sectionNumber={section.number}
+              sectionTitle={section.title}
+              numeralColor={numeralColor}
+            />
+          ),
+        })
+        return
+      }
+
+      if (seg.blocks.length === 0 && headerRendered) return
+
+      const showHeader = !headerRendered
+      headerRendered = true
+
+      defs.push({
+        key: `section-${section.number}-text-${segIdx}`,
+        render: () => (
+          <div className="relative flex min-h-dvh w-full flex-col justify-center gap-10 overflow-hidden px-6 py-28 sm:px-12">
+            {showHeader && (
+              <div className="mx-auto grid w-full max-w-4xl gap-6 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-14">
+                <span className={`font-serif text-6xl font-semibold leading-none sm:text-7xl ${numeralColor}`}>
+                  {section.number}
+                </span>
+                <div>
+                  <h2 className="font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-text sm:text-5xl">
+                    {section.title}
+                  </h2>
+                  {introText && (
+                    <p className="mt-5 max-w-xl text-lg leading-relaxed text-text-muted">{introText}</p>
+                  )}
+                </div>
+              </div>
+            )}
+            <SlideBlocks blocks={seg.blocks} />
           </div>
-          <SlideBlocks blocks={restBlocks} />
-        </div>
-      ),
+        ),
+      })
     })
   })
 
