@@ -60,7 +60,7 @@ export function Contact() {
           </motion.div>
         </div>
 
-        <div className="relative mx-auto max-w-xs">
+        <div className="relative mx-auto mt-16 max-w-xs sm:mt-20">
           <CornerBrackets />
           <div className="glass-strong flex flex-col items-center gap-5 rounded-3xl px-8 py-9 sm:px-10 sm:py-10">
             <button
