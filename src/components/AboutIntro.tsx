@@ -7,10 +7,10 @@ const paragraphs = [
 ]
 
 const photos = [
-  { src: '/about/photo-2.webp', rotate: 6, className: 'left-[26%] -top-[4%] w-[46%] z-0' },
-  { src: '/about/photo-1.webp', rotate: -11, className: '-left-[8%] top-[20%] w-[52%] z-10' },
-  { src: '/about/photo-3.webp', rotate: 15, className: '-right-[6%] top-[24%] w-[50%] z-20' },
-  { src: '/about/photo-4.webp', rotate: -4, className: 'left-[18%] top-[6%] w-[62%] z-30' },
+  { src: '/about/photo-2.webp', rotate: 8, className: 'left-[6%] top-[2%] w-[44%] z-0' },
+  { src: '/about/photo-1.webp', rotate: -9, className: '-left-[4%] top-[40%] w-[50%] z-10' },
+  { src: '/about/photo-3.webp', rotate: 12, className: '-right-[2%] top-[36%] w-[54%] z-20' },
+  { src: '/about/photo-4.webp', rotate: -3, className: 'left-[22%] top-[14%] w-[62%] z-30' },
 ]
 
 export function AboutIntro() {
@@ -25,6 +25,7 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
+          className="lg:w-[calc(100%+60px)]"
         >
           <h2 className="font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-text sm:text-4xl">
             I trained as an architect. Somewhere along the way, I started designing products instead of buildings.
@@ -41,7 +42,7 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto aspect-[4/5] w-full max-w-sm"
+          className="relative mx-auto aspect-[4/5] w-full max-w-md"
         >
           {photos.map((photo) => (
             <div
