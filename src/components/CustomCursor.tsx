@@ -9,129 +9,15 @@ const INTERACTIVE_SELECTOR =
 const REST_ANGLE = 0
 const IDLE_MS = 180 // how long the pointer must sit still before the tail settles back down
 
-// --- yarn ball thread field -------------------------------------------------
-// ~100 randomly-angled, randomly-curved strands wound around the ball, plus one
-// strand that's built in two connected pieces sharing an endpoint at the ball's
-// bottom edge: an inner (clipped, static) half and an outer (animated) half that
-// becomes the dangling tail — same color/width, so it reads as one strand of
-// yarn that happens to wind through the ball before hanging loose.
-
-const BALL_CENTER = 17
-const BALL_RADIUS = 13
-// a genuinely multicolor scrap-yarn mix — the theme's three accents plus a few
-// extra hues so the ball doesn't read as "mostly orange with flecks"
-const THREAD_COLORS = [
-  'var(--accent)',
-  'var(--accent-2)',
-  'var(--accent-pink)',
-  '#4d7ec9',
-  '#d1a537',
-  '#8a5fb8',
-  '#c0483f',
-]
-
-function mulberry32(seed: number) {
-  let s = seed
-  return () => {
-    s |= 0
-    s = (s + 0x6d2b79f5) | 0
-    let t = Math.imul(s ^ (s >>> 15), 1 | s)
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296
-  }
-}
-
-function pointOnBall(angle: number) {
-  return [BALL_CENTER + BALL_RADIUS * Math.cos(angle), BALL_CENTER + BALL_RADIUS * Math.sin(angle)] as const
-}
-
-function chordBetween(p1: readonly [number, number], p2: readonly [number, number], bulge: number) {
-  const [x1, y1] = p1
-  const [x2, y2] = p2
-  const mx = (x1 + x2) / 2
-  const my = (y1 + y2) / 2
-  const dx = x2 - x1
-  const dy = y2 - y1
-  const len = Math.hypot(dx, dy) || 1
-  const cx = mx + (-dy / len) * bulge
-  const cy = my + (dx / len) * bulge
-  return `M${x1.toFixed(1)} ${y1.toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`
-}
-
-function chord(a1: number, a2: number, bulge: number) {
-  return chordBetween(pointOnBall(a1), pointOnBall(a2), bulge)
-}
-
-// a slightly lumpy closed outline instead of a perfect circle — yarn balls
-// aren't geometrically round, they bulge a bit wherever a wound thread sits
-// proud of the rest
-function buildBlob(seed: number, pointCount = 11, jitter = 1.3) {
-  const rand = mulberry32(seed)
-  const points: [number, number][] = []
-  for (let i = 0; i < pointCount; i++) {
-    // phase-shifted so index 0 lands exactly on bottom-middle (90°) — the tail
-    // anchors to points[0], so it hangs from dead center, not wherever a random
-    // vertex happens to land. Every point still only jitters in radius, so the
-    // angular spacing (and therefore the outline's winding order) stays intact.
-    const angle = Math.PI / 2 + (i / pointCount) * Math.PI * 2
-    const r = BALL_RADIUS + (rand() - 0.5) * 2 * jitter
-    points.push([BALL_CENTER + r * Math.cos(angle), BALL_CENTER + r * Math.sin(angle)])
-  }
-  const n = points.length
-  let d = `M${points[0][0].toFixed(1)} ${points[0][1].toFixed(1)}`
-  for (let i = 0; i < n; i++) {
-    const p0 = points[(i - 1 + n) % n]
-    const p1 = points[i]
-    const p2 = points[(i + 1) % n]
-    const p3 = points[(i + 2) % n]
-    const c1x = p1[0] + (p2[0] - p0[0]) / 6
-    const c1y = p1[1] + (p2[1] - p0[1]) / 6
-    const c2x = p2[0] - (p3[0] - p1[0]) / 6
-    const c2y = p2[1] - (p3[1] - p1[1]) / 6
-    d += ` C${c1x.toFixed(1)} ${c1y.toFixed(1)} ${c2x.toFixed(1)} ${c2y.toFixed(1)} ${p2[0].toFixed(1)} ${p2[1].toFixed(1)}`
-  }
-  return { path: d + ' Z', points }
-}
-
-const BLOB = buildBlob(7)
-const BLOB_PATH = BLOB.path
-
-// the tail must start exactly ON the blob's rendered outline, not on an idealized
-// circle — otherwise the jitter that makes the ball lumpy leaves a visible gap.
-// points[0] is phase-locked to true bottom-middle (see buildBlob), so anchoring
-// there guarantees both: a real point on the outline, and dead-center placement.
-const TAIL_ANCHOR = { x: BLOB.points[0][0], y: BLOB.points[0][1] }
-
-interface Strand {
-  d: string
-  color: string
-  width: number
-  opacity: number
-}
-
-function buildStrands(count: number, seed: number): Strand[] {
-  const rand = mulberry32(seed)
-  const strands: Strand[] = []
-  for (let i = 0; i < count; i++) {
-    const a1 = rand() * Math.PI * 2
-    const a2 = a1 + Math.PI * (0.3 + rand() * 1) * (rand() < 0.5 ? 1 : -1)
-    strands.push({
-      d: chord(a1, a2, (rand() - 0.5) * 16),
-      color: THREAD_COLORS[Math.floor(rand() * THREAD_COLORS.length)],
-      width: 0.7 + rand() * 0.7,
-      opacity: 0.55 + rand() * 0.4,
-    })
-  }
-  return strands
-}
-
-const STRANDS = buildStrands(99, 42)
-
-// the 100th strand — its inner half ends exactly at TAIL_ANCHOR, the blob's own
-// bottom vertex, so the animated tail piece picks up from that same real point
-// on the outline (not an idealized circle point, which the lumpy jitter could
-// leave with a visible gap)
-const TAIL_INNER_D = chordBetween(pointOnBall(Math.PI * 1.18), [TAIL_ANCHOR.x, TAIL_ANCHOR.y], 5.5)
+// --- toy mouse (the classic cat toy) ----------------------------------------
+// A little felt mouse, drawn side-on: round body, a snout bump with a pink
+// nose, two ears, dot eyes, a few whiskers, and a long dangling tail that
+// swings with pointer movement — reading as the toy trailing behind as it's
+// dragged around, exactly like the yarn tail it replaces.
+const BODY_COLOR = '#e9e2d0'
+const EAR_INNER_COLOR = 'var(--accent-pink)'
+const NOSE_COLOR = 'var(--accent-pink)'
+const TAIL_ANCHOR = { x: 9, y: 25 }
 const TAIL_COLOR = '#e0607a'
 const TAIL_WIDTH = 2
 // hangs essentially straight down (small lateral wobble, not a wide swoop) with
@@ -192,23 +78,16 @@ export function CustomCursor() {
       className="pointer-events-none fixed left-0 top-0 z-[100] transition-opacity duration-200"
       style={{ opacity: visible ? 1 : 0, willChange: 'transform' }}
     >
-      {hovering ? <PawCursor /> : <YarnBallCursor tailAngle={tailAngle} />}
+      {hovering ? <PawCursor /> : <ToyMouseCursor tailAngle={tailAngle} />}
     </div>
   )
 }
 
-function YarnBallCursor({ tailAngle }: { tailAngle: ReturnType<typeof useSpring> }) {
+function ToyMouseCursor({ tailAngle }: { tailAngle: ReturnType<typeof useSpring> }) {
   return (
     <svg width="34" height="50" viewBox="0 0 34 50" style={{ overflow: 'visible' }}>
-      <defs>
-        <clipPath id="yarn-ball-clip">
-          <path d={BLOB_PATH} />
-        </clipPath>
-      </defs>
-
-      {/* the loose end of the 100th strand — same color/width as its inner half
-          below, continuing from the exact point that half ends at. Swings with
-          movement, settles straight down from "gravity" when the pointer stops. */}
+      {/* tail — swings with movement, settles straight down from "gravity"
+          when the pointer stops, same as the toy trailing on a string */}
       <motion.path
         d={TAIL_OUTER_D}
         fill="none"
@@ -218,16 +97,25 @@ function YarnBallCursor({ tailAngle }: { tailAngle: ReturnType<typeof useSpring>
         style={{ rotate: tailAngle, transformOrigin: `${TAIL_ANCHOR.x}px ${TAIL_ANCHOR.y}px` }}
       />
 
-      {/* ball body — a lumpy blob, not a perfect circle — wound in ~100 irregular,
-          randomly-angled threads */}
-      <path d={BLOB_PATH} fill="#f1e4cd" />
-      <g clipPath="url(#yarn-ball-clip)" strokeLinecap="round" fill="none">
-        {STRANDS.map((s, i) => (
-          <path key={i} d={s.d} stroke={s.color} strokeWidth={s.width} opacity={s.opacity} />
-        ))}
-        {/* the inner half of the strand whose loose end becomes the tail above */}
-        <path d={TAIL_INNER_D} stroke={TAIL_COLOR} strokeWidth={TAIL_WIDTH} opacity={0.9} />
-      </g>
+      {/* ears (back one first so the front one overlaps it correctly) */}
+      <ellipse cx="11" cy="11" rx="4.2" ry="5.2" transform="rotate(-25 11 11)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.2" />
+      <ellipse cx="11.5" cy="12" rx="2" ry="2.8" transform="rotate(-25 11.5 12)" fill={EAR_INNER_COLOR} />
+      <ellipse cx="18" cy="9.5" rx="3.8" ry="4.8" transform="rotate(8 18 9.5)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.2" />
+      <ellipse cx="18" cy="10.3" rx="1.8" ry="2.6" transform="rotate(8 18 10.3)" fill={EAR_INNER_COLOR} />
+
+      {/* body + snout */}
+      <ellipse cx="18" cy="20" rx="9" ry="7" transform="rotate(5 18 20)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.4" />
+      <ellipse cx="27" cy="21" rx="4.5" ry="3.8" transform="rotate(5 27 21)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.4" />
+      <circle cx="31.5" cy="21" r="1.4" fill={NOSE_COLOR} stroke="#000" strokeWidth="0.8" />
+
+      {/* whiskers */}
+      <path d="M29 20 L34 18.5" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M29.5 22 L34.5 22.5" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M29 24 L34 26" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+
+      {/* eyes */}
+      <circle cx="22" cy="18.5" r="1" fill="#000" />
+      <circle cx="26" cy="19.5" r="0.9" fill="#000" />
     </svg>
   )
 }
