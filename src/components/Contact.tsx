@@ -1,11 +1,23 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Check, Copy, Mail, Phone } from 'lucide-react'
+import { Check, Copy } from 'lucide-react'
 import { SectionLabel } from './SectionLabel'
-import { PawIcon } from './PawIcon'
+import { CatMascot } from './CatMascot'
 
 const EMAIL = 'gayathrivellaiyan@gmail.com'
 const PHONE = '+91-6381652569'
+
+function CornerBrackets() {
+  const base = 'absolute h-5 w-5 border-accent'
+  return (
+    <>
+      <span className={`${base} -left-2.5 -top-2.5 border-l-2 border-t-2`} />
+      <span className={`${base} -right-2.5 -top-2.5 border-r-2 border-t-2`} />
+      <span className={`${base} -bottom-2.5 -left-2.5 border-b-2 border-l-2`} />
+      <span className={`${base} -bottom-2.5 -right-2.5 border-b-2 border-r-2`} />
+    </>
+  )
+}
 
 export function Contact() {
   const [copied, setCopied] = useState<'email' | 'phone' | null>(null)
@@ -24,57 +36,67 @@ export function Contact() {
     <section id="contact" className="relative overflow-hidden px-5 py-24 sm:py-32">
       <div className="pointer-events-none absolute left-1/2 top-0 h-72 w-[900px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
 
-      <div className="relative mx-auto max-w-3xl">
-        <SectionLabel>LET'S CONNECT</SectionLabel>
+      <div className="relative mx-auto max-w-3xl text-center">
+        <SectionLabel className="justify-center">LET'S CONNECT</SectionLabel>
+
+        <h2 className="mt-6 font-display text-[clamp(3rem,11vw,6.5rem)] font-bold leading-[0.92] tracking-tight text-accent">
+          <span className="block">The Next</span>
+          <span className="block">Station is…</span>
+        </h2>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.9, rotate: -6 }}
-          whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="mt-6 flex h-14 w-14 items-center justify-center rounded-full bg-accent text-bg-elevated"
+          className="relative mx-auto mt-4 flex w-fit items-start"
         >
-          <PawIcon className="h-7 w-7" />
+          <CatMascot className="h-36 w-36 shrink-0 sm:h-44 sm:w-44" />
+          <div className="glass mt-2 max-w-[190px] -translate-x-3 rounded-2xl rounded-bl-sm px-4 py-2.5 text-left text-xs leading-snug text-text sm:max-w-[210px] sm:text-sm">
+            Yes — available for new Product Design opportunities.
+          </div>
         </motion.div>
 
-        <h2 className="mt-6 font-display text-3xl font-semibold tracking-tight sm:text-5xl">
-          The next station is…
-        </h2>
-        <p className="mt-4 max-w-md text-text-muted">
+        <p className="mx-auto mt-6 max-w-md text-text-muted">
           Available now for new roles and collaborations. Reach out — I usually reply within a day.
         </p>
 
-        <div className="mt-10 flex max-w-md flex-col gap-3 sm:flex-row">
-          <button
-            type="button"
-            onClick={() => copy(EMAIL, 'email')}
-            className="glass group flex items-center justify-between gap-3 rounded-full px-5 py-3 text-sm text-text transition-transform hover:scale-[1.02]"
-          >
-            <span className="flex items-center gap-2">
-              <Mail className="h-4 w-4 text-text-muted" />
-              {EMAIL}
-            </span>
-            {copied === 'email' ? (
-              <Check className="h-4 w-4 text-accent-2" />
-            ) : (
-              <Copy className="h-4 w-4 text-text-faint transition-colors group-hover:text-text" />
-            )}
-          </button>
-          <button
-            type="button"
-            onClick={() => copy(PHONE, 'phone')}
-            className="glass group flex items-center justify-between gap-3 rounded-full px-5 py-3 text-sm text-text transition-transform hover:scale-[1.02]"
-          >
-            <span className="flex items-center gap-2">
-              <Phone className="h-4 w-4 text-text-muted" />
+        <div className="relative mx-auto mt-12 max-w-xs">
+          <CornerBrackets />
+          <div className="glass-strong flex flex-col items-center gap-5 rounded-3xl px-8 py-9">
+            <button
+              type="button"
+              onClick={() => copy(PHONE, 'phone')}
+              className="group flex items-center gap-2 text-sm font-medium text-text transition-colors hover:text-accent"
+            >
+              {copied === 'phone' ? (
+                <Check className="h-3.5 w-3.5 text-accent-2" />
+              ) : (
+                <Copy className="h-3.5 w-3.5 text-text-faint transition-colors group-hover:text-accent" />
+              )}
               {PHONE}
-            </span>
-            {copied === 'phone' ? (
-              <Check className="h-4 w-4 text-accent-2" />
-            ) : (
-              <Copy className="h-4 w-4 text-text-faint transition-colors group-hover:text-text" />
-            )}
-          </button>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => copy(EMAIL, 'email')}
+              className="group flex items-center gap-2 text-sm font-medium text-text transition-colors hover:text-accent"
+            >
+              {copied === 'email' ? (
+                <Check className="h-3.5 w-3.5 text-accent-2" />
+              ) : (
+                <Copy className="h-3.5 w-3.5 text-text-faint transition-colors group-hover:text-accent" />
+              )}
+              {EMAIL}
+            </button>
+
+            <a
+              href={`mailto:${EMAIL}`}
+              className="mt-2 font-display text-lg font-bold tracking-wide text-text transition-colors hover:text-accent"
+            >
+              [ Let's Connect ]
+            </a>
+          </div>
         </div>
       </div>
     </section>
