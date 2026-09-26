@@ -115,23 +115,25 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
   defs.push({
     key: 'hero-text',
     render: () => (
-      <div className="relative flex min-h-dvh w-full flex-col items-center justify-center overflow-hidden px-6 py-28 text-center sm:px-12">
+      <div className="relative flex min-h-dvh w-full flex-col justify-center overflow-hidden px-6 py-28 sm:px-12">
         <div className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[820px] -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
         <div className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-accent-2/10 blur-3xl" />
 
-        <div className="relative mx-auto flex w-full max-w-3xl flex-col items-center">
-          <p className="font-display text-sm font-medium uppercase tracking-wide text-text-faint">
-            {content.meta.company} · {content.meta.industry}
-          </p>
-          <h1 className="mt-4 font-serif text-[clamp(2.6rem,6vw,4.8rem)] font-semibold leading-[0.98] tracking-tight text-text">
-            {content.title}
-          </h1>
-          <p className="mt-4 max-w-xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl">
-            {content.tagline}
-          </p>
-          <p className="mt-6 max-w-lg text-lg leading-relaxed text-text-muted">{content.intro}</p>
+        <div className="relative mx-auto grid w-full max-w-5xl gap-12 text-center lg:grid-cols-2 lg:items-center lg:gap-16">
+          <div className="flex flex-col items-center">
+            <p className="font-display text-sm font-medium uppercase tracking-wide text-text-faint">
+              {content.meta.company} · {content.meta.industry}
+            </p>
+            <h1 className="mt-4 font-serif text-[clamp(2.6rem,6vw,4.8rem)] font-semibold leading-[0.98] tracking-tight text-text">
+              {content.title}
+            </h1>
+            <p className="mt-4 max-w-xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl">
+              {content.tagline}
+            </p>
+            <p className="mt-6 max-w-lg text-lg leading-relaxed text-text-muted">{content.intro}</p>
+          </div>
 
-          <div className="glass-strong mt-10 flex w-full max-w-xl flex-col items-center gap-5 rounded-3xl p-6">
+          <div className="glass-strong mx-auto flex w-full max-w-md flex-col items-center gap-5 rounded-3xl p-6">
             <div className="grid w-full grid-cols-2 gap-5 text-center">
               <MetaRow label="Role" value={content.meta.role} />
               <MetaRow label="Team" value={content.meta.team} />
