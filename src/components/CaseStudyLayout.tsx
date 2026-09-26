@@ -172,17 +172,27 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
 
   content.sections.forEach((section, sIdx) => {
     const numeralColor = sIdx % 2 === 0 ? 'text-accent/30' : 'text-accent-2/30'
+    const firstBlock = section.blocks[0]
+    const introText = firstBlock?.kind === 'p' ? firstBlock.text : undefined
+    const restBlocks = introText ? section.blocks.slice(1) : section.blocks
     defs.push({
       key: `section-${section.number}`,
       render: () => (
         <div className="relative flex min-h-dvh w-full flex-col justify-center gap-10 overflow-hidden px-6 py-28 sm:px-12">
-          <div className="mx-auto w-full max-w-2xl">
-            <span className={`font-serif text-6xl font-semibold sm:text-7xl ${numeralColor}`}>{section.number}</span>
-            <h2 className="mt-2 font-serif text-3xl font-semibold tracking-tight text-text sm:text-5xl">
-              {section.title}
-            </h2>
+          <div className="mx-auto grid w-full max-w-4xl gap-6 sm:grid-cols-[auto_1fr] sm:items-start sm:gap-14">
+            <span className={`font-serif text-6xl font-semibold leading-none sm:text-7xl ${numeralColor}`}>
+              {section.number}
+            </span>
+            <div>
+              <h2 className="font-serif text-3xl font-semibold leading-[1.05] tracking-tight text-text sm:text-5xl">
+                {section.title}
+              </h2>
+              {introText && (
+                <p className="mt-5 max-w-xl text-lg leading-relaxed text-text-muted">{introText}</p>
+              )}
+            </div>
           </div>
-          <SlideBlocks blocks={section.blocks} />
+          <SlideBlocks blocks={restBlocks} />
         </div>
       ),
     })
