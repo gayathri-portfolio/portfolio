@@ -82,6 +82,27 @@ function ToyMouseCursor({ swingAngle }: { swingAngle: ReturnType<typeof useSprin
   )
 }
 
+// stacked zero-blur drop-shadows in 8 directions trace a crisp outline
+// around the cutout's alpha silhouette — a border-image can't do this
+// since the PNG's edge isn't a rectangle, and a single drop-shadow only
+// offsets in one direction rather than ringing the whole shape
+const PAW_OUTLINE_FILTER = [0, 45, 90, 135, 180, 225, 270, 315]
+  .map((deg) => {
+    const rad = (deg * Math.PI) / 180
+    const x = (1.4 * Math.cos(rad)).toFixed(2)
+    const y = (1.4 * Math.sin(rad)).toFixed(2)
+    return `drop-shadow(${x}px ${y}px 0 #000)`
+  })
+  .join(' ')
+
 function PawCursor() {
-  return <img src={pawCutout} alt="" draggable={false} className="w-[56px] select-none" />
+  return (
+    <img
+      src={pawCutout}
+      alt=""
+      draggable={false}
+      className="w-9 select-none"
+      style={{ filter: PAW_OUTLINE_FILTER }}
+    />
+  )
 }
