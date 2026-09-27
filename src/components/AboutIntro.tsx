@@ -6,11 +6,13 @@ const paragraphs = [
   "At Portl Technologies, I've worked on UltraGym, UltraGym Pro, and Portl Studio Mirror — simplifying complex workflows, shaping new experiences, and designing for both the person using the product and the business behind it.",
 ]
 
+const PHOTO_WIDTH = 'w-[38%]'
+
 const photos = [
-  { src: '/about/photo-2.webp', rotate: 8, className: 'left-[6%] top-[2%] w-[44%] z-0' },
-  { src: '/about/photo-1.webp', rotate: -9, className: '-left-[4%] top-[40%] w-[50%] z-10' },
-  { src: '/about/photo-3.webp', rotate: 12, className: '-right-[2%] top-[36%] w-[54%] z-20' },
-  { src: '/about/photo-4.webp', rotate: -3, className: 'left-[22%] top-[14%] w-[62%] z-30' },
+  { src: '/about/photo-2.webp', rotate: 8, className: `left-[8%] top-[4%] ${PHOTO_WIDTH} z-0` },
+  { src: '/about/photo-1.webp', rotate: -9, className: `-left-[2%] top-[42%] ${PHOTO_WIDTH} z-10` },
+  { src: '/about/photo-3.webp', rotate: 12, className: `right-0 top-[40%] ${PHOTO_WIDTH} z-20` },
+  { src: '/about/photo-4.webp', rotate: -3, className: `left-[26%] top-[20%] ${PHOTO_WIDTH} z-30` },
 ]
 
 export function AboutIntro() {
