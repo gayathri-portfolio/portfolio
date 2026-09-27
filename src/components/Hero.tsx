@@ -7,12 +7,9 @@ export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pb-20 pt-36 sm:pt-44 lg:flex lg:min-h-screen lg:items-center lg:py-24">
       {/* illustrated background — the artwork itself leaves the left side
-          empty for text, and the scrim (using the theme's own --bg color,
-          so it works in both light and dark mode) fades that side further
-          to guarantee legibility regardless of what's behind it there */}
+          empty for text */}
       <div className="pointer-events-none absolute inset-0">
         <img src={heroBg} alt="" className="h-full w-full object-cover object-right" />
-        <div className="absolute inset-0 bg-gradient-to-r from-bg via-bg/80 to-transparent" />
       </div>
 
       {/* ambient blobs */}
