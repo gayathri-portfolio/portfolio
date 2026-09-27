@@ -52,7 +52,7 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
           </a>
         )}
       </div>
-      <p className="mt-1.5 text-sm font-medium text-black/70">{project.tagline}</p>
+      <p className="mt-1.5 text-sm font-medium text-text-muted">{project.tagline}</p>
       <p className="mt-2.5 flex flex-wrap gap-x-4 gap-y-1 text-sm text-text-muted">
         {project.highlights.map((h) => (
           <span key={h}>• {h}</span>
@@ -93,7 +93,7 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
 
       <div className="glass absolute inset-0 flex flex-col items-center justify-center gap-1 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <h4 className="font-display text-[24px] font-bold text-text">{project.title}</h4>
-        <p className="text-[18px] opacity-100" style={{ color: '#000000' }}>{project.tagline}</p>
+        <p className="text-[18px] text-text-muted">{project.tagline}</p>
       </div>
     </motion.a>
   )
