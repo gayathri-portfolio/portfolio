@@ -3,7 +3,7 @@ import { DesignJourney } from '../components/DesignJourney'
 
 export function About() {
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen">
       <AboutIntro />
       <DesignJourney />
     </div>
