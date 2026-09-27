@@ -2,14 +2,18 @@ import { motion } from 'framer-motion'
 import { RotatingWord } from './RotatingWord'
 import { HoverLetters } from './HoverLetters'
 import heroBg from '../assets/hero-bg.png'
+import heroBgDark from '../assets/hero-bg-dark.png'
 
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pb-20 pt-36 sm:pt-44 lg:flex lg:min-h-screen lg:items-center lg:py-24">
       {/* illustrated background — the artwork itself leaves the left side
-          empty for text */}
+          empty for text. Separate light/dark-theme artwork (not just a
+          filter on one image) since the dark version is a genuinely
+          different repaint, not a tinted copy. */}
       <div className="pointer-events-none absolute inset-0">
-        <img src={heroBg} alt="" className="h-full w-full object-cover object-right" />
+        <img src={heroBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
+        <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>
 
       {/* ambient blobs */}
