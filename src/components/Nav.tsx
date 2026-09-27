@@ -32,12 +32,12 @@ export function Nav() {
         }`}
       >
         <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
-          <a
-            href="mailto:gayathrivellaiyan@gmail.com"
+          <Link
+            to="/#contact"
             className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg-elevated transition-transform hover:scale-[1.03] sm:inline-flex"
           >
             Let's talk
-          </a>
+          </Link>
           <ThemeToggle />
         </div>
       </header>
