@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import aboutBg from '../assets/about-bg.png'
 
 const paragraphs = [
   "My architecture background taught me to think in structures, relationships, constraints, and people. Product design gave me a different scale to apply that thinking — where a small interaction can change how someone experiences an entire product.",
@@ -6,64 +7,34 @@ const paragraphs = [
   "At Portl Technologies, I've worked on UltraGym, UltraGym Pro, and Portl Studio Mirror — simplifying complex workflows, shaping new experiences, and designing for both the person using the product and the business behind it.",
 ]
 
-const PHOTO_WIDTH = 'w-[38%]'
-
-// A fanned hand-of-cards, wide left-to-right spread: a back photo peeking
-// from the top, one splayed hard left and one hard right, and the front
-// photo upright and most prominent just left of center. Ordered back-to-
-// front (z ascending).
-// tops shifted +16% from the original fan so the *visible* photo cluster's
-// vertical center lands on the container's center (the fan otherwise
-// clusters near the top, leaving the bottom empty — see AboutIntro review)
-const photos = [
-  { src: '/about/photo-2.webp', rotate: -4, className: `left-[32%] top-[18%] ${PHOTO_WIDTH} z-0` },
-  { src: '/about/photo-1.webp', rotate: -16, className: `left-[2%] top-[40%] ${PHOTO_WIDTH} z-10` },
-  { src: '/about/photo-3.webp', rotate: 14, className: `left-[54%] top-[44%] ${PHOTO_WIDTH} z-20` },
-  { src: '/about/photo-4.webp', rotate: 4, className: `left-[20%] top-[24%] ${PHOTO_WIDTH} z-30` },
-]
-
 export function AboutIntro() {
   return (
-    <section className="relative overflow-hidden px-5 py-24 sm:py-32">
+    <section className="relative flex min-h-dvh items-center overflow-hidden px-5 py-24 sm:py-32">
+      {/* illustrated background — same treatment as the Hero section:
+          the artwork leaves the left side empty for text */}
+      <div className="pointer-events-none absolute inset-0">
+        <img src={aboutBg} alt="" className="h-full w-full object-cover object-right" />
+      </div>
+
       <LeafSprig className="pointer-events-none absolute -left-4 bottom-6 hidden h-36 w-36 text-accent-2 opacity-20 sm:block" />
       <LeafSprig className="pointer-events-none absolute bottom-0 left-24 hidden h-24 w-24 text-accent-2 opacity-15 sm:block" />
 
-      <div className="relative mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-2 lg:gap-12">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.6 }}
-          className="text-left"
-        >
-          <h2 className="font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-text sm:text-4xl">
-            I trained as an architect. Somewhere along the way, I started designing products instead of buildings.
-          </h2>
-          <div className="mt-6 space-y-4 text-text-muted">
-            {paragraphs.map((p) => (
-              <p key={p}>{p}</p>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: '-60px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="relative mx-auto aspect-[4/5] w-full max-w-md"
-        >
-          {photos.map((photo) => (
-            <div
-              key={photo.src}
-              className={`absolute rounded-sm bg-white p-2.5 pb-8 shadow-xl ${photo.className}`}
-              style={{ rotate: `${photo.rotate}deg` }}
-            >
-              <img src={photo.src} alt="" className="aspect-[4/5] w-full rounded-[2px] object-cover" />
-            </div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-60px' }}
+        transition={{ duration: 0.6 }}
+        className="relative mx-auto w-full max-w-6xl text-left"
+      >
+        <h2 className="max-w-xl font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-text sm:text-4xl">
+          I trained as an architect. Somewhere along the way, I started designing products instead of buildings.
+        </h2>
+        <div className="mt-6 max-w-xl space-y-4 text-text-muted">
+          {paragraphs.map((p) => (
+            <p key={p}>{p}</p>
           ))}
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   )
 }
