@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useSpring } from 'framer-motion'
 import mouseToy from '../assets/mouse-toy.png'
-import pawCutout from '../assets/paw-cutout.png'
 
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor-pointer]'
@@ -82,27 +81,16 @@ function ToyMouseCursor({ swingAngle }: { swingAngle: ReturnType<typeof useSprin
   )
 }
 
-// stacked zero-blur drop-shadows in 8 directions trace a crisp outline
-// around the cutout's alpha silhouette — a border-image can't do this
-// since the PNG's edge isn't a rectangle, and a single drop-shadow only
-// offsets in one direction rather than ringing the whole shape
-const PAW_OUTLINE_FILTER = [0, 45, 90, 135, 180, 225, 270, 315]
-  .map((deg) => {
-    const rad = (deg * Math.PI) / 180
-    const x = (1.4 * Math.cos(rad)).toFixed(2)
-    const y = (1.4 * Math.sin(rad)).toFixed(2)
-    return `drop-shadow(${x}px ${y}px 0 #000)`
-  })
-  .join(' ')
-
 function PawCursor() {
   return (
-    <img
-      src={pawCutout}
-      alt=""
-      draggable={false}
-      className="w-9 select-none"
-      style={{ filter: PAW_OUTLINE_FILTER }}
-    />
+    <svg width="34" height="50" viewBox="0 0 34 50" style={{ overflow: 'visible' }}>
+      <g transform="translate(4 4)" fill="#f4a6bd" stroke="#000" strokeWidth="1">
+        <ellipse cx="13" cy="18.5" rx="6.3" ry="5.4" />
+        <ellipse cx="4.5" cy="10.5" rx="2.7" ry="3.2" />
+        <ellipse cx="21.5" cy="10.5" rx="2.7" ry="3.2" />
+        <ellipse cx="10" cy="5.2" rx="2.4" ry="2.9" />
+        <ellipse cx="16" cy="5.2" rx="2.4" ry="2.9" />
+      </g>
+    </svg>
   )
 }
