@@ -31,7 +31,7 @@ export function AboutIntro() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-60px' }}
           transition={{ duration: 0.6 }}
-          className="text-center lg:w-[calc(100%+60px)]"
+          className="text-left"
         >
           <h2 className="font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-text sm:text-4xl">
             I trained as an architect. Somewhere along the way, I started designing products instead of buildings.
