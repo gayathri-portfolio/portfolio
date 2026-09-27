@@ -83,8 +83,8 @@ function ToyMouseCursor({ swingAngle }: { swingAngle: ReturnType<typeof useSprin
 
 function PawCursor() {
   return (
-    <svg width="34" height="50" viewBox="0 0 34 50" style={{ overflow: 'visible' }}>
-      <g transform="translate(4 4)" fill="#f4a6bd" stroke="#000" strokeWidth="1">
+    <svg width="54.4" height="80" viewBox="0 0 34 50" style={{ overflow: 'visible' }}>
+      <g transform="translate(4 4)" fill="#f4a6bd">
         <ellipse cx="13" cy="18.5" rx="6.3" ry="5.4" />
         <ellipse cx="4.5" cy="10.5" rx="2.7" ry="3.2" />
         <ellipse cx="21.5" cy="10.5" rx="2.7" ry="3.2" />
