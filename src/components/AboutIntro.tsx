@@ -8,11 +8,15 @@ const paragraphs = [
 
 const PHOTO_WIDTH = 'w-[38%]'
 
+// A fanned hand-of-cards, wide left-to-right spread: a back photo peeking
+// from the top, one splayed hard left and one hard right, and the front
+// photo upright and most prominent just left of center. Ordered back-to-
+// front (z ascending).
 const photos = [
-  { src: '/about/photo-2.webp', rotate: 8, className: `left-[8%] top-[4%] ${PHOTO_WIDTH} z-0` },
-  { src: '/about/photo-1.webp', rotate: -9, className: `-left-[2%] top-[42%] ${PHOTO_WIDTH} z-10` },
-  { src: '/about/photo-3.webp', rotate: 12, className: `right-0 top-[40%] ${PHOTO_WIDTH} z-20` },
-  { src: '/about/photo-4.webp', rotate: -3, className: `left-[26%] top-[20%] ${PHOTO_WIDTH} z-30` },
+  { src: '/about/photo-2.webp', rotate: -4, className: `left-[32%] top-[2%] ${PHOTO_WIDTH} z-0` },
+  { src: '/about/photo-1.webp', rotate: -16, className: `left-[2%] top-[24%] ${PHOTO_WIDTH} z-10` },
+  { src: '/about/photo-3.webp', rotate: 14, className: `left-[54%] top-[28%] ${PHOTO_WIDTH} z-20` },
+  { src: '/about/photo-4.webp', rotate: 4, className: `left-[20%] top-[8%] ${PHOTO_WIDTH} z-30` },
 ]
 
 export function AboutIntro() {
