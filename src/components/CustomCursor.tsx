@@ -10,19 +10,19 @@ const REST_ANGLE = 0
 const IDLE_MS = 180 // how long the pointer must sit still before the tail settles back down
 
 // --- toy mouse (the classic cat toy) ----------------------------------------
-// A top-down felt mouse — round drooping ears, dot eyes, a pink nose,
-// whiskers, and a long curling tail that swings with pointer movement.
-// Mirrored left-right from the reference art (whiskers/string trail left
-// instead of right, tail curls left instead of right).
+// A top-down felt mouse, nose pointing up: whiskers fanning from the tip,
+// dot eyes, drooping ears lower at the shoulders, a round body, and a
+// curling tail that swings with pointer movement. Matches the reference
+// pose exactly (not mirrored).
 const BODY_COLOR = '#e9e2d0'
 const EAR_INNER_COLOR = 'var(--accent-pink)'
 const NOSE_COLOR = 'var(--accent-pink)'
-const TAIL_ANCHOR = { x: 17, y: 37 }
+const TAIL_ANCHOR = { x: 20, y: 39 }
 const TAIL_COLOR = '#e0607a'
 const TAIL_WIDTH = 1.8
-// mirrors the previous rightward dangling curl — swings with movement,
-// settles straight down from "gravity" when the pointer stops
-const TAIL_OUTER_D = `M${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y} Q${TAIL_ANCHOR.x - 1.2} ${TAIL_ANCHOR.y + 5} ${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y + 10} Q${TAIL_ANCHOR.x + 1.2} ${TAIL_ANCHOR.y + 13.5} ${TAIL_ANCHOR.x - 1.5} ${TAIL_ANCHOR.y + 15.5}`
+// curls right then hooks up at the tip — swings with movement, settles
+// straight down from "gravity" when the pointer stops
+const TAIL_OUTER_D = `M${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y} Q${TAIL_ANCHOR.x + 1.2} ${TAIL_ANCHOR.y + 5} ${TAIL_ANCHOR.x} ${TAIL_ANCHOR.y + 10} Q${TAIL_ANCHOR.x - 1.2} ${TAIL_ANCHOR.y + 13.5} ${TAIL_ANCHOR.x + 1.5} ${TAIL_ANCHOR.y + 15.5}`
 
 export function CustomCursor() {
   const dotRef = useRef<HTMLDivElement>(null)
@@ -97,33 +97,33 @@ function ToyMouseCursor({ tailAngle }: { tailAngle: ReturnType<typeof useSpring>
         style={{ rotate: tailAngle, transformOrigin: `${TAIL_ANCHOR.x}px ${TAIL_ANCHOR.y}px` }}
       />
 
-      {/* the long thread/string trailing from the head, swooping up and to
-          the left — mirrors the reference's up-and-right swoop */}
-      <path d="M12 10 Q5 3 1 -8" fill="none" stroke="#000" strokeWidth="1" strokeLinecap="round" />
-
-      {/* body — a teardrop, wide at the shoulders and narrowing toward the tail */}
+      {/* body — narrow at the head, bulging at the shoulders where the ears
+          attach, tapering to a rounded bottom */}
       <path
-        d="M7 20 C7 12 12 8 17 8 C22 8 27 12 27 20 C27 28 24 34 17 37 C10 34 7 28 7 20 Z"
+        d="M8 18 C8 10 13 6 18 6 C23 6 28 10 28 18 C28 26 26 34 18 39 C10 34 8 26 8 18 Z"
         fill={BODY_COLOR}
         stroke="#000"
         strokeWidth="1.4"
       />
 
-      {/* ears — drooping outward, pink inner ear, on top of the body */}
-      <ellipse cx="8" cy="11" rx="5" ry="6.5" transform="rotate(-25 8 11)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.2" />
-      <ellipse cx="8.5" cy="12" rx="2.3" ry="3.5" transform="rotate(-25 8.5 12)" fill={EAR_INNER_COLOR} />
-      <ellipse cx="26" cy="11" rx="5" ry="6.5" transform="rotate(25 26 11)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.2" />
-      <ellipse cx="25.5" cy="12" rx="2.3" ry="3.5" transform="rotate(25 25.5 12)" fill={EAR_INNER_COLOR} />
+      {/* ears — lower, at shoulder level, drooping outward, pink inner ear */}
+      <ellipse cx="7" cy="19" rx="5.5" ry="7" transform="rotate(-35 7 19)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.2" />
+      <ellipse cx="7.5" cy="20" rx="2.5" ry="4" transform="rotate(-35 7.5 20)" fill={EAR_INNER_COLOR} />
+      <ellipse cx="29" cy="19" rx="5.5" ry="7" transform="rotate(35 29 19)" fill={BODY_COLOR} stroke="#000" strokeWidth="1.2" />
+      <ellipse cx="28.5" cy="20" rx="2.5" ry="4" transform="rotate(35 28.5 20)" fill={EAR_INNER_COLOR} />
 
-      {/* whiskers — fan left from the nose, mirroring the reference's rightward fan */}
-      <path d="M14 20 L8 18" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
-      <path d="M14 21.5 L7 22" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
-      <path d="M14 23 L8 26" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      {/* whiskers — fan from the nose tip, three each side */}
+      <path d="M17 8 L11 3" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M17 9 L10 7" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M17 10 L11 11" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M21 8 L27 3" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M21 9 L28 7" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
+      <path d="M21 10 L27 11" stroke="#000" strokeWidth="0.7" strokeLinecap="round" />
 
       {/* face */}
-      <circle cx="13" cy="17" r="1.1" fill="#000" />
-      <circle cx="21" cy="17" r="1.1" fill="#000" />
-      <circle cx="17" cy="20" r="1.2" fill={NOSE_COLOR} stroke="#000" strokeWidth="0.6" />
+      <circle cx="15" cy="14" r="1.1" fill="#000" />
+      <circle cx="23" cy="14" r="1.1" fill="#000" />
+      <circle cx="19" cy="6" r="1.3" fill={NOSE_COLOR} stroke="#000" strokeWidth="0.6" />
     </svg>
   )
 }
