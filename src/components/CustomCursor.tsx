@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useSpring } from 'framer-motion'
 import mouseToy from '../assets/mouse-toy.png'
+import pawCutout from '../assets/paw-cutout.png'
 
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor-pointer]'
@@ -82,15 +83,5 @@ function ToyMouseCursor({ swingAngle }: { swingAngle: ReturnType<typeof useSprin
 }
 
 function PawCursor() {
-  return (
-    <svg width="54.4" height="80" viewBox="0 0 34 50" style={{ overflow: 'visible' }}>
-      <g transform="translate(4 4)" fill="#f4a6bd">
-        <ellipse cx="13" cy="18.5" rx="6.3" ry="5.4" />
-        <ellipse cx="4.5" cy="10.5" rx="2.7" ry="3.2" />
-        <ellipse cx="21.5" cy="10.5" rx="2.7" ry="3.2" />
-        <ellipse cx="10" cy="5.2" rx="2.4" ry="2.9" />
-        <ellipse cx="16" cy="5.2" rx="2.4" ry="2.9" />
-      </g>
-    </svg>
-  )
+  return <img src={pawCutout} alt="" draggable={false} className="w-[56px] select-none" />
 }
