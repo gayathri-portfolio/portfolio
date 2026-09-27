@@ -12,11 +12,14 @@ const PHOTO_WIDTH = 'w-[38%]'
 // from the top, one splayed hard left and one hard right, and the front
 // photo upright and most prominent just left of center. Ordered back-to-
 // front (z ascending).
+// tops shifted +16% from the original fan so the *visible* photo cluster's
+// vertical center lands on the container's center (the fan otherwise
+// clusters near the top, leaving the bottom empty — see AboutIntro review)
 const photos = [
-  { src: '/about/photo-2.webp', rotate: -4, className: `left-[32%] top-[2%] ${PHOTO_WIDTH} z-0` },
-  { src: '/about/photo-1.webp', rotate: -16, className: `left-[2%] top-[24%] ${PHOTO_WIDTH} z-10` },
-  { src: '/about/photo-3.webp', rotate: 14, className: `left-[54%] top-[28%] ${PHOTO_WIDTH} z-20` },
-  { src: '/about/photo-4.webp', rotate: 4, className: `left-[20%] top-[8%] ${PHOTO_WIDTH} z-30` },
+  { src: '/about/photo-2.webp', rotate: -4, className: `left-[32%] top-[18%] ${PHOTO_WIDTH} z-0` },
+  { src: '/about/photo-1.webp', rotate: -16, className: `left-[2%] top-[40%] ${PHOTO_WIDTH} z-10` },
+  { src: '/about/photo-3.webp', rotate: 14, className: `left-[54%] top-[44%] ${PHOTO_WIDTH} z-20` },
+  { src: '/about/photo-4.webp', rotate: 4, className: `left-[20%] top-[24%] ${PHOTO_WIDTH} z-30` },
 ]
 
 export function AboutIntro() {
