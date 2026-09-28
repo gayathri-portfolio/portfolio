@@ -33,8 +33,8 @@ export const caseStudies: CaseStudyProject[] = [
       'A commercial smart-gym experience designed for gyms, hotels, and workplaces, combining digital resistance training with a connected touchscreen experience.',
     summary:
       "Designing a 21.5-inch vertical interface for a user who's standing, moving, pulling and exerting force — not sitting calmly a foot from a laptop.",
-    cover: '/case-studies/ultragym-pro/cover.webp',
-    coverAspect: '5 / 4',
+    cover: '/case-studies/ultragym-pro/cover.jpg',
+    coverAspect: '3 / 2',
     tags: ['Hardware UI', 'UX Research', '0→1'],
     highlights: ['End to End', 'Ownership'],
   },
