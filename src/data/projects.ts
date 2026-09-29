@@ -34,7 +34,7 @@ export const caseStudies: CaseStudyProject[] = [
     summary:
       "Designing a 21.5-inch vertical interface for a user who's standing, moving, pulling and exerting force — not sitting calmly a foot from a laptop.",
     cover: '/case-studies/ultragym-pro/cover.jpg',
-    coverAspect: '3 / 2',
+    coverAspect: '4 / 3',
     tags: ['Hardware UI', 'UX Research', '0→1'],
     highlights: ['End to End', 'Ownership'],
   },
@@ -46,8 +46,8 @@ export const caseStudies: CaseStudyProject[] = [
       'A connected home-gym experience that brings guided workouts, personalised training, and real-time progress tracking into one companion app.',
     summary:
       'UltraGym combines smart fitness hardware with a companion app. My goal was to remove the friction that stood between users and their workout.',
-    cover: '/case-studies/ultragym-ux/cover.webp',
-    coverAspect: '5 / 4',
+    cover: '/case-studies/ultragym-ux/cover.jpg',
+    coverAspect: '4 / 3',
     tags: ['Product Design', 'System Thinking', 'Mobile'],
     highlights: ['Redesign', 'Customer Experience Design'],
     appLink: 'https://play.google.com/store/apps/details?id=com.portl.fitness&pcampaignid=web_share',
@@ -69,7 +69,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Smart Mirror',
     href: 'https://www.behance.net/gallery/246870821/Portl-Studio-Mirror',
     tags: ['Fitness', 'Interface'],
-    cover: '/other-work/portl-studio.webp',
+    cover: '/other-work/portl-studio.jpg',
   },
   {
     type: 'external',
