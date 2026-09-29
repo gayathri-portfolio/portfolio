@@ -11,30 +11,46 @@ export function DesignJourney() {
 
       <div className="relative mx-auto max-w-6xl">
         <SectionLabel>DESIGN JOURNEY</SectionLabel>
-        <h2 className="mt-4 max-w-xl font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="mt-4 whitespace-nowrap font-display text-3xl font-semibold tracking-tight sm:text-5xl">
           Where the thinking comes from
         </h2>
 
-        <div className="mt-14 grid gap-6 sm:grid-cols-3">
-          {designJourney.map((item, i) => (
-            <motion.div
-              key={item.company}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: i * 0.08 }}
-              className="glass-strong flex flex-col rounded-3xl p-6 sm:p-7"
-            >
-              <span className="font-serif text-5xl font-semibold text-accent/30">{item.period}</span>
+        <div className="relative mt-14">
+          {/* the connecting line — centered on the 40px (w-10) markers below */}
+          <div className="pointer-events-none absolute left-5 top-5 bottom-5 w-px bg-border" />
 
-              <h3 className="mt-4 font-display text-xl font-semibold text-text">{item.company}</h3>
-              <span className="mt-1 text-sm text-accent">{item.role}</span>
+          <div className="space-y-12">
+            {designJourney.map((item, i) => (
+              <motion.div
+                key={item.company}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.6, delay: i * 0.08 }}
+                className="relative flex gap-6 sm:gap-8"
+              >
+                <span className="glass-strong relative z-10 flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-sm font-semibold text-accent">
+                  {item.period}
+                </span>
 
-              <p className="mt-4 flex-1 text-text-muted">{item.description}</p>
-
-              <span className="mt-6 border-t border-border/60 pt-4 text-sm text-text-faint">{item.link}</span>
-            </motion.div>
-          ))}
+                <div className="flex-1 pb-1 pt-1.5">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <h3 className="font-display text-xl font-semibold text-text">{item.company}</h3>
+                    <span className="text-sm text-accent">{item.role}</span>
+                  </div>
+                  <p className="mt-2 max-w-2xl text-text-muted">{item.description}</p>
+                  <a
+                    href={`https://${item.link}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-3 inline-block text-sm text-text-faint underline underline-offset-4 transition-colors hover:text-accent"
+                  >
+                    {item.link}
+                  </a>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

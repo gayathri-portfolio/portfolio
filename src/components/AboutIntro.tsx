@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import aboutBg from '../assets/about-bg.png'
+import aboutBgDark from '../assets/about-bg-dark.png'
 
 const paragraphs = [
   "My architecture background taught me to think in structures, relationships, constraints, and people. Product design gave me a different scale to apply that thinking — where a small interaction can change how someone experiences an entire product.",
@@ -11,9 +12,12 @@ export function AboutIntro() {
   return (
     <section className="relative flex min-h-dvh items-center overflow-hidden px-5 py-24 sm:py-32">
       {/* illustrated background — same treatment as the Hero section:
-          the artwork leaves the left side empty for text */}
+          the artwork leaves the left side empty for text, and separate
+          light/dark-theme art (not just a filter) since the dark version
+          is a genuine repaint, not a tinted copy */}
       <div className="pointer-events-none absolute inset-0">
-        <img src={aboutBg} alt="" className="h-full w-full object-cover object-right" />
+        <img src={aboutBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
+        <img src={aboutBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>
 
       <LeafSprig className="pointer-events-none absolute -left-4 bottom-6 hidden h-36 w-36 text-accent-2 opacity-20 sm:block" />
