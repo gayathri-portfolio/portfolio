@@ -24,8 +24,14 @@ export function CaseStudyCard({ project, index }: { project: CaseStudyProject; i
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
           />
 
-          {/* frosted-glass reveal on hover — plain text, no pill/border */}
-          <div className="glass absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+          {/* frosted-glass reveal on hover — plain text, no pill/border.
+              glass-strong (not glass): the overlay sits on an arbitrary
+              photo, and the lighter .glass alpha lets worst-case photo
+              content wash the composited color enough to fail WCAG AA
+              (verified: as low as 2.51:1 in dark mode over a light photo
+              area) — glass-strong's higher opacity keeps text-text's
+              contrast comfortably above 4.5:1 regardless of what's under it */}
+          <div className="glass-strong absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
             <span className="flex translate-y-2 items-center gap-2 text-sm font-medium text-text transition-transform duration-300 group-hover:translate-y-0">
               Click me
               <PawIcon className="h-4 w-4" />
@@ -91,9 +97,15 @@ export function ExternalProjectCard({ project, index }: { project: ExternalProje
         <ArrowUpRight className="h-4 w-4" />
       </span>
 
-      <div className="glass absolute inset-0 flex flex-col items-center justify-center gap-1 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+      {/* glass-strong, and text-text (not text-muted) for the tagline too —
+          same reasoning as CaseStudyCard's hover reveal: text-muted's own
+          color is too close to mid-gray to guarantee contrast once
+          composited over an arbitrary photo (worst case measured as low as
+          1.10:1). Hierarchy against the title is kept via size/weight
+          instead of color. */}
+      <div className="glass-strong absolute inset-0 flex flex-col items-center justify-center gap-1 text-center opacity-0 transition-opacity duration-300 group-hover:opacity-100">
         <h4 className="font-display text-[24px] font-bold text-text">{project.title}</h4>
-        <p className="text-[18px] text-text-muted">{project.tagline}</p>
+        <p className="text-[18px] text-text">{project.tagline}</p>
       </div>
     </motion.a>
   )
