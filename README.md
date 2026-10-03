@@ -1,33 +1,38 @@
 # Gayathri V — Portfolio
 
-React + TypeScript + Vite, styled with Tailwind CSS v4, animated with Framer Motion,
-with an accessible FAQ accordion (Radix) and a light/dark theme toggle whose sun↔moon
-icon morph was pulled from the 21st.dev registry.
+React + TypeScript + Vite, styled with Tailwind CSS v4 and animated with Framer Motion.
+Case studies use a pinned scroll deck; the FAQ accordion uses Radix; the light/dark theme
+toggle icon morph was pulled from the 21st.dev registry.
 
-## Run it
+## Run it locally
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build & deploy
+## Build
 
 ```bash
 npm run build
 ```
 
-Outputs a static site to `dist/` — deploy it as-is to Vercel, Netlify, GitHub Pages,
-or any static host. No server/backend required.
+Outputs a static site to `dist/`. The build uses the base path `/portfolio/` (set in
+`vite.config.ts`), so the site expects to be served from that subpath.
 
-## Swap in the real photo
+## Deploy to GitHub Pages
 
-The hero currently shows a placeholder portrait (a generic silhouette in a soft blob
-frame with a paw badge). To use the real photo of Gayathri with her cat:
+Deploys happen automatically from `.github/workflows/deploy.yml` on every push to `main`.
 
-1. Drop the photo into `src/assets/` (e.g. `hero.jpg`).
-2. Open `src/components/HeroPortrait.tsx` and replace the placeholder `<svg>` block
-   with an `<img src={heroPhoto} className="h-full w-full object-cover" />`.
+One-time setup in the repository:
+
+1. Go to **Settings → Pages**.
+2. Under **Build and deployment → Source**, choose **GitHub Actions**.
+
+The site will be available at `https://<username>.github.io/portfolio/`.
+
+If the repository is renamed, update `base` in `vite.config.ts` to match the new name.
+If the site is ever served from a domain root instead, set `base` to `'/'`.
 
 ## Case studies
 
@@ -35,22 +40,25 @@ Case study copy and structure live in `src/data/ultragymPro.ts` and
 `src/data/ultragymUxStudy.ts` as arrays of typed content blocks (paragraph, callout,
 quote, before/after, image, etc. — see `src/data/caseStudyTypes.ts`). Edit the data,
 not the layout, to change copy. `src/components/CaseStudyLayout.tsx` renders any
-case study that follows this shape, so adding a third case study is just:
+case study that follows this shape. To add another:
 
 1. Add a new `CaseStudyContent` object in `src/data/`.
 2. Add a route in `src/App.tsx`.
 3. Add it to `caseStudies` in `src/data/projects.ts` so it shows on the homepage.
 
+Images in `public/` must be referenced through `import.meta.env.BASE_URL` (as the
+existing data files do) so they still resolve under the `/portfolio/` base path.
+
 The UltraGym Pro exhibits (`public/case-studies/ultragym-pro/*.webp`) were rendered
-from `UltraGym_Pro.pdf` via `scripts/render-pdf.mjs` + `scripts/optimize-images.mjs`
-(WASM PDF rendering via `mupdf`, no external binaries needed) — rerun those if the
+from `UltraGym_Pro.pdf` via `scripts/render-pdf.mjs` and `scripts/optimize-images.mjs`
+(WASM PDF rendering via `mupdf`, no external binaries needed). Rerun those if the
 source PDF changes.
 
 ## Stack
 
 - Vite + React 19 + TypeScript
 - Tailwind CSS v4 (CSS-first `@theme`, light/dark tokens in `src/index.css`)
-- Framer Motion (scroll reveals, page/section transitions, the theme toggle icon)
-- React Router (client-side routing for the two case study pages)
+- Framer Motion (scroll reveals, case study deck, theme toggle icon)
+- React Router (client-side routing, with `404.html` handling direct visits on Pages)
 - Radix UI primitive for the FAQ accordion (`@radix-ui/react-accordion`)
 - Self-hosted variable fonts via `@fontsource-variable/*` (Bricolage Grotesque, Fraunces, Inter)

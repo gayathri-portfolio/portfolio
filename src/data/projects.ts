@@ -33,7 +33,7 @@ export const caseStudies: CaseStudyProject[] = [
       'A commercial smart-gym experience designed for gyms, hotels, and workplaces, combining digital resistance training with a connected touchscreen experience.',
     summary:
       "Designing a 21.5-inch vertical interface for a user who's standing, moving, pulling and exerting force — not sitting calmly a foot from a laptop.",
-    cover: '/case-studies/ultragym-pro/cover.jpg',
+    cover: `${import.meta.env.BASE_URL}case-studies/ultragym-pro/cover.jpg`,
     coverAspect: '4 / 3',
     tags: ['Hardware UI', 'UX Research', '0→1'],
     highlights: ['End to End', 'Ownership'],
@@ -46,7 +46,7 @@ export const caseStudies: CaseStudyProject[] = [
       'A connected home-gym experience that brings guided workouts, personalised training, and real-time progress tracking into one companion app.',
     summary:
       'UltraGym combines smart fitness hardware with a companion app. My goal was to remove the friction that stood between users and their workout.',
-    cover: '/case-studies/ultragym-ux/cover.jpg',
+    cover: `${import.meta.env.BASE_URL}case-studies/ultragym-ux/cover.jpg`,
     coverAspect: '4 / 3',
     tags: ['Product Design', 'System Thinking', 'Mobile'],
     highlights: ['Redesign', 'Customer Experience Design'],
@@ -61,7 +61,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Smart Home Gym',
     href: 'https://www.behance.net/gallery/246583121/Smart-Home-Gym-Companion-App',
     tags: ['Fitness', 'Mobile App'],
-    cover: '/other-work/portl-ultragym.webp',
+    cover: `${import.meta.env.BASE_URL}other-work/portl-ultragym.webp`,
   },
   {
     type: 'external',
@@ -69,7 +69,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Smart Mirror',
     href: 'https://www.behance.net/gallery/246870821/Portl-Studio-Mirror',
     tags: ['Fitness', 'Interface'],
-    cover: '/other-work/portl-studio.jpg',
+    cover: `${import.meta.env.BASE_URL}other-work/portl-studio.jpg`,
   },
   {
     type: 'external',
@@ -77,7 +77,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Ridesharing Service App',
     href: 'https://www.behance.net/gallery/199655691/Riider-Ridesharing-service-app',
     tags: ['Mobility', 'Mobile App'],
-    cover: '/other-work/rider.webp',
+    cover: `${import.meta.env.BASE_URL}other-work/rider.webp`,
   },
   {
     type: 'external',
@@ -85,7 +85,7 @@ export const externalProjects: ExternalProject[] = [
     tagline: 'Ecommerce Site',
     href: 'https://www.behance.net/gallery/200909607/Craftie-Flower-Craft-website',
     tags: ['Ecommerce', 'Web'],
-    cover: '/other-work/craftie.webp',
+    cover: `${import.meta.env.BASE_URL}other-work/craftie.webp`,
   },
 ]
 

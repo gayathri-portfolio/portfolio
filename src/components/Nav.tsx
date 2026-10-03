@@ -6,7 +6,7 @@ const links = [
   { label: 'Home', href: '/#top' },
   { label: 'Work', href: '/#work' },
   { label: 'About', href: '/about' },
-  { label: 'Resume', href: '/resume.pdf', external: true },
+  { label: 'Resume', href: `${import.meta.env.BASE_URL}resume.pdf`, external: true },
 ]
 
 export function Nav() {

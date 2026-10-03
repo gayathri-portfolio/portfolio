@@ -1,6 +1,6 @@
 import type { CaseStudyContent } from './caseStudyTypes'
 
-const IMG = '/case-studies/ultragym-pro'
+const IMG = `${import.meta.env.BASE_URL}case-studies/ultragym-pro`
 
 export const ultragymPro: CaseStudyContent = {
   slug: 'ultragym-pro',
