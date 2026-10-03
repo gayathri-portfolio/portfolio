@@ -385,6 +385,8 @@ function Panel({
   // panel's cover slide — clamped, so it reads as a steady 0 before the
   // panel's turn and a steady 1 once it's settled in.
   const entranceProgress = useTransform(globalProgress, [xFrom, entranceEndFrac], [0, 1])
+  // shadow is visible only while the panel is moving in: zero when parked off-screen and when settled
+  const shadowOpacity = useTransform(entranceProgress, (p) => 4 * p * (1 - p))
   // Every slide scales up from smaller to full size as it enters, in sync
   // with the same window. This sits on its own viewport-sized wrapper
   // (not the possibly-taller reveal-scroll content below) so it scales
@@ -396,9 +398,15 @@ function Panel({
 
   return (
     <motion.div
-      style={{ x, zIndex: index + 1, boxShadow: index > 0 ? "-28px 0 48px -16px rgb(var(--shadow-color) / 0.45)" : undefined }}
+      style={{ x, zIndex: index + 1 }}
       className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg"
     >
+      {index > 0 && (
+        <motion.div
+          style={{ opacity: shadowOpacity }}
+          className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-black/35 to-transparent"
+        />
+      )}
       {index > 0 && <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1.5 bg-accent" />}
       <motion.div style={{ scale }} className="h-full w-full">
         <motion.div ref={innerRef} style={{ y: innerY }}>
