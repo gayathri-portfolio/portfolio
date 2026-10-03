@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
 import { AnimatePresence, motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
@@ -493,6 +493,22 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
     const top = (containerRef.current?.offsetTop ?? 0) + geometry.starts[i]
     window.scrollTo({ top, behavior: 'smooth' })
   }
+
+  // one arrow press advances exactly one slide, animated by the smooth scroll
+  // (ignored while typing in a field and on key auto-repeat)
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return
+      if (e.repeat || e.altKey || e.ctrlKey || e.metaKey) return
+      const el = e.target as HTMLElement | null
+      if (el && (el.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(el.tagName))) return
+      e.preventDefault()
+      const next = Math.min(n - 1, Math.max(0, active + (e.key === "ArrowDown" ? 1 : -1)))
+      scrollToSlide(next)
+    }
+    window.addEventListener("keydown", onKeyDown)
+    return () => window.removeEventListener("keydown", onKeyDown)
+  }, [active, n, geometry])
 
   // Only a window of DOT_WINDOW dots is ever shown, sliding to keep the
   // active slide roughly second-from-top — otherwise a 25+ slide deck
