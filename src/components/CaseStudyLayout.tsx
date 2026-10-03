@@ -186,7 +186,7 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
             <p className="font-display text-sm font-medium uppercase tracking-wide text-text-faint">
               {content.meta.company} · {content.meta.industry}
             </p>
-            <h1 className="mt-4 font-serif text-[clamp(2.6rem,6vw,4.8rem)] font-semibold leading-[0.98] tracking-tight text-text">
+            <h1 className="mt-4 whitespace-nowrap font-serif text-[clamp(2.2rem,4vw,3.2rem)] font-semibold leading-[0.98] tracking-tight text-text">
               {content.title}
             </h1>
             <p className="mt-4 max-w-xl font-serif text-2xl italic leading-snug text-text-muted sm:text-3xl">
