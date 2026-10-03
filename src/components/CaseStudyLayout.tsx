@@ -395,7 +395,11 @@ function Panel({
   const innerY = useTransform(globalProgress, [yFrom, endFrac], [0, -revealDistance])
 
   return (
-    <motion.div style={{ x, zIndex: index + 1 }} className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg">
+    <motion.div
+      style={{ x, zIndex: index + 1, boxShadow: index > 0 ? "-28px 0 48px -16px rgb(var(--shadow-color) / 0.45)" : undefined }}
+      className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg"
+    >
+      {index > 0 && <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1.5 bg-accent" />}
       <motion.div style={{ scale }} className="h-full w-full">
         <motion.div ref={innerRef} style={{ y: innerY }}>
           {children(entranceProgress)}
