@@ -406,6 +406,8 @@ function Panel({
 }
 
 const ENTRANCE_VH_FRACTION = 0.4
+// scroll distance (in viewports) the current slide is held still before the next one starts entering, so there is time to finish reading it
+const DWELL_VH_FRACTION = 1.2
 
 export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
@@ -457,6 +459,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
       entranceEnds.push(cursor)
       cursor += reveal
       ends.push(cursor)
+      if (i < n - 1) cursor += viewportH * DWELL_VH_FRACTION
       reveals.push(reveal)
     }
     const scrollRange = Math.max(cursor, 1)
