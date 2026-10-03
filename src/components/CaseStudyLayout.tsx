@@ -366,6 +366,7 @@ function Panel({
   entranceEndFrac,
   endFrac,
   revealDistance,
+  fit,
   innerRef,
   children,
 }: {
@@ -375,6 +376,7 @@ function Panel({
   entranceEndFrac: number
   endFrac: number
   revealDistance: number
+  fit: number
   innerRef: (el: HTMLDivElement | null) => void
   children: (entranceProgress: MotionValue<number>) => ReactNode
 }) {
@@ -408,7 +410,9 @@ function Panel({
         {index > 0 && <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1.5 bg-accent" />}
         <motion.div style={{ scale }} className="h-full w-full">
           <motion.div ref={innerRef} style={{ y: innerY }}>
-            {children(entranceProgress)}
+            <div style={{ transform: `scale(${fit})`, transformOrigin: "top center" }}>
+              {children(entranceProgress)}
+            </div>
           </motion.div>
         </motion.div>
       </div>
@@ -419,6 +423,9 @@ function Panel({
 const ENTRANCE_VH_FRACTION = 0.4
 // scroll distance (in viewports) the current slide is held still before the next one starts entering, so there is time to finish reading it
 const DWELL_VH_FRACTION = 0.9
+// a slide overflowing the viewport by at most this much (about 4 lines of body
+// text) is scaled down to fit instead of scrolling its last few lines
+const FIT_MAX_PX = 120
 
 export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
@@ -462,8 +469,13 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
     const entranceEnds: number[] = []
     const ends: number[] = []
     const reveals: number[] = []
+    const fits: number[] = []
     for (let i = 0; i < n; i++) {
-      const reveal = Math.max(0, (contentHeights[i] ?? 0) - viewportH)
+      const h = contentHeights[i] ?? 0
+      const over = h - viewportH
+      const fit = over > 0 && over <= FIT_MAX_PX ? viewportH / h : 1
+      fits.push(fit)
+      const reveal = Math.max(0, h * fit - viewportH)
       const entrance = i === 0 ? 0 : entranceDistance
       starts.push(cursor)
       cursor += entrance
@@ -474,7 +486,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
       reveals.push(reveal)
     }
     const scrollRange = Math.max(cursor, 1)
-    return { starts, entranceEnds, ends, reveals, scrollRange, total: viewportH + scrollRange }
+    return { starts, entranceEnds, ends, reveals, fits, scrollRange, total: viewportH + scrollRange }
   }, [contentHeights, viewportH, n])
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end end'] })
@@ -591,6 +603,7 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
               entranceEndFrac={geometry.entranceEnds[i] / geometry.scrollRange}
               endFrac={geometry.ends[i] / geometry.scrollRange}
               revealDistance={geometry.reveals[i]}
+              fit={geometry.fits[i]}
               innerRef={(el) => {
                 innerRefs.current[i] = el
               }}
