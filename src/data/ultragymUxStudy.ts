@@ -8,7 +8,7 @@ export const ultragymUxStudy: CaseStudyContent = {
   tagline: 'Eliminating friction in the workout journey',
   intro:
     'Ultragym is a smart, portable home gym system paired with a companion app that enables users to perform full-body strength training using a single compact device. It is designed for people who want the flexibility of working out anytime, anywhere — without the need for a traditional gym setup. Our mission is to eliminate friction in the workout journey, making it easy for users to start, follow through, and complete workouts efficiently.',
-  heroImage: `${IMG}/cover.webp`,
+  heroImage: `${IMG}/cover.jpg`,
   meta: {
     role: 'Product Designer, Research',
     team: '2 Designers',

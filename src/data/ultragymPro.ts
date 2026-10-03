@@ -8,7 +8,7 @@ export const ultragymPro: CaseStudyContent = {
   tagline: 'On-device touchscreen for a 120 kg commercial strength machine',
   intro:
     "UltraGym Pro is a commercial strength-training system with up to 120 kg of digital resistance, bringing workout guidance, strength assessment, and real-time training feedback directly onto the machine. The challenge wasn't simply designing a touchscreen. It was designing for a user who is standing, moving, pulling, exerting force, and looking at the screen from constantly changing positions. I designed the 21.5-inch vertical interface around that physical context — making every interaction glanceable, legible, and easy to act on under exertion.",
-  heroImage: `${IMG}/hero-product.webp`,
+  heroImage: `${IMG}/cover.jpg`,
   meta: {
     role: 'Product Designer — UI/UX (End-to-End)',
     team: 'CEO, COO, Fitness Manager, Engineering',
