@@ -28,7 +28,7 @@ export function Nav() {
           sits underneath it there; only the actual content re-enables them. */}
       <header
         className={`pointer-events-none fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-          scrolled ? 'py-3' : 'py-5'
+          scrolled ? 'bg-bg/70 py-3 backdrop-blur-md' : 'py-5'
         }`}
       >
         <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
