@@ -17,8 +17,8 @@ npm run dev
 npm run build
 ```
 
-Outputs a static site to `dist/`. The build uses the base path `/portfolio/` (set in
-`vite.config.ts`), so the site expects to be served from that subpath.
+Outputs a static site to `dist/`. The build uses the base path `/` (set in
+`vite.config.ts`), so the site expects to be served from a domain root.
 
 ## Deploy to GitHub Pages
 
@@ -29,10 +29,9 @@ One-time setup in the repository:
 1. Go to **Settings → Pages**.
 2. Under **Build and deployment → Source**, choose **GitHub Actions**.
 
-The site will be available at `https://<username>.github.io/portfolio/`.
-
-If the repository is renamed, update `base` in `vite.config.ts` to match the new name.
-If the site is ever served from a domain root instead, set `base` to `'/'`.
+The site is served from the custom domain set under **Settings → Pages → Custom domain**.
+If the site is ever served from a subpath such as `https://<username>.github.io/portfolio/`,
+set `base` in `vite.config.ts` to `'/portfolio/'` instead.
 
 ## Case studies
 
@@ -47,7 +46,7 @@ case study that follows this shape. To add another:
 3. Add it to `caseStudies` in `src/data/projects.ts` so it shows on the homepage.
 
 Images in `public/` must be referenced through `import.meta.env.BASE_URL` (as the
-existing data files do) so they still resolve under the `/portfolio/` base path.
+existing data files do) so they still resolve under the configured base path.
 
 The UltraGym Pro exhibits (`public/case-studies/ultragym-pro/*.webp`) were rendered
 from `UltraGym_Pro.pdf` via `scripts/render-pdf.mjs` and `scripts/optimize-images.mjs`
