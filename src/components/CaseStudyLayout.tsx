@@ -494,8 +494,9 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
     window.scrollTo({ top, behavior: 'smooth' })
   }
 
-  // one arrow press advances exactly one slide, animated by the smooth scroll
-  // (ignored while typing in a field and on key auto-repeat)
+  // arrow keys step through each slide's own overflowing content first
+  // (scroll to its bottom on Down / back to its top on Up), then move to the
+  // next / previous slide — all with the smooth scroll
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return
@@ -503,12 +504,25 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
       const el = e.target as HTMLElement | null
       if (el && (el.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(el.tagName))) return
       e.preventDefault()
-      const next = Math.min(n - 1, Math.max(0, active + (e.key === "ArrowDown" ? 1 : -1)))
-      scrollToSlide(next)
+
+      const top0 = containerRef.current?.offsetTop ?? 0
+      const y = window.scrollY - top0
+      let cur = 0
+      for (let i = 0; i < n; i++) if (geometry.starts[i] <= y + 1) cur = i
+      const goTo = (yy: number) => window.scrollTo({ top: top0 + yy, behavior: "smooth" })
+      const hasReveal = geometry.reveals[cur] > 0
+
+      if (e.key === "ArrowDown") {
+        if (hasReveal && y < geometry.ends[cur] - 1) goTo(geometry.ends[cur])
+        else if (cur < n - 1) goTo(geometry.starts[cur + 1])
+      } else {
+        if (hasReveal && y > geometry.entranceEnds[cur] + 1) goTo(geometry.entranceEnds[cur])
+        else if (cur > 0) goTo(geometry.ends[cur - 1])
+      }
     }
     window.addEventListener("keydown", onKeyDown)
     return () => window.removeEventListener("keydown", onKeyDown)
-  }, [active, n, geometry])
+  }, [n, geometry])
 
   // Only a window of DOT_WINDOW dots is ever shown, sliding to keep the
   // active slide roughly second-from-top — otherwise a 25+ slide deck
