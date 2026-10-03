@@ -104,7 +104,6 @@ function HeroImageSlide({
         style={{ x }}
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/10" />
     </div>
   )
 }
