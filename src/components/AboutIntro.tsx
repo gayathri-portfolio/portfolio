@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
-import aboutBg from '../assets/about-bg.png'
-import aboutBgDark from '../assets/about-bg-dark.png'
+import aboutBg from '../assets/about-bg.webp'
+import aboutBgDark from '../assets/about-bg-dark.webp'
 
 const paragraphs = [
   "My architecture background taught me to think in structures, relationships, constraints, and people. Product design gave me a different scale to apply that thinking — where a small interaction can change how someone experiences an entire product.",

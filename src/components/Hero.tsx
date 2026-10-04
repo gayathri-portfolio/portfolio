@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion'
 import { RotatingWord } from './RotatingWord'
 import { HoverLetters } from './HoverLetters'
-import heroBg from '../assets/hero-bg.png'
-import heroBgDark from '../assets/hero-bg-dark.png'
+import heroBg from '../assets/hero-bg.webp'
+import heroBgDark from '../assets/hero-bg-dark.webp'
 
 export function Hero() {
   return (
