@@ -6,7 +6,7 @@ import heroBgDark from '../assets/hero-bg-dark.webp'
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pb-20 pt-24 md:pt-44 lg:flex lg:min-h-screen lg:items-center lg:py-24">
+    <section id="top" className="relative overflow-hidden pb-6 pt-24 md:pb-20 md:pt-44 lg:flex lg:min-h-screen lg:items-center lg:py-24">
       {/* illustrated background — on desktop the artwork sits full-bleed behind
           the text, which leaves the left side empty. On phones that overlaps
           the text, so the artwork becomes a band above it instead. Separate

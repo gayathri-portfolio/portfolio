@@ -10,12 +10,17 @@ const paragraphs = [
 
 export function AboutIntro() {
   return (
-    <section className="relative flex min-h-dvh items-center overflow-hidden px-5 py-24 sm:py-32">
-      {/* illustrated background — same treatment as the Hero section:
-          the artwork leaves the left side empty for text, and separate
-          light/dark-theme art (not just a filter) since the dark version
-          is a genuine repaint, not a tinted copy */}
-      <div className="pointer-events-none absolute inset-0">
+    <section className="relative overflow-hidden px-5 pb-12 pt-24 sm:flex sm:min-h-dvh sm:items-center sm:py-32">
+      {/* illustrated background — same treatment as the Hero section: on
+          desktop the artwork sits full-bleed behind the text; on phones it
+          becomes a band above the text so the paragraphs don't sit on the
+          artwork. Separate light/dark-theme art (not just a filter) since
+          the dark version is a genuine repaint, not a tinted copy */}
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
+        <img src={aboutBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
+        <img src={aboutBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
+      </div>
+      <div className="pointer-events-none -mx-5 mb-8 h-[46vh] min-h-72 md:hidden">
         <img src={aboutBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
         <img src={aboutBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>

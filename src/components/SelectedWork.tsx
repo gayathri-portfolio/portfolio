@@ -23,7 +23,7 @@ function ScaleRow({ children }: { children: ReactNode }) {
 
 export function SelectedWork() {
   return (
-    <section id="work" className="mx-auto max-w-6xl px-5 py-24 sm:py-32">
+    <section id="work" className="mx-auto max-w-6xl px-5 py-12 sm:py-32">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
