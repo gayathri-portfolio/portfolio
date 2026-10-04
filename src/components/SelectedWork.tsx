@@ -29,7 +29,7 @@ export function SelectedWork() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-60px' }}
         transition={{ duration: 0.6 }}
-        className="flex items-center gap-4"
+        className="flex flex-col items-start gap-4 sm:flex-row sm:items-center"
       >
         <CatMascot className="h-20 w-20 shrink-0 sm:h-40 sm:w-40" />
         <div>
