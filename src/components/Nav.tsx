@@ -34,7 +34,7 @@ export function Nav() {
         <div className="mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
           <Link
             to="/#contact"
-            className="pointer-events-auto hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg-elevated transition-transform hover:scale-[1.03] sm:inline-flex"
+            className="pointer-events-auto inline-flex rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg-elevated transition-transform hover:scale-[1.03]"
           >
             Let's talk
           </Link>
