@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
+import { AnimatePresence, motion, motionValue, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
 import type { Block, CaseStudyContent } from '../data/caseStudyTypes'
 import { BlockRenderer } from './CaseStudyBlocks'
@@ -427,7 +427,7 @@ const DWELL_VH_FRACTION = 0.9
 // text) is scaled down to fit instead of scrolling its last few lines
 const FIT_MAX_PX = 120
 
-export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
+function CaseStudyDeck({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
   const slideDefs = useMemo(() => buildSlideDefs(content, otherStudy), [content, otherStudy])
   const n = slideDefs.length
@@ -615,4 +615,50 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
       </div>
     </article>
   )
+}
+
+function useIsMobile() {
+  const query = '(max-width: 767px)'
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const onChange = () => setIsMobile(mq.matches)
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+  return isMobile
+}
+
+/** Phones get the same slides as a normal scrolling page instead of the
+ * pinned deck. Alternate content sections are tinted so the numbered
+ * sections read as separate blocks; the hero and closing stay untinted. */
+function CaseStudyStack({ content }: { content: CaseStudyContent }) {
+  const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
+  const slideDefs = useMemo(() => buildSlideDefs(content, otherStudy), [content, otherStudy])
+  const settled = useMemo(() => motionValue(1), [])
+
+  return (
+    <article className="relative">
+      <Link
+        to="/#work"
+        className="glass fixed left-5 top-5 z-40 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-text-muted transition-all hover:text-text"
+      >
+        <ArrowLeft className="h-4 w-4" />
+        Back to work
+      </Link>
+      {slideDefs.map((def, i) => {
+        const tinted = i >= 2 && i % 2 === 1 && def.key !== 'closing'
+        return (
+          <section key={def.key} className={tinted ? 'bg-surface' : undefined}>
+            {def.render(settled)}
+          </section>
+        )
+      })}
+    </article>
+  )
+}
+
+export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
+  const isMobile = useIsMobile()
+  return isMobile ? <CaseStudyStack content={content} /> : <CaseStudyDeck content={content} />
 }

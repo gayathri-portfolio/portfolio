@@ -31,14 +31,16 @@ export function Nav() {
           scrolled ? 'py-3' : 'py-5'
         }`}
       >
-        <div className="pointer-events-auto mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
+        <div className="mx-auto flex max-w-6xl items-center justify-end gap-2 px-5">
           <Link
             to="/#contact"
-            className="hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg-elevated transition-transform hover:scale-[1.03] sm:inline-flex"
+            className="pointer-events-auto hidden rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg-elevated transition-transform hover:scale-[1.03] sm:inline-flex"
           >
             Let's talk
           </Link>
-          <ThemeToggle />
+          <div className="pointer-events-auto">
+            <ThemeToggle />
+          </div>
         </div>
       </header>
 
