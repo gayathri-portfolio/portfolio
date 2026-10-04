@@ -16,9 +16,9 @@ export function Hero() {
         <img src={heroBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
         <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>
-      <div className="pointer-events-none relative mb-8 h-[46vh] min-h-72 w-full md:hidden">
-        <img src={heroBg} alt="" className="block h-full w-full object-cover object-[75%_center] dark:hidden" />
-        <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-[75%_center] dark:block" />
+      <div className="pointer-events-none relative mb-8 h-[34vh] min-h-56 w-full overflow-hidden md:hidden">
+        <img src={heroBg} alt="" className="block h-full w-full object-cover object-center dark:hidden" />
+        <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-center dark:block" />
       </div>
 
       {/* ambient blobs */}
