@@ -3,6 +3,8 @@ import { RotatingWord } from './RotatingWord'
 import { HoverLetters } from './HoverLetters'
 import heroBg from '../assets/hero-bg.webp'
 import heroBgDark from '../assets/hero-bg-dark.webp'
+import mobileHeroBg from '../assets/mobile-hero.webp'
+import mobileHeroBgDark from '../assets/mobile-hero-dark.webp'
 
 export function Hero() {
   return (
@@ -17,8 +19,8 @@ export function Hero() {
         <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>
       <div className="pointer-events-none relative mb-8 aspect-[5/4] w-full overflow-hidden md:hidden">
-        <img src={heroBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
-        <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
+        <img src={mobileHeroBg} alt="" className="block h-full w-full object-cover dark:hidden" />
+        <img src={mobileHeroBgDark} alt="" className="hidden h-full w-full object-cover dark:block" />
       </div>
 
       {/* ambient blobs */}
