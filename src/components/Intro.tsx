@@ -27,7 +27,7 @@ export function Intro() {
   let wordIndex = 0
 
   return (
-    <section className="relative mx-auto flex max-w-6xl items-center px-5 py-12 sm:min-h-screen sm:py-32">
+    <section className="relative mx-auto flex min-h-dvh max-w-6xl items-center px-5 py-12 sm:min-h-screen sm:py-32">
       <FloorPlanCatArt className="pointer-events-none absolute -left-6 top-16 hidden h-44 w-64 text-text-faint opacity-40 lg:block" />
       <div ref={ref} className="mx-auto w-full space-y-6 text-center font-display text-[20px] leading-snug tracking-tight sm:w-[75%] sm:text-[26px]">
         {paragraphs.map((paragraph, pi) => (
