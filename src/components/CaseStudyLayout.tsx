@@ -97,12 +97,12 @@ function HeroImageSlide({
 }) {
   const x = useTransform(entranceProgress, [0, 1], ['-10%', '0%'])
   return (
-    <div className="relative h-dvh w-full overflow-hidden bg-bg-elevated">
+    <div className="relative w-full overflow-hidden bg-bg-elevated md:h-dvh">
       <motion.img
         src={src}
         alt={alt}
         style={{ x }}
-        className="absolute inset-0 h-full w-full object-cover"
+        className="block h-auto w-full md:absolute md:inset-0 md:h-full md:object-cover"
       />
     </div>
   )
