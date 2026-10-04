@@ -11,7 +11,7 @@ export function DesignJourney() {
 
       <div className="relative mx-auto max-w-6xl">
         <SectionLabel>DESIGN JOURNEY</SectionLabel>
-        <h2 className="mt-4 whitespace-nowrap font-display text-3xl font-semibold tracking-tight sm:text-5xl">
+        <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:whitespace-nowrap sm:text-5xl">
           Where the thinking comes from
         </h2>
 
