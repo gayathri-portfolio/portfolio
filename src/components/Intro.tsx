@@ -29,7 +29,7 @@ export function Intro() {
   return (
     <section className="relative mx-auto flex min-h-screen max-w-6xl items-center px-5 py-24 sm:py-32">
       <FloorPlanCatArt className="pointer-events-none absolute -left-6 top-16 hidden h-44 w-64 text-text-faint opacity-40 lg:block" />
-      <div ref={ref} className="mx-auto w-[75%] space-y-6 text-center font-display text-[14px] leading-snug tracking-tight sm:text-[26px]">
+      <div ref={ref} className="mx-auto w-full space-y-6 text-center font-display text-[20px] leading-snug tracking-tight sm:w-[75%] sm:text-[26px]">
         {paragraphs.map((paragraph, pi) => (
           <p key={pi} className={`${paragraph.weight} ${paragraph.size}`}>
             {paragraph.text.split(' ').map((word, wi) => {
