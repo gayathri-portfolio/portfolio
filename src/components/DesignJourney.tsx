@@ -34,7 +34,7 @@ export function DesignJourney() {
                 </span>
 
                 <div className="flex-1 pb-1 pt-1.5">
-                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                  <div className="flex flex-col gap-1 sm:flex-row sm:flex-wrap sm:items-baseline sm:gap-x-3">
                     <h3 className="font-display text-xl font-semibold text-text">{item.company}</h3>
                     <span className="text-sm text-accent">{item.role}</span>
                   </div>
