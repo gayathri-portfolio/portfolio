@@ -16,7 +16,7 @@ export function Hero() {
         <img src={heroBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
         <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>
-      <div className="pointer-events-none relative mb-8 h-[50vh] min-h-72 w-full overflow-hidden md:hidden">
+      <div className="pointer-events-none relative mb-8 aspect-[5/4] w-full overflow-hidden md:hidden">
         <img src={heroBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
         <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
       </div>
