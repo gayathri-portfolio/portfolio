@@ -31,14 +31,13 @@ export function SelectedWork() {
         transition={{ duration: 0.6 }}
         className="flex items-center gap-4"
       >
-        <CatMascot className="h-32 w-32 shrink-0 sm:h-40 sm:w-40" />
+        <CatMascot className="h-20 w-20 shrink-0 sm:h-40 sm:w-40" />
         <div>
           <p className="font-serif text-[26px] italic text-text-muted sm:text-[28px]">
             I strongly recommend you look at these case studies&hellip;
           </p>
           <p className="mt-[1em] max-w-2xl text-text-muted">
-            Two case studies where I owned the design end to end, from research and
-            problem framing to flows, UI, testing, and shipping with developers.
+            Two case studies where I owned the design end to end.
           </p>
         </div>
       </motion.div>
