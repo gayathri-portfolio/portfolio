@@ -6,14 +6,19 @@ import heroBgDark from '../assets/hero-bg-dark.webp'
 
 export function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden pb-20 pt-36 sm:pt-44 lg:flex lg:min-h-screen lg:items-center lg:py-24">
-      {/* illustrated background — the artwork itself leaves the left side
-          empty for text. Separate light/dark-theme artwork (not just a
-          filter on one image) since the dark version is a genuinely
-          different repaint, not a tinted copy. */}
-      <div className="pointer-events-none absolute inset-0">
+    <section id="top" className="relative overflow-hidden pb-20 pt-24 md:pt-44 lg:flex lg:min-h-screen lg:items-center lg:py-24">
+      {/* illustrated background — on desktop the artwork sits full-bleed behind
+          the text, which leaves the left side empty. On phones that overlaps
+          the text, so the artwork becomes a band above it instead. Separate
+          light/dark-theme artwork (not just a filter on one image) since the
+          dark version is a genuinely different repaint, not a tinted copy. */}
+      <div className="pointer-events-none absolute inset-0 hidden md:block">
         <img src={heroBg} alt="" className="block h-full w-full object-cover object-right dark:hidden" />
         <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-right dark:block" />
+      </div>
+      <div className="pointer-events-none relative mb-8 h-[46vh] min-h-72 w-full md:hidden">
+        <img src={heroBg} alt="" className="block h-full w-full object-cover object-[75%_center] dark:hidden" />
+        <img src={heroBgDark} alt="" className="hidden h-full w-full object-cover object-[75%_center] dark:block" />
       </div>
 
       {/* ambient blobs */}
