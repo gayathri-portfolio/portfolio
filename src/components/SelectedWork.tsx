@@ -37,7 +37,8 @@ export function SelectedWork() {
             I strongly recommend you look at these case studies&hellip;
           </p>
           <p className="mt-[1em] max-w-2xl text-text-muted">
-            Two case studies where I owned the design end to end.
+            Two case studies where I owned the design end to end, from research and
+            problem framing to flows, UI, testing, and shipping with developers.
           </p>
         </div>
       </motion.div>
