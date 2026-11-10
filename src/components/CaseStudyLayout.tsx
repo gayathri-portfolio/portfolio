@@ -1,7 +1,6 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useMemo, type ReactNode } from 'react'
 import { Link } from 'react-router-dom'
-import { AnimatePresence, motion, motionValue, useScroll, useTransform, useMotionValueEvent, type MotionValue } from 'framer-motion'
-import { ArrowLeft, ArrowRight, ChevronDown, ChevronUp } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import type { Block, CaseStudyContent } from '../data/caseStudyTypes'
 import { BlockRenderer } from './CaseStudyBlocks'
 import { PawIcon } from './PawIcon'
@@ -79,29 +78,15 @@ function MetaRow({ label, value }: { label: string; value: string }) {
 
 interface SlideDef {
   key: string
-  render: (entranceProgress: MotionValue<number>) => ReactNode
+  render: () => ReactNode
 }
 
-/** The hero photo additionally slides left-to-right on top of the scale
- * every slide already gets from Panel — a small extra counter-motion
- * layered onto the panel's own right-to-left cover slide, unique to this
- * one full-bleed photo. */
-function HeroImageSlide({
-  src,
-  alt,
-  entranceProgress,
-}: {
-  src: string
-  alt: string
-  entranceProgress: MotionValue<number>
-}) {
-  const x = useTransform(entranceProgress, [0, 1], ['-10%', '0%'])
+function HeroImageSlide({ src, alt }: { src: string; alt: string }) {
   return (
     <div className="relative w-full overflow-hidden bg-bg-elevated md:h-dvh">
-      <motion.img
+      <img
         src={src}
         alt={alt}
-        style={{ x }}
         className="block h-auto w-full md:absolute md:inset-0 md:h-full md:object-cover"
       />
     </div>
@@ -227,9 +212,7 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
 
   defs.push({
     key: 'hero-image',
-    render: (entranceProgress) => (
-      <HeroImageSlide src={content.heroImage} alt={content.title} entranceProgress={entranceProgress} />
-    ),
+    render: () => <HeroImageSlide src={content.heroImage} alt={content.title} />,
   })
 
   content.sections.forEach((section, sIdx) => {
@@ -349,202 +332,12 @@ function buildSlideDefs(content: CaseStudyContent, otherStudy: { slug: string; t
   return defs
 }
 
-/** One full-viewport panel in the slide deck. All panels sit absolutely
- * stacked at the same position (inset:0), z-index by DOM order. The panel
- * for the slide the user is about to enter sits parked off-screen to the
- * right (x: 100%) and slides to x: 0% as scroll progress passes through
- * its entrance window — covering whatever panel is underneath, which
- * never has to move. Scrolling back reverses the same transform, so the
- * covering panel slides back out and the one beneath is revealed again.
- * If a panel's own content is taller than one viewport, once it's fully
- * covering the screen its *inner* wrapper pans upward (translateY) across
- * the rest of its scroll window, so long sections still just scroll. */
-function Panel({
-  index,
-  globalProgress,
-  startFrac,
-  entranceEndFrac,
-  endFrac,
-  revealDistance,
-  fit,
-  innerRef,
-  children,
-}: {
-  index: number
-  globalProgress: MotionValue<number>
-  startFrac: number
-  entranceEndFrac: number
-  endFrac: number
-  revealDistance: number
-  fit: number
-  innerRef: (el: HTMLDivElement | null) => void
-  children: (entranceProgress: MotionValue<number>) => ReactNode
-}) {
-  const xFrom = entranceEndFrac > startFrac ? startFrac : startFrac - 0.001
-  const x = useTransform(globalProgress, [xFrom, entranceEndFrac], ['100%', '0%'])
-  // 0..1 across just this panel's own entrance window, for content (like
-  // the hero image) that layers its own counter-motion on top of the
-  // panel's cover slide — clamped, so it reads as a steady 0 before the
-  // panel's turn and a steady 1 once it's settled in.
-  const entranceProgress = useTransform(globalProgress, [xFrom, entranceEndFrac], [0, 1])
-  // shadow is visible only while the panel is moving in: zero when parked off-screen and when settled
-  const shadowOpacity = useTransform(entranceProgress, (p) => 4 * p * (1 - p))
-  // Every slide scales up from smaller to full size as it enters, in sync
-  // with the same window. This sits on its own viewport-sized wrapper
-  // (not the possibly-taller reveal-scroll content below) so it scales
-  // around the true center of the screen rather than the center of
-  // content that may extend well past the bottom of the viewport.
-  const scale = useTransform(entranceProgress, [0, 1], [0.2, 1])
-  const yFrom = endFrac > entranceEndFrac ? entranceEndFrac : entranceEndFrac - 0.001
-  const innerY = useTransform(globalProgress, [yFrom, endFrac], [0, -revealDistance])
-
-  return (
-    <motion.div style={{ x, zIndex: index + 1 }} className="absolute inset-0 h-dvh w-full">
-      {index > 0 && (
-        <motion.div
-          style={{ opacity: shadowOpacity }}
-          className="pointer-events-none absolute inset-y-0 -left-16 w-16 bg-gradient-to-l from-black/40 to-transparent"
-        />
-      )}
-      <div className="absolute inset-0 h-dvh w-full overflow-hidden bg-bg">
-        {index > 0 && <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-1.5 bg-accent" />}
-        <motion.div style={{ scale }} className="h-full w-full">
-          <motion.div ref={innerRef} style={{ y: innerY }}>
-            <div style={{ transform: `scale(${fit})`, transformOrigin: "top center" }}>
-              {children(entranceProgress)}
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-    </motion.div>
-  )
-}
-
-const ENTRANCE_VH_FRACTION = 0.4
-// scroll distance (in viewports) the current slide is held still before the next one starts entering, so there is time to finish reading it
-const DWELL_VH_FRACTION = 0.9
-// a slide overflowing the viewport by at most this much (about 4 lines of body
-// text) is scaled down to fit instead of scrolling its last few lines
-const FIT_MAX_PX = 120
-
-function CaseStudyDeck({ content }: { content: CaseStudyContent }) {
+/** The case study as a normal top-to-bottom scrolling page on every screen
+ * size. Alternate content sections are tinted so the numbered sections read
+ * as separate blocks; the hero and closing stay untinted. */
+export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
   const slideDefs = useMemo(() => buildSlideDefs(content, otherStudy), [content, otherStudy])
-  const n = slideDefs.length
-
-  const containerRef = useRef<HTMLDivElement>(null)
-  const innerRefs = useRef<(HTMLDivElement | null)[]>([])
-  const [viewportH, setViewportH] = useState(() => (typeof window !== 'undefined' ? window.innerHeight : 900))
-  const [contentHeights, setContentHeights] = useState<number[]>(() => new Array(n).fill(0))
-
-  useLayoutEffect(() => {
-    function measure() {
-      setViewportH(window.innerHeight)
-      setContentHeights(innerRefs.current.map((el) => el?.scrollHeight ?? 0))
-    }
-    measure()
-    window.addEventListener('resize', measure)
-    const ro = new ResizeObserver(() => measure())
-    innerRefs.current.forEach((el) => el && ro.observe(el))
-    return () => {
-      window.removeEventListener('resize', measure)
-      ro.disconnect()
-    }
-  }, [n])
-
-  // The deck has ONE sticky viewport-height window shared by every panel —
-  // that first viewportH is "free" (covered by the sticky trick itself),
-  // so only each panel's entrance + overflow-reveal actually consumes real
-  // extra scroll distance. useScroll's ['start start','end end'] offset
-  // tracks progress over exactly that extra distance (container height
-  // minus one viewportH, since it measures to the container's *bottom*
-  // edge reaching the viewport's bottom, not its top) — so both the
-  // container's CSS height and every fraction below must be built the
-  // same way, or the two fall out of sync and transitions fire at the
-  // wrong scroll position (or never complete for the last slide).
-  const geometry = useMemo(() => {
-    const entranceDistance = viewportH * ENTRANCE_VH_FRACTION
-    let cursor = 0
-    const starts: number[] = []
-    const entranceEnds: number[] = []
-    const ends: number[] = []
-    const reveals: number[] = []
-    const fits: number[] = []
-    for (let i = 0; i < n; i++) {
-      const h = contentHeights[i] ?? 0
-      const over = h - viewportH
-      const fit = over > 0 && over <= FIT_MAX_PX ? viewportH / h : 1
-      fits.push(fit)
-      const reveal = Math.max(0, h * fit - viewportH)
-      const entrance = i === 0 ? 0 : entranceDistance
-      starts.push(cursor)
-      cursor += entrance
-      entranceEnds.push(cursor)
-      cursor += reveal
-      ends.push(cursor)
-      if (i < n - 1) cursor += viewportH * DWELL_VH_FRACTION
-      reveals.push(reveal)
-    }
-    const scrollRange = Math.max(cursor, 1)
-    return { starts, entranceEnds, ends, reveals, fits, scrollRange, total: viewportH + scrollRange }
-  }, [contentHeights, viewportH, n])
-
-  const { scrollYProgress } = useScroll({ target: containerRef, offset: ['start start', 'end end'] })
-
-  const [active, setActive] = useState(0)
-  useMotionValueEvent(scrollYProgress, 'change', (v) => {
-    const y = v * geometry.scrollRange
-    let idx = 0
-    for (let i = 0; i < n; i++) {
-      if (y >= geometry.starts[i] - 1) idx = i
-    }
-    setActive(idx)
-  })
-
-  const scrollToSlide = (i: number) => {
-    const top = (containerRef.current?.offsetTop ?? 0) + geometry.starts[i]
-    window.scrollTo({ top, behavior: 'smooth' })
-  }
-
-  // arrow keys step through each slide's own overflowing content first
-  // (scroll to its bottom on Down / back to its top on Up), then move to the
-  // next / previous slide — all with the smooth scroll
-  useEffect(() => {
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "ArrowDown" && e.key !== "ArrowUp") return
-      if (e.repeat || e.altKey || e.ctrlKey || e.metaKey) return
-      const el = e.target as HTMLElement | null
-      if (el && (el.isContentEditable || /INPUT|TEXTAREA|SELECT/.test(el.tagName))) return
-      e.preventDefault()
-
-      const top0 = containerRef.current?.offsetTop ?? 0
-      const y = window.scrollY - top0
-      let cur = 0
-      for (let i = 0; i < n; i++) if (geometry.starts[i] <= y + 1) cur = i
-      const goTo = (yy: number) => window.scrollTo({ top: top0 + yy, behavior: "smooth" })
-      const hasReveal = geometry.reveals[cur] > 0
-
-      if (e.key === "ArrowDown") {
-        if (hasReveal && y < geometry.ends[cur] - 1) goTo(geometry.ends[cur])
-        else if (cur < n - 1) goTo(geometry.starts[cur + 1])
-      } else {
-        if (hasReveal && y > geometry.entranceEnds[cur] + 1) goTo(geometry.entranceEnds[cur])
-        else if (cur > 0) goTo(geometry.ends[cur - 1])
-      }
-    }
-    window.addEventListener("keydown", onKeyDown)
-    return () => window.removeEventListener("keydown", onKeyDown)
-  }, [n, geometry])
-
-  // Only a window of DOT_WINDOW dots is ever shown, sliding to keep the
-  // active slide roughly second-from-top — otherwise a 25+ slide deck
-  // turns the rail into a long, unreadable strip.
-  const DOT_WINDOW = 4
-  const dotWindowSize = Math.min(DOT_WINDOW, n)
-  const windowStart = Math.max(0, Math.min(active - 1, n - dotWindowSize))
-  const visibleDots = Array.from({ length: dotWindowSize }, (_, k) => windowStart + k)
-  const hasMoreAbove = windowStart > 0
-  const hasMoreBelow = windowStart + dotWindowSize < n
 
   return (
     <article className="relative">
@@ -555,110 +348,14 @@ function CaseStudyDeck({ content }: { content: CaseStudyContent }) {
         <ArrowLeft className="h-4 w-4" />
         Back to work
       </Link>
-
-      <div className="fixed right-5 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-2 sm:right-8 sm:flex">
-        <span className="mb-1 text-[10px] uppercase tracking-wide text-text-faint">
-          {String(active + 1).padStart(2, '0')}
-        </span>
-        <ChevronUp
-          className={`h-3 w-3 text-text-faint transition-opacity ${hasMoreAbove ? 'opacity-100' : 'opacity-0'}`}
-        />
-        <div className="flex flex-col items-center gap-2.5">
-          <AnimatePresence initial={false}>
-            {visibleDots.map((i) => (
-              <motion.button
-                key={i}
-                layout
-                initial={{ opacity: 0, scale: 0.4 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.4 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => scrollToSlide(i)}
-                aria-label={`Go to slide ${i + 1}`}
-                className="group flex w-4 items-center justify-center py-0.5"
-              >
-                <span
-                  className={`w-1.5 rounded-full transition-all duration-300 ${
-                    i === active ? 'h-7 bg-accent' : 'h-1.5 bg-border-strong group-hover:bg-text-faint'
-                  }`}
-                />
-              </motion.button>
-            ))}
-          </AnimatePresence>
-        </div>
-        <ChevronDown
-          className={`h-3 w-3 text-text-faint transition-opacity ${hasMoreBelow ? 'opacity-100' : 'opacity-0'}`}
-        />
-        <span className="mt-1 text-[10px] uppercase tracking-wide text-text-faint">{String(n).padStart(2, '0')}</span>
-      </div>
-
-      <div ref={containerRef} className="relative" style={{ height: geometry.total }}>
-        <div className="sticky top-0 h-dvh w-full overflow-hidden">
-          {slideDefs.map((def, i) => (
-            <Panel
-              key={def.key}
-              index={i}
-              globalProgress={scrollYProgress}
-              startFrac={geometry.starts[i] / geometry.scrollRange}
-              entranceEndFrac={geometry.entranceEnds[i] / geometry.scrollRange}
-              endFrac={geometry.ends[i] / geometry.scrollRange}
-              revealDistance={geometry.reveals[i]}
-              fit={geometry.fits[i]}
-              innerRef={(el) => {
-                innerRefs.current[i] = el
-              }}
-            >
-              {def.render}
-            </Panel>
-          ))}
-        </div>
-      </div>
-    </article>
-  )
-}
-
-function useIsMobile() {
-  const query = '(max-width: 767px)'
-  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.matchMedia(query).matches)
-  useEffect(() => {
-    const mq = window.matchMedia(query)
-    const onChange = () => setIsMobile(mq.matches)
-    mq.addEventListener('change', onChange)
-    return () => mq.removeEventListener('change', onChange)
-  }, [])
-  return isMobile
-}
-
-/** Phones get the same slides as a normal scrolling page instead of the
- * pinned deck. Alternate content sections are tinted so the numbered
- * sections read as separate blocks; the hero and closing stay untinted. */
-function CaseStudyStack({ content }: { content: CaseStudyContent }) {
-  const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
-  const slideDefs = useMemo(() => buildSlideDefs(content, otherStudy), [content, otherStudy])
-  const settled = useMemo(() => motionValue(1), [])
-
-  return (
-    <article className="relative">
-      <Link
-        to="/#work"
-        className="glass fixed left-5 top-5 z-40 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm text-text-muted transition-all hover:text-text"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        Back to work
-      </Link>
       {slideDefs.map((def, i) => {
         const tinted = i >= 2 && i % 2 === 1 && def.key !== 'closing'
         return (
           <section key={def.key} className={tinted ? 'bg-surface' : undefined}>
-            {def.render(settled)}
+            {def.render()}
           </section>
         )
       })}
     </article>
   )
-}
-
-export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
-  const isMobile = useIsMobile()
-  return isMobile ? <CaseStudyStack content={content} /> : <CaseStudyDeck content={content} />
 }
