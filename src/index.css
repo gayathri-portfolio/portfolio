@@ -11,13 +11,18 @@
   --bg-elevated: #ffffff;
   --surface: #f2ebdd;
   --surface-hover: #ece2cd;
+  /* neutral band behind product screens, so cool UI colours aren't muddied by beige */
+  --stage: #f5f4f1;
   --text: #18140f;
   --text-muted: #6c6255;
-  --text-faint: #7f7566;
+  /* ≥ 4.5:1 on white, beige surface and stage */
+  --text-faint: #73695a;
   --border: #e4d9c4;
   --border-strong: #d4c5a7;
 
   --accent: #bb5c0c;
+  /* orange for small text; the brand --accent is too light for it on beige */
+  --accent-text: #9a4a08;
   --accent-soft: #f0dcc3;
   --accent-2: #3d6b52;
   --accent-2-soft: #dde8de;
@@ -39,13 +44,15 @@
   --bg-elevated: #16140f;
   --surface: #1c1911;
   --surface-hover: #262115;
+  --stage: #151412;
   --text: #f6efe1;
   --text-muted: #ab9f8b;
-  --text-faint: #817866;
+  --text-faint: #8e8573;
   --border: #2b2519;
   --border-strong: #3a331f;
 
   --accent: #ff9a42;
+  --accent-text: #ff9a42;
   --accent-soft: #3a2a15;
   --accent-2: #8fdcae;
   --accent-2-soft: #1c2b22;
@@ -67,12 +74,14 @@
   --color-bg-elevated: var(--bg-elevated);
   --color-surface: var(--surface);
   --color-surface-hover: var(--surface-hover);
+  --color-stage: var(--stage);
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
   --color-text-faint: var(--text-faint);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
   --color-accent-soft: var(--accent-soft);
   --color-accent-2: var(--accent-2);
   --color-accent-2-soft: var(--accent-2-soft);

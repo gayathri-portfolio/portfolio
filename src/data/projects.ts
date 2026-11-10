@@ -41,7 +41,7 @@ export const caseStudies: CaseStudyProject[] = [
   {
     type: 'case-study',
     slug: 'ultragym-ux-study',
-    title: 'Ultragym UX Study',
+    title: 'UltraGym UX Study',
     tagline:
       'A connected home-gym experience that brings guided workouts, personalised training, and real-time progress tracking into one companion app.',
     summary:
