@@ -85,12 +85,11 @@ export function Contact() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                {/* a standard mailto: opens the visitor's own mail app with a new
-                    message to me. It also copies the address, as a fallback for
-                    visitors who have no mail app set up. */}
+                {/* opens a new email to me in Gmail, in a new tab */}
                 <a
-                  href={profile.emailHref}
-                  onClick={() => copy(profile.email, 'email')}
+                  href={profile.emailCompose}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 rounded-full bg-text px-3.5 py-2 text-sm font-medium text-bg transition-transform hover:scale-[1.03]"
                 >
                   <Mail className="h-4 w-4" />
@@ -114,8 +113,11 @@ export function Contact() {
                   </a>
                 ))}
               </div>
-              <p role="status" className="-mt-2 min-h-4 text-xs text-text-muted">
-                {copied === 'email' && "Email address copied — paste it if your mail app doesn't open."}
+              <p className="-mt-2 text-xs text-text-muted">
+                Not on Gmail?{' '}
+                <a href={profile.emailHref} className="underline underline-offset-2 transition-colors hover:text-accent">
+                  Open your mail app
+                </a>
               </p>
             </div>
           </div>

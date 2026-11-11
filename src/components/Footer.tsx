@@ -2,7 +2,7 @@ import { PawIcon } from './PawIcon'
 import { profile } from '../data/profile'
 
 const LINKS = [
-  { label: 'Email', href: profile.emailHref },
+  { label: 'Email', href: profile.emailCompose, external: true },
   { label: 'Phone', href: profile.phoneHref },
   { label: 'LinkedIn', href: profile.linkedin, external: true },
   { label: 'Behance', href: profile.behance, external: true },
