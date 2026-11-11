@@ -11,11 +11,12 @@ const METRICS = [
   { value: '~35%', label: 'Faster design delivery with a design system I built from scratch' },
 ]
 
-/** A full-width band in the hero's beige, so the numbers read as part of the
- * opening instead of a separate block on white. */
+/** A full-width band in the soft sage of the palette (the hero's leaves and
+ * the availability dot), so it stands apart from the beige hero above it
+ * while still belonging to the same design. */
 export function ImpactStrip() {
   return (
-    <section aria-labelledby="impact-title" className="border-y border-border bg-surface">
+    <section aria-labelledby="impact-title" className="bg-accent-2-soft">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -26,7 +27,7 @@ export function ImpactStrip() {
         <h2 id="impact-title" className={LABEL}>
           Impact at Portl Technologies · 2025–26
         </h2>
-        <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-border-strong pt-6 lg:grid-cols-5">
+        <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-accent-2/25 pt-6 lg:grid-cols-5">
           {METRICS.map((m, i) => (
             // label first in the markup (dt before dd), shown below the value.
             // justify-end packs a reversed column to the top, so every value
