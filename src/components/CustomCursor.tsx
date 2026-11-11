@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, useSpring } from 'framer-motion'
-import mouseToy from '../assets/mouse-toy.png'
+import mouseToy from '../assets/mouse-toy.webp'
 
 const INTERACTIVE_SELECTOR =
   'a, button, [role="button"], input, textarea, select, label, summary, [data-cursor-pointer]'

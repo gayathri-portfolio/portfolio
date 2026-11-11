@@ -1,12 +1,15 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Hero } from '../components/Hero'
+import { ImpactStrip } from '../components/ImpactStrip'
 import { Intro } from '../components/Intro'
 import { SelectedWork } from '../components/SelectedWork'
 import { Contact } from '../components/Contact'
+import { usePageTitle } from '../lib/usePageTitle'
 
 export function Home() {
   const { hash } = useLocation()
+  usePageTitle()
 
   useEffect(() => {
     if (!hash || hash === '#top') {
@@ -23,6 +26,7 @@ export function Home() {
   return (
     <>
       <Hero />
+      <ImpactStrip />
       <Intro />
       <SelectedWork />
       <Contact />

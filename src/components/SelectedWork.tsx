@@ -50,7 +50,7 @@ export function SelectedWork() {
       </div>
 
       <div className="mt-20">
-        <p className="mb-6 text-sm font-medium uppercase tracking-wide text-text-faint">Other selected work</p>
+        <h2 className="mb-6 text-sm font-medium uppercase tracking-wide text-text-faint">More work on Behance</h2>
         <div className="space-y-6">
           <ScaleRow>
             {externalProjects.slice(0, 2).map((project, i) => (

@@ -1,7 +1,9 @@
 import { Link } from 'react-router-dom'
 import { PawIcon } from '../components/PawIcon'
+import { usePageTitle } from '../lib/usePageTitle'
 
 export function NotFound() {
+  usePageTitle('Page not found')
   return (
     <div className="flex min-h-screen flex-col items-center justify-center px-5 text-center">
       <PawIcon className="h-10 w-10 text-accent" />

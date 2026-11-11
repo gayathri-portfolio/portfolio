@@ -1,11 +1,19 @@
 import { motion } from 'framer-motion'
+import { ArrowUpRight } from 'lucide-react'
+import { profile } from '../data/profile'
 import aboutBg from '../assets/about-bg.webp'
 import aboutBgDark from '../assets/about-bg-dark.webp'
 
 const paragraphs = [
   "My architecture background taught me to think in structures, relationships, constraints, and people. Product design gave me a different scale to apply that thinking — where a small interaction can change how someone experiences an entire product.",
-  "For the past 2.5+ years, I've been designing B2C and B2B products end-to-end, working across mobile apps, connected devices, and commercial fitness experiences.",
-  "At Portl Technologies, I've worked on UltraGym, UltraGym Pro, and Portl Studio Mirror — simplifying complex workflows, shaping new experiences, and designing for both the person using the product and the business behind it.",
+  "For the past 2+ years, I've designed B2C and B2B products end to end, across mobile apps, connected devices, and commercial fitness experiences.",
+  "At Portl Technologies, I worked on UltraGym, UltraGym Pro, and the Portl Studio smart mirror — simplifying complex workflows, shaping new experiences, and designing for both the person using the product and the business behind it.",
+]
+
+const LINKS = [
+  { label: 'LinkedIn', href: profile.linkedin },
+  { label: 'Behance', href: profile.behance },
+  { label: 'Resume', href: profile.resume },
 ]
 
 export function AboutIntro() {
@@ -35,12 +43,29 @@ export function AboutIntro() {
         transition={{ duration: 0.6 }}
         className="relative mx-auto w-full max-w-6xl text-left"
       >
-        <h2 className="max-w-xl font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-text sm:text-4xl">
+        <h1 className="max-w-xl font-serif text-3xl font-semibold leading-[1.15] tracking-tight text-text sm:text-4xl">
           I trained as an architect. Somewhere along the way, I started designing products instead of buildings.
-        </h2>
+        </h1>
         <div className="mt-6 max-w-xl space-y-4 text-text-muted">
           {paragraphs.map((p) => (
             <p key={p}>{p}</p>
+          ))}
+        </div>
+        <p className="mt-6 text-sm text-text-muted">
+          {profile.location} · {profile.availability} · open to {profile.workModes}
+        </p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          {LINKS.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass inline-flex items-center gap-1 rounded-full px-4 py-2 text-sm font-medium text-text transition-colors hover:text-accent"
+            >
+              {l.label}
+              <ArrowUpRight className="h-3.5 w-3.5" />
+            </a>
           ))}
         </div>
       </motion.div>

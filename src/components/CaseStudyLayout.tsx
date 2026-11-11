@@ -4,7 +4,9 @@ import { motion, useScroll } from 'framer-motion'
 import { ArrowLeft, ArrowRight, ArrowUpRight, ListOrdered, X } from 'lucide-react'
 import type { Block, CaseStudyContent, CaseStudySection } from '../data/caseStudyTypes'
 import { BlockRenderer } from './CaseStudyBlocks'
-import { imageDims, isFullBleed, isWide, LABEL } from '../lib/caseStudyBlocks'
+import { isFullBleed, isWide, LABEL } from '../lib/caseStudyBlocks'
+import { usePageTitle } from '../lib/usePageTitle'
+import { DeviceVisual } from './DeviceVisual'
 import { LightboxProvider } from './Lightbox'
 import { PawIcon } from './PawIcon'
 import { caseStudies } from '../data/projects'
@@ -95,43 +97,6 @@ function MetaItem({ label, value }: { label: string; value: string }) {
     <div>
       <dt className={LABEL}>{label}</dt>
       <dd className="mt-1 text-sm text-text">{value}</dd>
-    </div>
-  )
-}
-
-/** A study's product visual: one framed photo, or two device screens offset
- * from each other. Shared by the hero and the "Next case study" card. */
-function DeviceVisual({ visual, size }: { visual: CaseStudyContent['heroVisual']; size: 'hero' | 'card' }) {
-  const hero = size === 'hero'
-  if (visual.length === 1) {
-    return (
-      <div
-        className={`mx-auto aspect-[3/5] w-full overflow-hidden rounded-[2rem] bg-white shadow-[0_40px_80px_-40px_rgb(var(--shadow-color)/0.45)] ${hero ? 'max-w-[340px]' : 'max-w-[190px] rounded-3xl'}`}
-      >
-        <img
-          src={visual[0].src}
-          alt={hero ? visual[0].alt : ''}
-          {...imageDims(visual[0].src)}
-          loading={hero ? undefined : 'lazy'}
-          className="h-full w-full object-cover object-bottom"
-        />
-      </div>
-    )
-  }
-  return (
-    <div className={`mx-auto flex w-full items-start justify-center ${hero ? 'max-w-md gap-5 sm:gap-7' : 'max-w-[280px] gap-4'}`}>
-      {visual.map((v, i) => (
-        <img
-          key={v.src}
-          src={v.src}
-          alt={hero ? v.alt : ''}
-          {...imageDims(v.src)}
-          loading={hero ? undefined : 'lazy'}
-          className={`h-auto w-1/2 drop-shadow-[0_30px_40px_rgb(var(--shadow-color)/0.35)] ${hero ? 'max-w-[220px]' : 'max-w-[130px]'} ${
-            i === 1 ? (hero ? 'mt-14' : 'mt-8') : ''
-          }`}
-        />
-      ))}
     </div>
   )
 }
@@ -383,6 +348,8 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
   const otherVisual = otherStudy ? caseStudyContent[otherStudy.slug]?.heroVisual : undefined
   const active = useActiveChapter(content.sections.map(chapterId))
+  // "UltraGym UX Study" already says study; don't make it "… Study case study"
+  usePageTitle(/study$/i.test(content.title) ? content.title : `${content.title} case study`)
   const showResults = !!content.results && content.results.stats.length > 0
 
   return (

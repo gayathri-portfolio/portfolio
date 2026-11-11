@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { RotatingWord } from './RotatingWord'
 import { HoverLetters } from './HoverLetters'
+import { profile } from '../data/profile'
 import heroBg from '../assets/hero-bg.webp'
 import heroBgDark from '../assets/hero-bg-dark.webp'
 import mobileHeroBg from '../assets/mobile-hero.webp'
@@ -48,14 +51,59 @@ export function Hero() {
           <HoverLetters text="who" /> <RotatingWord />
         </motion.h1>
 
-        <motion.p
+        <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="mt-6 max-w-md text-lg text-text-muted"
+          // from 1280px up: about the headline's width (a little narrower), so the
+          // block reads headline → subtext → actions instead of a narrow column
+          // under a wide title. Below that the illustration sits closer, so the
+          // original narrower measure is kept.
+          className="mt-6 max-w-md space-y-3 text-lg text-text-muted xl:max-w-[38rem]"
         >
-          Background in architecture, now crafting intuitive interfaces and
-          meaningful user experiences — one careful interaction at a time.
+          <p>
+            I design digital experiences across apps, smart hardware and wearables — bringing together thoughtful
+            interactions, intuitive interfaces and the realities of how people use products.
+          </p>
+          <p>
+            An architect by training from NIT Trichy, now shaping products from the bigger picture down to the
+            smallest interaction.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="mt-8 flex flex-wrap items-center gap-3"
+        >
+          <Link
+            to="/#work"
+            className="inline-flex items-center gap-2 rounded-full bg-text px-5 py-3 text-sm font-medium text-bg transition-transform hover:scale-[1.03]"
+          >
+            View case studies
+            <ArrowDown className="h-4 w-4" />
+          </Link>
+          <a
+            href={profile.resume}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="glass inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium text-text transition-colors hover:text-accent"
+          >
+            Resume
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
+        </motion.div>
+
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          // a frosted pill so it stays legible where it overlaps the illustration
+          className="glass mt-5 inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-sm text-text"
+        >
+          <span aria-hidden className="h-2 w-2 shrink-0 rounded-full bg-accent-2" />
+          {profile.availability} · {profile.workModes}
         </motion.p>
       </div>
     </section>

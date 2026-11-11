@@ -1,4 +1,12 @@
 import { PawIcon } from './PawIcon'
+import { profile } from '../data/profile'
+
+const LINKS = [
+  { label: 'Email', href: profile.emailHref },
+  { label: 'Phone', href: profile.phoneHref },
+  { label: 'LinkedIn', href: profile.linkedin, external: true },
+  { label: 'Behance', href: profile.behance, external: true },
+]
 
 export function Footer() {
   return (
@@ -8,9 +16,17 @@ export function Footer() {
           <PawIcon className="h-3.5 w-3.5" />
           <span>© {new Date().getFullYear()} Gayathri V. Designed with a cat nearby.</span>
         </div>
-        <div className="flex items-center gap-5">
-          <a href="mailto:gayathrivellaiyan@gmail.com" className="hover:text-text">Email</a>
-          <a href="tel:+916381652569" className="hover:text-text">Phone</a>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+          {LINKS.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              {...(l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+              className="hover:text-text"
+            >
+              {l.label}
+            </a>
+          ))}
         </div>
       </div>
     </footer>

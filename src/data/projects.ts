@@ -89,27 +89,47 @@ export const externalProjects: ExternalProject[] = [
   },
 ]
 
-export const designJourney = [
+/** Work history, newest first. Titles and dates match the resume. */
+export const designJourney: {
+  company: string
+  title: string
+  dates: string
+  /** start year, shown on the timeline marker */
+  year: string
+  description: string
+  link?: string
+}[] = [
+  {
+    company: 'Freelance',
+    title: 'Product & Website Designer',
+    dates: 'Aug – Oct 2026',
+    year: '2026',
+    description:
+      'Designed three client websites end to end — from sitemap and structure to the desktop and mobile visual direction, using conversion principles to sharpen hierarchy, flows and calls to action. The client work is under NDA.',
+  },
   {
     company: 'Portl Technologies',
-    role: 'Fitness + Technology',
-    period: '01',
+    title: 'Product UI/UX Designer',
+    dates: 'Jan 2025 – Jul 2026',
+    year: '2025',
     description:
       'Worked on experiences across fitness mirrors, wearable interfaces, and mobile products. Most of the focus was on reducing friction during workouts — clearer guidance, faster interactions and making transitions between screens feel more natural during workouts.',
     link: 'portl.co',
   },
   {
     company: 'ZAZZ IT Solutions Pvt Ltd',
-    role: 'Product Design',
-    period: '02',
+    title: 'UI/UX Designer (Contract)',
+    dates: 'Jun – Nov 2024',
+    year: '2024',
     description:
       'Worked on web and mobile products across different industries, often moving between fast iterations, changing requirements, and tight timelines. It pushed me to think beyond individual screens and pay closer attention to flow, hierarchy, and how people actually move through a product.',
     link: 'zazz.io',
   },
   {
     company: 'Aliens Group Pvt Ltd',
-    role: 'Architecture',
-    period: '03',
+    title: 'Intern Designer · Architecture',
+    dates: 'Jan – Jun 2023',
+    year: '2023',
     description:
       'Architecture taught me to think in systems. How people enter spaces, where attention naturally moves, what creates friction, and what quietly guides behavior. Those ideas carried over naturally into product design.',
     link: 'aliensgroup.in',
