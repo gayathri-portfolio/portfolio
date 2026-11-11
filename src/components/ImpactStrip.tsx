@@ -10,14 +10,13 @@ const METRICS = [
   { value: '~35%', label: 'Faster design delivery with a design system I built from scratch' },
 ]
 
-/** A full-width black band with orange numbers and white labels, set apart
- * from the beige hero above it. Colours are fixed rather than theme tokens so
- * the band stays dark in both themes; in dark mode, where the page itself is
- * near-black, it uses the warm brown of the case-study highlight bands so it
- * doesn't disappear. */
+/** A full-width soft charcoal band with orange numbers and white labels, set
+ * apart from the beige hero above it. Colours are fixed rather than theme
+ * tokens so the band looks the same in both themes; in dark mode it's still
+ * visibly lighter than the near-black page. */
 export function ImpactStrip() {
   return (
-    <section aria-labelledby="impact-title" className="bg-[#18140f] text-[#f6efe1] dark:bg-accent-soft">
+    <section aria-labelledby="impact-title" className="bg-[#2e2e2e] text-[#f6efe1]">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
