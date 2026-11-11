@@ -10,7 +10,6 @@ import { DeviceVisual } from './DeviceVisual'
 import { LightboxProvider } from './Lightbox'
 import { PawIcon } from './PawIcon'
 import { caseStudies } from '../data/projects'
-import { caseStudyContent } from '../data/caseStudyContent'
 
 type Run =
   | { kind: 'text'; blocks: Block[] }
@@ -142,7 +141,7 @@ function Hero({ content, appLink }: { content: CaseStudyContent; appLink?: strin
           )}
         </div>
 
-        <DeviceVisual visual={content.heroVisual} size="hero" />
+        <DeviceVisual visual={content.heroVisual} />
       </div>
 
       <dl className="relative mx-auto mt-16 grid max-w-6xl gap-6 border-t border-border pt-8 sm:grid-cols-3 sm:gap-10">
@@ -346,7 +345,6 @@ function Results({ results }: { results: NonNullable<CaseStudyContent['results']
 export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
   const self = caseStudies.find((c) => c.slug === content.slug)
   const otherStudy = caseStudies.find((c) => c.slug !== content.slug)
-  const otherVisual = otherStudy ? caseStudyContent[otherStudy.slug]?.heroVisual : undefined
   const active = useActiveChapter(content.sections.map(chapterId))
   // "UltraGym UX Study" already says study; don't make it "… Study case study"
   usePageTitle(/study$/i.test(content.title) ? content.title : `${content.title} case study`)
@@ -408,9 +406,14 @@ export function CaseStudyLayout({ content }: { content: CaseStudyContent }) {
               to={`/work/${otherStudy.slug}`}
               className="group mx-auto grid max-w-5xl overflow-hidden rounded-3xl bg-surface transition-colors hover:bg-surface-hover sm:grid-cols-[1.1fr_1fr]"
             >
-              {/* the other study's clean hero visual — not its cover, which has a title baked into the image */}
-              <div className="flex items-center justify-center px-8 pb-2 pt-10 transition-transform duration-500 ease-out group-hover:scale-[1.03] sm:py-10">
-                {otherVisual && <DeviceVisual visual={otherVisual} size="card" />}
+              {/* the same cover banner as the study's card on the home page */}
+              <div className="overflow-hidden" style={{ aspectRatio: otherStudy.coverAspect }}>
+                <img
+                  src={otherStudy.cover}
+                  alt=""
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
+                />
               </div>
               <div className="flex flex-col justify-center gap-4 p-8 sm:p-10">
                 <p className={LABEL}>Next case study</p>
